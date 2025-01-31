@@ -1,5 +1,16 @@
-export async function readPost(id) {}
+//src/js/api/listing/read.js
 
-export async function readPosts(limit = 12, page = 1, tag) {}
+import { API_AUCTION_LISTINGS } from '../constants.js';
 
-export async function readPostsByUser(username, limit = 12, page = 1, tag) {}
+export async function getListings() {
+  try {
+    const response = await fetch(API_AUCTION_LISTINGS);
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
+    const data = await response.json();
+    console.log("Fetched Listings:", data); // Debug log
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch listings:', error);
+    return [];
+  }
+}

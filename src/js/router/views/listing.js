@@ -1,1 +1,1 @@
-alert("Single Post Page");
+alert('Single listing Page');
