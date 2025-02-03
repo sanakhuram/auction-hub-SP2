@@ -15,81 +15,128 @@
 </head>
 <body class="bg-background text-gray-900 font-body">
 
-  <nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      
-      <!-- Logo -->
-      <div class="flex items-center">
-        <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-10">
-      </div>
+ <nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    
+    <!-- Logo on the Left -->
+    <div class="flex items-center">
+      <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-10">
+    </div>
 
-  <!-- Nav Links -->
-      <ul class="hidden md:flex space-x-6 text-lg">
-        <li><a href="/" class="hover:text-primary transition">Home</a></li>
-        <li><a href="/profile/" class="hover:text-primary transition">My Profile</a></li>
-        <li><a href="/auth/login/" class="hover:text-primary transition">Login</a></li>
-        <li><button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-          Logout</button></li>
-      </ul>
-
-      <!-- Mobile Icons -->
-      <div class="md:hidden flex space-x-4">
-        <a href="/"><i class="fas fa-home text-2xl"></i></a>
-        <a href="/profile/"><i class="fas fa-user text-2xl"></i></a>
-        <a href="/auth/login/"><i class="fas fa-sign-in-alt text-2xl"></i></a>
-   </div>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-accent text-white p-4 md:hidden">
-    <ul class="space-y-4 text-center">
-      <li><a href="/" class="block hover:text-primary transition">Home</a></li>
-      <li><a href="/profile/" class="block hover:text-primary transition">My Profile</a></li>
-      <li><a href="/auth/login/" class="block hover:text-primary transition">Login</a></li>
-      <li><button id="logoutBtnMobile" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700 transition">
+    <!-- Centered Navigation Links (Hidden on Mobile) -->
+    <ul class="hidden md:flex space-x-6 text-lg mx-auto">
+      <li><a href="/" class="hover:text-background transition">Home</a></li>
+      <li><a href="/profile/" class="hover:text-background transition">My Profile</a></li>
+      <li><a href="/auth/login/" id="loginLink" class="hover:text-background transition">Login</a></li>
+      <li><button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition hidden">
         Logout</button></li>
     </ul>
+
+    <!-- Mobile Icons (Only visible on smaller screens) -->
+    <div class="md:hidden flex space-x-4">
+      <a href="/" class="text-white"><i class="fas fa-home text-2xl"></i></a>
+      <a href="/profile/" class="text-white"><i class="fas fa-user text-2xl"></i></a>
+      <a href="/auth/login/" class="text-white" id="mobile-login"><i class="fas fa-sign-in-alt text-2xl"></i></a>
+      <button id="mobile-menu-toggle"><i class="fas fa-bars text-2xl"></i></button>
+    </div>
+
+    <!-- User Profile on the Right (Visible when logged in) -->
+    <div id="user-profile" class="hidden md:flex items-center space-x-3">
+      <img id="user-avatar" src="/images/default-user.png" alt="User Avatar" class="h-10 w-10 rounded-full">
+    </div>
   </div>
+</nav>
 
-<section class="container mx-auto my-8">
-  <h2 class="text-2xl font-bold text-center text-gray-800">Browse by Category</h2>
+<!-- Mobile Dropdown Menu (Hidden by Default) -->
+<div id="mobile-menu" class="hidden bg-accent text-white p-4 md:hidden">
+  <ul class="space-y-4 text-center">
+    <li><a href="/" class="block hover:text-primary transition">Home</a></li>
+    <li><a href="/profile/" class="block hover:text-primary transition">My Profile</a></li>
+    <li><a href="/auth/login/" id="mobile-menu-login" class="block hover:text-primary transition">Login</a></li>
+    <li><button id="mobile-logoutBtn" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700 transition hidden">
+      Logout</button></li>
+  </ul>
+</div>
 
-  <div class="relative mt-6">
-    <button id="prev-btn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-900 transition">
+
+<section class="container mx-auto my-8 relative">
+  <div class="relative overflow-hidden">
+    <button id="prev-btn" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-6 py-3 rounded-full shadow-md hover:bg-gray-900 transition z-10">
       <i class="fas fa-chevron-left"></i>
     </button>
 
-    <div id="category-carousel" class="flex overflow-hidden scroll-smooth px-8">
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/art.jpg" alt="Art" class="w-full object-cover h-80">
+    <div id="category-carousel" class="flex transition-transform ease-in-out duration-700 w-full">
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/art.jpg" alt="Art" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Art & Creativity</h2>
+          <p class="text-white mt-2">Explore fine art, paintings, and sculptures.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Explore Art</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/interior.jpg" alt="Interior" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/interior.jpg" alt="Interior" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Interior & Decor</h2>
+          <p class="text-white mt-2">Luxury furniture and home decor.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Shop Interior</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/gaming.jpg" alt="Gaming" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/gaming.jpg" alt="Gaming" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Gaming & Consoles</h2>
+          <p class="text-white mt-2">Get the latest gaming consoles & accessories.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Browse Gaming</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/watches.jpg" alt="Watches" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/jewelry.jpg" alt="Jewelry" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Jewelry & Accessories</h2>
+          <p class="text-white mt-2">Exclusive gemstones and luxury pieces.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Shop Jewelry</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/jewelry.jpg" alt="Jewelry" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/books.jpg" alt="Books" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Rare Books & Collectibles</h2>
+          <p class="text-white mt-2">Find first editions, signed books, and more.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Browse Books</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/books.jpg" alt="Books" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/vintage.jpg" alt="Vintage" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Vintage Treasures</h2>
+          <p class="text-white mt-2">Collect rare and historical vintage items.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Browse Vintage</button>
+        </div>
       </div>
-      <div class="category-item flex-shrink-0 w-full">
-        <img src="/images/vintage.jpg" alt="Vintage" class="w-full object-cover h-80">
+
+      <div class="category-item flex-shrink-0 w-full relative">
+        <img src="/images/watches.jpg" alt="Watches" class="w-full h-[900px] object-cover">
+        <div class="absolute inset-0 flex flex-col justify-center items-start p-8 bg-black bg-opacity-40">
+          <h2 class="text-white text-4xl font-heading">Luxury Watches</h2>
+          <p class="text-white mt-2">Discover high-end watches and timepieces.</p>
+          <button class="mt-4 bg-primary px-6 py-3 rounded-lg text-white font-bold">Shop Watches</button>
+        </div>
       </div>
     </div>
 
-    <button id="next-btn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-900 transition">
+    <button id="next-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-6 py-3 rounded-full shadow-md hover:bg-gray-900 transition z-10">
       <i class="fas fa-chevron-right"></i>
     </button>
   </div>
 </section>
 
-  <div id="listings-container" class="container mx-auto px-4 py-6 bg-gray-100">
+  <div id="listings-container" class="container mx-auto px-4 py-6 ">
     <h2 class="text-2xl font-bold text-center text-dark mb-4">Newest Listings</h2>
     <div id="newest-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
 
@@ -102,7 +149,7 @@
 
   
  <footer class="bg-primary text-white text-center p-6 mt-10">
-    <h3 class="text-lg font-bold">SUBSCRIBE</h3>
+    <h3 class="text-lg ">SUBSCRIBE</h3>
     <input type="email" placeholder="Your email" class="mt-2 p-3 w-1/3 rounded-lg border shadow-md">
     <button class="mt-2 px-4 py-2 bg-white text-primary rounded-lg hover:bg-gray-200 transition">
       Subscribe
@@ -120,6 +167,10 @@
       <a href="/profile" class="px-2 hover:text-primary">Profile</a> |
       <a href="/subscribe" class="px-2 hover:text-primary">Subscribe</a>
     </div>
+  
   </footer>
+  <div class="bg-background text-center text-sm mt-5 mb-5">
+      <p>&copy; 2025 All rights reserved Auchion Hub.</p>
+    </div>
 </body>
 </html>
