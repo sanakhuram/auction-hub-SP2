@@ -3,12 +3,10 @@ import { displaySingleListing } from './ui/listing/details.js';
 import { logout } from './api/auth.js';
 import { onLogin } from './ui/auth/login.js';
 import { onRegister } from './ui/auth/register.js';
+import { initializeCarousel } from './ui/carousel.js'; // ✅ Import the carousel function
 
 /**
  * Utility function to safely attach event listeners.
- * @param {string} selector - Selector for the target element.
- * @param {string} event - Event type.
- * @param {Function} handler - Event handler function.
  */
 function attachEventListener(selector, event, handler) {
   const element = document.querySelector(selector);
@@ -18,7 +16,7 @@ function attachEventListener(selector, event, handler) {
 }
 
 /**
- * Initializes the application by setting up event listeners and displaying listings or details based on the page.
+ * Initializes the application by setting up event listeners and displaying listings.
  */
 export function initializeApp() {
   try {
@@ -31,8 +29,6 @@ export function initializeApp() {
     } else if (currentPath.includes('/listing/index.html')) {
       console.log('📄 Listing Details Page Detected - Displaying Details...');
       displaySingleListing();
-    } else {
-      console.warn('⚠️ Unknown Page: No specific initialization found.');
     }
 
     // Attach event listeners for authentication forms
@@ -44,6 +40,9 @@ export function initializeApp() {
       logout();
       window.location.href = '/auth/login.html'; // Redirect after logout
     });
+
+    // ✅ Initialize the category carousel
+    initializeCarousel();
   } catch (error) {
     console.error('❌ Error initializing application:', error);
     alert(

@@ -1,18 +1,42 @@
-//src/js/api/listing/read.js
-
 import { API_AUCTION_LISTINGS } from '../constants.js';
 
-export async function getListings() {
+/**
+ * Fetches listings from the API, optionally filtering by category.
+ * @param {string} [categoryFilter] - The category to filter by (optional).
+ * @returns {Promise<Array>} - The fetched listings.
+ */
+export async function getListings(categoryFilter = '') {
   try {
-    console.log('🟡 Fetching listings from API:', API_AUCTION_LISTINGS);
-    const response = await fetch(API_AUCTION_LISTINGS);
+    let apiUrl = `${API_AUCTION_LISTINGS}?sort=created&sortOrder=desc&_active=true`;
 
+    // ✅ Correct category filtering using `_tag`
+    if (categoryFilter) {
+      apiUrl += `&_tag=${encodeURIComponent(categoryFilter)}`;
+    }
+
+    console.log('🟡 Fetching listings from API:', apiUrl);
+
+    const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error(`❌ API Error: ${response.status}`);
     }
 
-    const responseData = await response.json();
-    return responseData.data || responseData;
+    const data = await response.json();
+
+    // ✅ Ensure we extract the listings array from `data`
+    const listings = data.data || [];
+
+    return listings.map((listing) => ({
+      id: listing.id,
+      title: listing.title,
+      description: listing.description || '',
+      category: listing.tags?.[0] || 'Other', // ✅ Get the first tag as category
+      media: listing.media || [],
+      created: listing.created,
+      endsAt: listing.endsAt,
+      bidCount: listing._count?.bids || 0, // ✅ Extract bid count
+      seller: listing.seller?.name || 'Unknown Seller',
+    }));
   } catch (error) {
     console.error('❌ Failed to fetch listings:', error);
     return [];
@@ -26,19 +50,16 @@ export async function getListings() {
  */
 export async function getListingById(listingId) {
   try {
-    console.log(`🔎 Fetching listing with ID: ${listingId}`);
+    const apiUrl = `${API_AUCTION_LISTINGS}/${listingId}`;
+    console.log(`🔵 Fetching single listing: ${apiUrl}`);
 
-    const response = await fetch(`${API_AUCTION_LISTINGS}/${listingId}`);
+    const response = await fetch(apiUrl);
+    if (!response.ok)
+      throw new Error(`❌ Failed to fetch listing ID ${listingId}`);
 
-    if (!response.ok) {
-      throw new Error(`❌ API Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log('✅ API Response:', data); // Debugging Output
-    return data;
+    return await response.json();
   } catch (error) {
-    console.error('❌ Failed to fetch listing:', error);
+    console.error(`❌ Error fetching listing ID ${listingId}:`, error);
     return null;
   }
 }

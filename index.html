@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,27 +7,90 @@
   <title>Home | Auction Hub</title>
   <script type="module" src="/src/app.js"></script>
   <link rel="stylesheet" href="/src/css/style.css">
+       <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lily+Script+One&family=Istok+Web:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-  <h1 class="text-3xl font-bold text-center mt-6">Auction Hub</h1>
+<body class="bg-background text-gray-900 font-body">
 
-  <nav class="flex justify-center gap-4 mt-4">
-    <a href="/profile/" class="text-blue-500 hover:underline">My Profile</a>
-    <a href="/auth/login/" class="text-blue-500 hover:underline">Login</a>
-    <a href="/auth/register/" class="text-blue-500 hover:underline">Register</a>
-    <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-      Logout
-    </button>
+  <nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      
+      <!-- Logo -->
+      <div class="flex items-center">
+        <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-10">
+      </div>
+
+  <!-- Nav Links -->
+      <ul class="hidden md:flex space-x-6 text-lg">
+        <li><a href="/" class="hover:text-primary transition">Home</a></li>
+        <li><a href="/profile/" class="hover:text-primary transition">My Profile</a></li>
+        <li><a href="/auth/login/" class="hover:text-primary transition">Login</a></li>
+        <li><button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+          Logout</button></li>
+      </ul>
+
+      <!-- Mobile Icons -->
+      <div class="md:hidden flex space-x-4">
+        <a href="/"><i class="fas fa-home text-2xl"></i></a>
+        <a href="/profile/"><i class="fas fa-user text-2xl"></i></a>
+        <a href="/auth/login/"><i class="fas fa-sign-in-alt text-2xl"></i></a>
+   </div>
   </nav>
 
-  <div class="filter-buttons text-center my-6">
-    <button id="viewAll" class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition">View All</button>
-    <button id="newest" class="bg-purple-400 px-4 py-2 rounded-lg hover:bg-purple-500 transition">Newest</button>
-    <button id="soonEnding" class="bg-green-400 px-4 py-2 rounded-lg hover:bg-green-500 transition">Ending Soon</button>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-accent text-white p-4 md:hidden">
+    <ul class="space-y-4 text-center">
+      <li><a href="/" class="block hover:text-primary transition">Home</a></li>
+      <li><a href="/profile/" class="block hover:text-primary transition">My Profile</a></li>
+      <li><a href="/auth/login/" class="block hover:text-primary transition">Login</a></li>
+      <li><button id="logoutBtnMobile" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700 transition">
+        Logout</button></li>
+    </ul>
   </div>
 
+<section class="container mx-auto my-8">
+  <h2 class="text-2xl font-bold text-center text-gray-800">Browse by Category</h2>
+
+  <div class="relative mt-6">
+    <button id="prev-btn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-900 transition">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div id="category-carousel" class="flex overflow-hidden scroll-smooth px-8">
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/art.jpg" alt="Art" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/interior.jpg" alt="Interior" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/gaming.jpg" alt="Gaming" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/watches.jpg" alt="Watches" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/jewelry.jpg" alt="Jewelry" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/books.jpg" alt="Books" class="w-full object-cover h-80">
+      </div>
+      <div class="category-item flex-shrink-0 w-full">
+        <img src="/images/vintage.jpg" alt="Vintage" class="w-full object-cover h-80">
+      </div>
+    </div>
+
+    <button id="next-btn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-900 transition">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
   <div id="listings-container" class="container mx-auto px-4 py-6 bg-gray-100">
-    <h2 class="text-2xl font-bold text-center text-purple-600 mb-4">Newest Listings</h2>
+    <h2 class="text-2xl font-bold text-center text-dark mb-4">Newest Listings</h2>
     <div id="newest-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
 
     <h2 class="text-2xl font-bold text-center text-green-600 mt-6 mb-4">Ending Soon</h2>
@@ -35,6 +99,25 @@
     <h2 class="text-2xl font-bold text-center text-orange-600 mt-6 mb-4">All Listings</h2>
     <div id="all-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
   </div>
+ <footer class="bg-primary text-white text-center p-6 mt-10">
+    <h3 class="text-lg font-bold">SUBSCRIBE</h3>
+    <input type="email" placeholder="Your email" class="mt-2 p-3 w-1/3 rounded-lg border shadow-md">
+    <button class="mt-2 px-4 py-2 bg-white text-primary rounded-lg hover:bg-gray-200 transition">
+      Subscribe
+    </button>
 
+    <!-- Social Icons -->
+    <div class="flex justify-center space-x-6 mt-4">
+      <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
+      <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
+      <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
+    </div>
+
+    <div class="mt-4">
+      <a href="/home" class="px-2 hover:text-primary">Home</a> |
+      <a href="/profile" class="px-2 hover:text-primary">Profile</a> |
+      <a href="/subscribe" class="px-2 hover:text-primary">Subscribe</a>
+    </div>
+  </footer>
 </body>
 </html>
