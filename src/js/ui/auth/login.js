@@ -1,3 +1,5 @@
+//src/js/ui/auth/login.js
+
 import { login } from '../../api/auth/login';
 
 /**
@@ -32,3 +34,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.querySelector("form[name='login']");
   if (loginForm) loginForm.addEventListener('submit', onLogin);
 });
+
+

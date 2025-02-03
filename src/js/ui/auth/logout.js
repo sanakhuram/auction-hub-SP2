@@ -1,3 +1,5 @@
+//src/js/ui/auth/logout.js
+
 export function onLogout() {
   console.log('Logging out...');
 
@@ -5,3 +7,5 @@ export function onLogout() {
 
   window.location.href = '/auth/login/';
 }
+
+

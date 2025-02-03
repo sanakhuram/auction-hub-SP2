@@ -1,21 +1,26 @@
+//src/js/api/listing/read.js
+
 import { API_AUCTION_LISTINGS } from '../constants.js';
 
 export async function getListings() {
   try {
-    console.log('🟡 Fetching listings from API...');
+    console.log('🟡 Fetching listings from API:', API_AUCTION_LISTINGS);
     const response = await fetch(API_AUCTION_LISTINGS);
 
-    if (!response.ok) throw new Error(`❌ API Error: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`❌ API Error: ${response.status}`);
+    }
 
-    const { data } = await response.json(); // Extract only the data array
-    console.log('✅ Listings Data Extracted:', data);
+    const responseData = await response.json();
+    console.log('✅ API Response:', responseData);
 
-    if (!Array.isArray(data)) {
-      console.error('❌ API did not return an array:', data);
+    const listings = responseData.data || responseData; // Handle cases where API returns raw array
+    if (!Array.isArray(listings)) {
+      console.error('❌ API response is not an array:', listings);
       return [];
     }
 
-    return data; // Return only the listings array
+    return listings;
   } catch (error) {
     console.error('❌ Failed to fetch listings:', error);
     return [];

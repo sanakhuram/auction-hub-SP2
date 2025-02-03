@@ -1,3 +1,6 @@
+//src/js/ui/auth/register.js
+
+
 import { register } from '../../api/auth/register';
 
 /**
@@ -42,3 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     registerForm.addEventListener('submit', onRegister);
   }
 });
+
+
+

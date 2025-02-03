@@ -1,42 +1,41 @@
-import { displayListings } from "./ui/listing/display";
+//src/js/setupEvents.js
+import { displayListings } from "./ui/listing/display.js";
+import { logout } from "../js/api/auth.js"; // Ensure correct path
 
-// Ensure DOM is fully loaded before running
-document.addEventListener('DOMContentLoaded', () => {
-  // Check if we are on the home page
-  if (
-    window.location.pathname === '/' ||
-    window.location.pathname === '/index.html'
-  ) {
-    displayListings();
+import { onLogin } from './ui/auth/login.js';
+import { onRegister } from './ui/auth/register.js';
+
+/**
+ * Utility function to safely attach event listeners.
+ * @param {string} selector - Selector for the target element.
+ * @param {string} event - Event type.
+ * @param {Function} handler - Event handler function.
+ */
+function attachEventListener(selector, event, handler) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.addEventListener(event, handler);
   }
+}
 
-  // Add event listeners for login, register, and logout
-  const loginBtn = document.querySelector("a[href='/auth/login/']");
-  const registerBtn = document.querySelector("a[href='/auth/register/']");
-  const logoutBtn = document.querySelector('button');
+export async function initializeApp() {
+  try {
+    // Display Listings if on Home Page
+    if (
+      window.location.pathname === '/' ||
+      window.location.pathname === '/index.html'
+    ) {
+      displayListings();
+    }
 
-  if (loginBtn) {
-    loginBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log('Login button clicked');
-      window.location.href = '/auth/login/';
-    });
+    // Attach event listeners for login, register, and logout
+    attachEventListener("form[name='register']", 'submit', onRegister);
+    attachEventListener("form[name='login']", 'submit', onLogin);
+    attachEventListener('#logoutBtn', 'click', logout);
+  } catch (error) {
+    console.error('Error initializing application:', error);
+    alert(
+      'An error occurred while initializing the application. Please try again.'
+    );
   }
-
-  if (registerBtn) {
-    registerBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log('Register button clicked');
-      window.location.href = '/auth/register/';
-    });
-  }
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log('Logging out...');
-      localStorage.removeItem('token'); // Example: Remove authentication token
-      window.location.href = '/'; // Redirect to home
-    });
-  }
-});
+}

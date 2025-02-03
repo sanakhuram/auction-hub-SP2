@@ -1,3 +1,5 @@
+//src/app.js
+
 import "./css/style.css";
 
 import router from "./js/router";
