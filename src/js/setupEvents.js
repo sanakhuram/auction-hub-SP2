@@ -1,7 +1,5 @@
-//src/js/setupEvents.js
-import { displayListings } from "./ui/listing/display.js";
-import { logout } from "../js/api/auth.js"; // Ensure correct path
-
+import { displayListings } from './ui/listing/display.js';
+import { logout } from './api/auth.js'; // Use the unified logout function
 import { onLogin } from './ui/auth/login.js';
 import { onRegister } from './ui/auth/register.js';
 
@@ -18,7 +16,10 @@ function attachEventListener(selector, event, handler) {
   }
 }
 
-export async function initializeApp() {
+/**
+ * Initializes the application by setting up event listeners and displaying listings.
+ */
+export function initializeApp() {
   try {
     // Display Listings if on Home Page
     if (
@@ -28,10 +29,10 @@ export async function initializeApp() {
       displayListings();
     }
 
-    // Attach event listeners for login, register, and logout
+    // Attach event listeners for authentication
     attachEventListener("form[name='register']", 'submit', onRegister);
     attachEventListener("form[name='login']", 'submit', onLogin);
-    attachEventListener('#logoutBtn', 'click', logout);
+    attachEventListener('#logoutBtn', 'click', logout); // Attach the logout function
   } catch (error) {
     console.error('Error initializing application:', error);
     alert(
@@ -39,3 +40,6 @@ export async function initializeApp() {
     );
   }
 }
+
+// Ensure event listeners are set when the DOM loads
+document.addEventListener('DOMContentLoaded', initializeApp);

@@ -1,11 +1,27 @@
 /**
- * Logs out the user by clearing stored session data.
+ * Logs out the user by clearing stored session data and updating UI.
  */
 export function logout() {
+  console.log('Logging out...');
+
+  // Remove user session data
   localStorage.removeItem('username');
   localStorage.removeItem('token');
+  localStorage.removeItem('accessToken');
+  sessionStorage.clear();
+
+  // Update UI before redirecting
+  const logoutBtn = document.getElementById('logoutBtn');
+  const loginBtn = document.getElementById('loginBtn'); // Ensure this exists in HTML
+
+  if (logoutBtn) logoutBtn.style.display = 'none';
+  if (loginBtn) loginBtn.style.display = 'block';
+
   alert('You have been logged out.');
-  window.location.href = '/auth/login/';
+
+  setTimeout(() => {
+    window.location.href = '/auth/login/'; // Ensure this path exists
+  }, 500);
 }
 
 /**
