@@ -37,22 +37,22 @@ export async function displayListings(categoryFilter = '') {
 
     // Render Listings
     listingsContainer.innerHTML = `
-      <h2 class="text-purple-600 font-bold text-xl mb-2">Newest Listings</h2>
-      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4">${renderListings(
+      <h2 class="text-black font-bold text-xl  text-center bg-accent mb-8">Newest Listings</h2>
+      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-accent">${renderListings(
         newestListings,
-        'bg-purple-200 border-purple-500'
+        'bg-muted border-purple-500'
       )}</div>
 
-      <h2 class="text-green-600 font-bold text-xl mt-6 mb-2">Ending Soon</h2>
-      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4">${renderListings(
+      <h2 class="text-black font-bold text-center text-xl mt-6 mb-8 bg-sepia ">Ending Soon</h2>
+      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-olive">${renderListings(
         endingSoonListings,
-        'bg-green-200 border-green-500'
+        'bg-sepia border-grey'
       )}</div>
 
-      <h2 class="text-orange-600 font-bold text-xl mt-6 mb-2">All Listings</h2>
-      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4">${renderListings(
+      <h2 class="text-black font-bold text-center text-xl mt-6 mb-8 bg-olive">All Listings</h2>
+      <div class="overflow-y-auto whitespace-nowrap flex space-x-4 p-4 bg-secondary">${renderListings(
         listings,
-        'bg-orange-200 border-orange-500'
+        'bg-olive border-orange-500'
       )}</div>
     `;
   } catch (error) {
@@ -63,7 +63,7 @@ export async function displayListings(categoryFilter = '') {
 }
 
 /**
- * Renders listings and adds `data-category` attribute for filtering.
+ * Renders listings and adds `data-category` attribute for filtering. bg
  */
 function renderListings(listings, colorClass) {
   return listings
@@ -83,7 +83,7 @@ function renderListings(listings, colorClass) {
           listing.endsAt
         ).toLocaleDateString()}</p>
         <a href="/listing/index.html?id=${listing.id}" 
-           class="inline-block bg-blue-500 text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
+           class="inline-block bg-sepia text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
            View Listing
         </a>
       </div>
