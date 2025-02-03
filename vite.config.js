@@ -2,11 +2,11 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables
+dotenv.config(); 
 
 export default defineConfig({
   define: {
-    'process.env': process.env, // Ensure environment variables are available
+    'process.env': process.env, 
   },
   appType: 'mpa',
   base: '',
@@ -22,7 +22,7 @@ export default defineConfig({
         login: path.resolve(__dirname, 'auth/login/index.html'),
         register: path.resolve(__dirname, 'auth/register/index.html'),
         profile: path.resolve(__dirname, 'profile/index.html'),
-        listing: path.resolve(__dirname, 'listing/index.html'), // Ensure this exists
+        listing: path.resolve(__dirname, 'listing/index.html'), 
         editListing: path.resolve(__dirname, 'listing/edit/index.html'),
         createListing: path.resolve(__dirname, 'listing/create/index.html'),
       },

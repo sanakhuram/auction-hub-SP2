@@ -12,17 +12,33 @@ export async function getListings() {
     }
 
     const responseData = await response.json();
-    console.log('✅ API Response:', responseData);
-
-    const listings = responseData.data || responseData; // Handle cases where API returns raw array
-    if (!Array.isArray(listings)) {
-      console.error('❌ API response is not an array:', listings);
-      return [];
-    }
-
-    return listings;
+    return responseData.data || responseData;
   } catch (error) {
     console.error('❌ Failed to fetch listings:', error);
     return [];
+  }
+}
+
+/**
+ * Fetches a single listing by its ID.
+ * @param {string} listingId - The ID of the listing to fetch.
+ * @returns {Promise<Object>} - The listing data.
+ */
+export async function getListingById(listingId) {
+  try {
+    console.log(`🔎 Fetching listing with ID: ${listingId}`);
+
+    const response = await fetch(`${API_AUCTION_LISTINGS}/${listingId}`);
+
+    if (!response.ok) {
+      throw new Error(`❌ API Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('✅ API Response:', data); // Debugging Output
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to fetch listing:', error);
+    return null;
   }
 }

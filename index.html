@@ -1,34 +1,40 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home | Auction Hub</title>
   <script type="module" src="/src/app.js"></script>
   <link rel="stylesheet" href="/src/css/style.css">
- 
 </head>
-
 <body>
-  <img src="/images/noroff-logo.png" alt="Noroff Logo" />
+  <h1 class="text-3xl font-bold text-center mt-6">Auction Hub</h1>
 
-  <h1>Home</h1>
+  <nav class="flex justify-center gap-4 mt-4">
+    <a href="/profile/" class="text-blue-500 hover:underline">My Profile</a>
+    <a href="/auth/login/" class="text-blue-500 hover:underline">Login</a>
+    <a href="/auth/register/" class="text-blue-500 hover:underline">Register</a>
+    <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+      Logout
+    </button>
+  </nav>
 
-  <a href="/profile/">My Profile</a>
-  <a href="/auth/login/">Login</a>
-  <a href="/auth/register/">Register</a>
-  <button id="logoutBtn">Logout</button>
-
-  <button class="bg-green-500 text-white font-bold py-2 px-4 rounded">Submit</button>
-
-  <!-- Listings container is outside #app to ensure it's found -->
-  <div id="listings-container" class="container mx-auto px-4 py-6 bg-gray-100"></div>
-
-  <div id="app">
-    <h1>Home</h1>
+  <div class="filter-buttons text-center my-6">
+    <button id="viewAll" class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition">View All</button>
+    <button id="newest" class="bg-purple-400 px-4 py-2 rounded-lg hover:bg-purple-500 transition">Newest</button>
+    <button id="soonEnding" class="bg-green-400 px-4 py-2 rounded-lg hover:bg-green-500 transition">Ending Soon</button>
   </div>
-</body>
 
+  <div id="listings-container" class="container mx-auto px-4 py-6 bg-gray-100">
+    <h2 class="text-2xl font-bold text-center text-purple-600 mb-4">Newest Listings</h2>
+    <div id="newest-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+
+    <h2 class="text-2xl font-bold text-center text-green-600 mt-6 mb-4">Ending Soon</h2>
+    <div id="ending-soon-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+
+    <h2 class="text-2xl font-bold text-center text-orange-600 mt-6 mb-4">All Listings</h2>
+    <div id="all-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+  </div>
+
+</body>
 </html>

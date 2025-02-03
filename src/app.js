@@ -1,9 +1,13 @@
-//src/app.js
+import './css/style.css'; 
+import router from './js/router'; 
+import { initializeApp } from './js/setupEvents'; 
 
-import "./css/style.css";
+/**
+ * Initializes the app and handles routing based on the current path.
+ */
+async function init() {
+  await router(window.location.pathname); 
+  initializeApp(); 
+}
 
-import router from "./js/router";
-
-import './js/setupEvents';
-
-await router(window.location.pathname);
+document.addEventListener('DOMContentLoaded', init);
