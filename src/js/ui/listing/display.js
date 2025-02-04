@@ -27,70 +27,73 @@ export async function displayListings(categoryFilter = '') {
 
     console.log(`✅ Listings received:`, listings);
 
-    // Sorting listings
-    const newestListings = [...listings].sort(
-      (a, b) => new Date(b.created) - new Date(a.created)
-    );
-    const endingSoonListings = [...listings].sort(
-      (a, b) => new Date(a.endsAt) - new Date(b.endsAt)
-    );
+    // Sort listings by newest and soonest ending
+    const newestListings = [...listings]
+      .sort((a, b) => new Date(b.created) - new Date(a.created))
+      .slice(0, 8); // ✅ Show only 8 newest listings
+
+    const endingSoonListings = [...listings]
+      .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
+      .slice(0, 8); // ✅ Show only 8 listings ending soon
+
+    const allListings = listings.slice(0, 12); // ✅ Show 12 listings in the grid
 
     // Render Listings
     listingsContainer.innerHTML = `
-      <h2 class="text-black font-bold text-xl  text-center bg-accent mb-8">Newest Listings</h2>
-      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-accent">${renderListings(
-        newestListings,
-        'bg-muted border-purple-500'
-      )}</div>
+      <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 w-full">Newest Listings</h2>
+      <div class="flex justify-center">
+        <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-accent w-max">
+          ${renderListings(newestListings, 'bg-muted border-purple-500')}
+        </div>
+      </div>
 
-      <h2 class="text-black font-bold text-center text-xl mt-6 mb-8 bg-sepia ">Ending Soon</h2>
-      <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-olive">${renderListings(
-        endingSoonListings,
-        'bg-sepia border-grey'
-      )}</div>
+      <h2 class="text-black text-center text-xl p-5 mt-10 mb-10 bg-sepia w-full">Ending Soon</h2>
+      <div class="flex justify-center">
+        <div class="overflow-x-auto whitespace-nowrap flex space-x-4 p-4 bg-olive w-max">
+          ${renderListings(endingSoonListings, 'bg-sepia border-grey')}
+        </div>
+      </div>
 
-      <h2 class="text-black font-bold text-center text-xl mt-6 mb-8 bg-olive">All Listings</h2>
-      <div class="overflow-y-auto whitespace-nowrap flex space-x-4 p-4 bg-secondary">${renderListings(
-        listings,
-        'bg-olive border-orange-500'
-      )}</div>
+      <h2 class="text-black text-center text-xl p-5 mt-8 mb-6 bg-olive w-full">All Listings</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-secondary rounded-lg m-20">
+        ${renderListings(allListings, 'bg-olive border-orange-500')}
+      </div>
     `;
   } catch (error) {
     console.error('❌ Error fetching listings:', error);
     listingsContainer.innerHTML =
-      '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
+      '<p class="text-red-500 font-semibold text-lg ">Error loading listings.</p>';
   }
 }
 
-/**
- * Renders listings and adds `data-category` attribute for filtering. bg
- */
 function renderListings(listings, colorClass) {
   return listings
     .map(
       (listing) => `
-      <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-lg w-80"
-           data-category="${listing.category || 'Other'}">
-        <h3 class="text-lg font-semibold">${listing.title}</h3>
+      <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-lg w-full max-w-xs mx-auto">
         <img src="${getValidImage(listing.media)}"
-             alt="${listing.media?.[0]?.alt || listing.title}"
-             class="w-full h-40 object-cover rounded-md mt-2"
-             onerror="this.src='/images/placeholder.jpg';" />
+          alt="${listing.media?.[0]?.alt || listing.title}"
+          class="w-full h-40 object-cover rounded-md mt-2"
+          onerror="this.src='/images/placeholder.jpg';" />
+        <h3 class="text-base font-bold font-secondary line-clamp-2 mt-2">
+          ${listing.title}
+        </h3>
         <p class="text-gray-700 mt-2">Current Bid: <strong>${
           listing.bidCount || 'N/A'
         } Credits</strong></p>
         <p class="text-gray-500">Ends on: ${new Date(
           listing.endsAt
         ).toLocaleDateString()}</p>
-        <a href="/listing/index.html?id=${listing.id}" 
-           class="inline-block bg-sepia text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
-           View Listing
+        <a href="/listing/?id=${listing.id}" 
+          class="inline-block bg-sepia text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
+          View Listing
         </a>
       </div>
     `
     )
     .join('');
 }
+
 
 /**
  * Ensures the listing has a valid image or provides a placeholder.
