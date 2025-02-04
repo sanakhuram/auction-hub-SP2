@@ -75,3 +75,25 @@ export function initializeApp() {
 
 // Ensure event listeners are set when the DOM loads
 document.addEventListener('DOMContentLoaded', initializeApp);
+
+//footer
+ document
+   .getElementById('subscribe-btn')
+   .addEventListener('click', function () {
+     var emailInput = document.getElementById('email-input');
+     var message = document.getElementById('subscribe-message');
+
+     if (emailInput.value.trim() !== '') {
+       message.classList.remove('hidden');
+       message.textContent = 'Thank you for subscribing!';
+
+       // Clear input & hide message after 3 seconds
+       setTimeout(() => {
+         message.classList.add('hidden');
+         emailInput.value = ''; // Clears the input field
+       }, 3000);
+     } else {
+       message.classList.remove('hidden');
+       message.textContent = 'Please enter a valid email.';
+     }
+   });
