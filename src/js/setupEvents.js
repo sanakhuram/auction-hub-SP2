@@ -132,3 +132,67 @@ document
       message.textContent = 'Please enter a valid email.';
     }
   });
+
+
+async function loadUserProfile() {
+  const username = localStorage.getItem('username');
+  const authToken = localStorage.getItem('authToken');
+
+  console.log('🔍 Checking localStorage:', { username, authToken });
+
+  // Get all elements
+  const loginLink = document.getElementById('loginLink');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const profileSectionDesktop = document.getElementById('user-profile-desktop');
+  const profileSectionMobile = document.getElementById('user-profile-mobile');
+  const avatarDesktop = document.getElementById('user-avatar-desktop');
+  const avatarMobile = document.getElementById('user-avatar-mobile');
+  const mobileLogin = document.getElementById('mobile-login');
+  const mobileLogout = document.getElementById('mobile-logout');
+
+  // ✅ If no user, hide logout & profile, show login
+  if (!username || !authToken) {
+    console.warn('⚠️ User not logged in.');
+    loginLink?.classList.remove('hidden');
+    logoutBtn?.classList.add('hidden');
+    profileSectionDesktop?.classList.add('hidden');
+    profileSectionMobile?.classList.add('hidden');
+    mobileLogout?.classList.add('hidden');
+    mobileLogin?.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    console.log(`🔍 Fetching profile for: ${username}`);
+    const profileData = await fetchProfile(username);
+
+    if (!profileData) throw new Error('❌ No profile data received.');
+
+    console.log('✅ Profile Loaded:', profileData);
+
+    // ✅ Show profile and logout button, hide login
+    profileSectionDesktop?.classList.remove('hidden');
+    profileSectionMobile?.classList.remove('hidden');
+    logoutBtn?.classList.remove('hidden');
+    mobileLogout?.classList.remove('hidden');
+    mobileLogin?.classList.add('hidden');
+    loginLink?.classList.add('hidden');
+
+    // ✅ Update avatar images
+    if (avatarDesktop)
+      avatarDesktop.src =
+        profileData.avatar?.url || '/images/default-avatar.png';
+    if (avatarMobile)
+      avatarMobile.src =
+        profileData.avatar?.url || '/images/default-avatar.png';
+
+    // ✅ Make avatars clickable to profile
+    avatarDesktop?.parentElement?.setAttribute('href', '/profile/');
+    avatarMobile?.parentElement?.setAttribute('href', '/profile/');
+  } catch (error) {
+    console.error('❌ Error loading user profile:', error);
+  }
+}
+
+// ✅ Run function on page load
+document.addEventListener('DOMContentLoaded', loadUserProfile);
