@@ -7,6 +7,7 @@
   <title>Home | Auction Hub</title>
   <script type="module" src="/src/app.js"></script>
   <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
       <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
@@ -19,7 +20,7 @@
     
     <!-- Logo -->
     <div class="flex items-center">
-      <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-12">
+      <img src="/images/logodark.png" alt="Auction Hub Logo" class="w-10">
     </div>
 
     <!-- Mobile Navigation -->
@@ -36,7 +37,7 @@
       <li><a href="/profile/" class="hover:text-background transition">My Profile</a></li>
       <li><a href="/auth/login/" id="loginLink" class="hover:text-background transition">Login</a></li>
       <li>
-        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition hidden">
+        <button id="logoutBtn" class="bg-btn-gradient text-white px-4 py-2 rounded-lg hover:bg-red-700 transition hidden">
           Logout
         </button>
       </li>
@@ -45,7 +46,7 @@
     <!-- Desktop User Profile -->
     <div id="user-profile-desktop" class="hidden md:flex items-center space-x-3">
       <a href="/profile/">
-        <img id="user-avatar-desktop" src="/images/default-avatar.png" alt="User Avatar" class="h-10 w-10 rounded-full">
+        <img id="user-avatar-desktop" src="/images/default-avatar.png" alt="User Avatar" class="h-12 w-12 rounded-full">
       </a>
     </div>
   </div>
