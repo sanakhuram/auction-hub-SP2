@@ -20,6 +20,9 @@ module.exports = {
         heading: ['Lily Script One', 'cursive'],
         secondary: ['Istok Web', 'sans-serif'],
       },
+      backgroundImage: {
+        'btn-gradient': 'linear-gradient(90deg, #A9AC81 0%, #D56651 100%)', 
+      },
     },
   },
   plugins: [],
