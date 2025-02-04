@@ -6,22 +6,55 @@
   <title>Listing Details | Auction Hub</title>
   <script type="module" src="/src/app.js"></script>
   <link rel="stylesheet" href="/src/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/src/css/style.css">
+      <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lily+Script+One&family=Istok+Web:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#EAD8B6] text-gray-900 font-body">
-
-<!-- Navbar -->
-<nav class="bg-[#7F9C94] text-white p-4 shadow-lg">
+<body class="bg-background text-gray-900 font-body">
+<nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
   <div class="container mx-auto flex justify-between items-center">
+    
+    <!-- Logo -->
     <div class="flex items-center">
       <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-12">
     </div>
-    <ul class="hidden md:flex space-x-6 text-lg">
-      <li><a href="/" class="hover:text-gray-300">Home</a></li>
-      <li><a href="/profile/" class="hover:text-gray-300">My Profile</a></li>
-      <li><a href="/auth/login/" id="loginLink" class="hover:text-gray-300">Login</a></li>
-      <li><button id="logoutBtn" class="bg-red-500 px-4 py-2 rounded-lg hidden">Logout</button></li>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden flex-1 flex justify-center space-x-6">
+      <a href="/" class="text-white"><i class="fas fa-home text-2xl"></i></a>
+      <a href="/profile/" class="text-white"><i class="fas fa-user text-2xl"></i></a>
+      <a href="/auth/login/" class="text-white" id="mobile-login"><i class="fas fa-sign-in-alt text-2xl"></i></a>
+      <a href="#" class="text-white hidden" id="mobile-logout"><i class="fas fa-sign-out-alt text-2xl"></i></a>
+    </div>
+
+    <!-- Mobile User Avatar (Hidden by Default) -->
+    <div id="user-profile-mobile" class=" md:hidden flex items-center space-x-3 ml-auto">
+      <a href="/profile/">
+        <img id="user-avatar-mobile" src="/images/default-avatar.png" alt="User Avatar" class="h-10 w-10 rounded-full">
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex space-x-6 text-lg mx-auto">
+      <li><a href="/" class="hover:text-background transition">Home</a></li>
+      <li><a href="/profile/" class="hover:text-background transition">My Profile</a></li>
+      <li><a href="/auth/login/" id="loginLink" class="hover:text-background transition">Login</a></li>
+      <li>
+        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition hidden">
+          Logout
+        </button>
+      </li>
     </ul>
+
+    <!-- Desktop User Profile -->
+    <div id="user-profile-desktop" class="hidden md:flex items-center space-x-3">
+      <a href="/profile/">
+        <img id="user-avatar-desktop" src="/images/default-avatar.png" alt="User Avatar" class="h-10 w-10 rounded-full">
+      </a>
+    </div>
   </div>
 </nav>
 
