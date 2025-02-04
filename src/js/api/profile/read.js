@@ -13,7 +13,7 @@ export async function fetchProfile(username) {
   const token = getAuthToken();
   if (!token) {
     alert('Authentication token is missing. Redirecting to login...');
-    window.location.href = '/auth/login.html';
+    window.location.href = '/auth/login/';
     return null;
   }
 
@@ -28,7 +28,7 @@ export async function fetchProfile(username) {
     if (!response.ok) {
       if (response.status === 401) {
         alert('Unauthorized. Redirecting to login...');
-        window.location.href = '/auth/login.html';
+        window.location.href = '/auth/login/';
         return null;
       }
       const errorData = await response.json();

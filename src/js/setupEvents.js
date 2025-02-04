@@ -7,6 +7,7 @@ import { initializeCarousel } from './ui/carousel.js';
 import { fetchProfile } from './api/profile/read.js';
 import { onUpdateProfile } from './ui/profile/update.js';
 import { authGuard } from './utilities/authGuard.js'; // ✅ Protect profile page
+import { loadUserProfile } from './api/auth.js';
 
 /**
  * Utility function to safely attach event listeners.
@@ -23,7 +24,6 @@ function attachEventListener(selector, event, handler) {
  */
 export function initializeApp() {
   try {
-    // ✅ Declare `currentPath` inside function scope
     const currentPath = window.location.pathname;
     console.log(`🔹 Current Page: ${currentPath}`);
 
@@ -36,8 +36,7 @@ export function initializeApp() {
     } else if (currentPath.includes('/profile/')) {
       console.log('👤 Profile Page Detected - Fetching Profile...');
 
-      // ✅ Protect the profile page (redirect if not logged in)
-      authGuard();
+      authGuard(); // ✅ Protect profile pages
 
       const username = localStorage.getItem('username');
       if (username) {
@@ -84,7 +83,6 @@ export function initializeApp() {
       }
     }
 
-    // ✅ Attach event listeners once, outside the fetchProfile block
     attachEventListener("form[name='register']", 'submit', onRegister);
     attachEventListener("form[name='login']", 'submit', onLogin);
     attachEventListener('#logoutBtn', 'click', () => {
@@ -92,13 +90,11 @@ export function initializeApp() {
       window.location.href = '/auth/login/';
     });
 
-    // ✅ Attach event listener for updating profile properly
     attachEventListener('#updateProfileForm', 'submit', async (event) => {
-      event.preventDefault(); // ✅ Prevent form submission reload
-      await onUpdateProfile(event); // ✅ Pass event object correctly
+      event.preventDefault();
+      await onUpdateProfile(event);
     });
 
-    // ✅ Initialize the category carousel
     initializeCarousel();
   } catch (error) {
     console.error('❌ Error initializing application:', error);
@@ -109,7 +105,10 @@ export function initializeApp() {
 }
 
 // ✅ Ensure event listeners are set when the DOM loads
-document.addEventListener('DOMContentLoaded', initializeApp);
+document.addEventListener('DOMContentLoaded', () => {
+  initializeApp();
+  loadUserProfile(); // ✅ Load user profile to show avatar & logout button
+});
 
 // ✅ Fix the Footer Subscribe Button Event Listener
 document
@@ -122,77 +121,12 @@ document
       message.classList.remove('hidden');
       message.textContent = 'Thank you for subscribing!';
 
-      // Clear input & hide message after 3 seconds
       setTimeout(() => {
         message.classList.add('hidden');
-        emailInput.value = ''; // Clears the input field
+        emailInput.value = '';
       }, 3000);
     } else {
       message.classList.remove('hidden');
       message.textContent = 'Please enter a valid email.';
     }
   });
-
-
-async function loadUserProfile() {
-  const username = localStorage.getItem('username');
-  const authToken = localStorage.getItem('authToken');
-
-  console.log('🔍 Checking localStorage:', { username, authToken });
-
-  // Get all elements
-  const loginLink = document.getElementById('loginLink');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const profileSectionDesktop = document.getElementById('user-profile-desktop');
-  const profileSectionMobile = document.getElementById('user-profile-mobile');
-  const avatarDesktop = document.getElementById('user-avatar-desktop');
-  const avatarMobile = document.getElementById('user-avatar-mobile');
-  const mobileLogin = document.getElementById('mobile-login');
-  const mobileLogout = document.getElementById('mobile-logout');
-
-  // ✅ If no user, hide logout & profile, show login
-  if (!username || !authToken) {
-    console.warn('⚠️ User not logged in.');
-    loginLink?.classList.remove('hidden');
-    logoutBtn?.classList.add('hidden');
-    profileSectionDesktop?.classList.add('hidden');
-    profileSectionMobile?.classList.add('hidden');
-    mobileLogout?.classList.add('hidden');
-    mobileLogin?.classList.remove('hidden');
-    return;
-  }
-
-  try {
-    console.log(`🔍 Fetching profile for: ${username}`);
-    const profileData = await fetchProfile(username);
-
-    if (!profileData) throw new Error('❌ No profile data received.');
-
-    console.log('✅ Profile Loaded:', profileData);
-
-    // ✅ Show profile and logout button, hide login
-    profileSectionDesktop?.classList.remove('hidden');
-    profileSectionMobile?.classList.remove('hidden');
-    logoutBtn?.classList.remove('hidden');
-    mobileLogout?.classList.remove('hidden');
-    mobileLogin?.classList.add('hidden');
-    loginLink?.classList.add('hidden');
-
-    // ✅ Update avatar images
-    if (avatarDesktop)
-      avatarDesktop.src =
-        profileData.avatar?.url || '/images/default-avatar.png';
-    if (avatarMobile)
-      avatarMobile.src =
-        profileData.avatar?.url || '/images/default-avatar.png';
-
-    // ✅ Make avatars clickable to profile
-    avatarDesktop?.parentElement?.setAttribute('href', '/profile/');
-    avatarMobile?.parentElement?.setAttribute('href', '/profile/');
-  } catch (error) {
-    console.error('❌ Error loading user profile:', error);
-  }
-}
-
-// ✅ Run function on page load
-document.addEventListener('DOMContentLoaded', loadUserProfile);
