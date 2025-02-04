@@ -1,5 +1,5 @@
-//src/js/ui/profile/update.js
 import { updateProfile } from '../../api/profile/update.js';
+import { fetchProfile } from '../../api/profile/read.js';
 
 /**
  * Handles updating the profile UI when the user submits the form.
@@ -30,6 +30,7 @@ export async function onUpdateProfile(event) {
   }
 
   try {
+    // ✅ Send update request
     const updatedProfile = await updateProfile(username, updateData);
 
     // ✅ Update all UI elements
@@ -40,7 +41,6 @@ export async function onUpdateProfile(event) {
     if (updatedProfile.banner?.url)
       document.getElementById('profileBanner').src = updatedProfile.banner.url;
 
-    // ✅ Add missing profile fields
     if (updatedProfile.credits !== undefined)
       document.getElementById(
         'profileCredits'
@@ -55,10 +55,72 @@ export async function onUpdateProfile(event) {
       ).textContent = `Wins: ${updatedProfile.wins.length}`;
 
     console.log('✅ Profile Updated Successfully:', updatedProfile);
+
     document.getElementById('updateMessage').textContent =
       '✅ Profile updated successfully!';
+
+    // ✅ Fetch and Refresh Listings after Update
+    console.log('🔄 Fetching Updated Listings...');
+    const latestProfile = await fetchProfile(username);
+    if (latestProfile && latestProfile.listings) {
+      displayListings(latestProfile.listings);
+    }
   } catch (error) {
     console.error('❌ Error updating profile:', error);
     alert('Failed to update profile. Please check your input values.');
   }
+}
+
+/**
+ * Updates the listings UI after profile update.
+ * @param {Array} listings - Array of listing objects.
+ */
+function displayListings(listings) {
+  const myListingsContainer = document.getElementById('myListings');
+
+  if (!myListingsContainer) {
+    console.error(
+      "❌ Error: Could not find 'myListings' container in the DOM."
+    );
+    return;
+  }
+
+  myListingsContainer.innerHTML = ''; // Clear previous content
+
+  console.log('📌 Listings received:', listings);
+
+  if (!Array.isArray(listings) || listings.length === 0) {
+    myListingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available</p>`;
+    return;
+  }
+
+  listings.forEach((listing) => {
+    console.log('🖼 Rendering Listing:', listing);
+
+    const title = listing.title || 'Untitled';
+    const description = listing.description || 'No description available';
+    const imageUrl = listing.media?.[0]?.url || '/images/placeholder.jpg';
+    const altText = listing.media?.[0]?.alt || 'No image available';
+    const endsAt = listing.endsAt
+      ? new Date(listing.endsAt).toLocaleString()
+      : 'N/A';
+
+    const listingElement = document.createElement('div');
+    listingElement.classList.add(
+      'p-4',
+      'border',
+      'rounded-lg',
+      'shadow-sm',
+      'bg-gray-100'
+    );
+
+    listingElement.innerHTML = `
+      <img src="${imageUrl}" alt="${altText}" class="w-full h-40 object-cover rounded-lg mb-2">
+      <h3 class="text-lg font-semibold">${title}</h3>
+      <p class="text-gray-700">${description}</p>
+      <p class="text-gray-600"><strong>Ends At:</strong> ${endsAt}</p>
+    `;
+
+    myListingsContainer.appendChild(listingElement);
+  });
 }

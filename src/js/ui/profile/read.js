@@ -1,61 +1,105 @@
-//src/js/ui/profile/read.js
 import { authGuard } from '../../utilities/authGuard.js';
 import { fetchProfile } from '../../api/profile/read.js';
-import { onUpdateProfile } from '../../api/profile/update.js';
 
-// ✅ Protect Route
+
 authGuard();
-
-// ✅ Ensure the DOM is ready before running
 document.addEventListener('DOMContentLoaded', async () => {
-  const username = localStorage.getItem('username'); // Ensure username is stored
+  console.log('🚀 Page Loaded!');
+
+  const username = localStorage.getItem('username');
   if (!username) {
     alert('No username found. Redirecting to login...');
-    window.location.href = '/auth/login.html';
+    window.location.href = '/auth/login/';
     return;
   }
 
   try {
-    // ✅ Fetch user profile
     const profile = await fetchProfile(username);
-    if (!profile) throw new Error('Profile data is empty!');
+    if (!profile || !profile.data) throw new Error('Profile data is empty!');
+
+    console.log('✅ Profile Data Loaded Successfully:', profile);
+    const userData = profile.data;
 
     // ✅ Update UI with Profile Data
     document.getElementById('profileAvatar').src =
-      profile.avatar?.url || '/images/placeholder.jpg';
+      userData.avatar?.url || '/images/placeholder.jpg';
     document.getElementById('profileBanner').src =
-      profile.banner?.url || '/images/banner.jpg';
+      userData.banner?.url || '/images/banner.png';
     document.getElementById('profileName').textContent =
-      profile.name || 'No name';
+      userData.name || 'No name';
     document.getElementById('profileEmail').textContent =
-      profile.email || 'No email';
+      userData.email || 'No email';
     document.getElementById('profileBio').textContent =
-      profile.bio || 'No bio available';
+      userData.bio || 'No bio available';
     document.getElementById('profileCredits').textContent = `Credits: ${
-      profile.credits || 0
+      userData.credits || 0
     }`;
     document.getElementById('profileListings').textContent = `Listings: ${
-      profile._count?.listings || 0
+      userData._count?.listings || 0
     }`;
     document.getElementById('profileWins').textContent = `Wins: ${
-      profile._count?.wins || 0
+      userData._count?.wins || 0
     }`;
 
-    // ✅ Pre-fill Update Form
-    document.getElementById('bioInput').value = profile.bio || '';
-    document.getElementById('avatarInput').value = profile.avatar?.url || '';
-    document.getElementById('bannerInput').value = profile.banner?.url || '';
+    console.log(
+      '🔄 Attempting to update listings on page...',
+      userData.listings
+    );
+    displayListings(userData.listings);
   } catch (error) {
     console.error('❌ Error fetching profile:', error);
     alert('Failed to load profile. Please try again.');
   }
 });
 
-// ✅ Attach Update Profile Form Handler
-document
-  .getElementById('updateProfileForm')
-  ?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    await onUpdateProfile();
+function displayListings(listings) {
+  const myListingsContainer = document.getElementById('myListings');
+
+  if (!myListingsContainer) {
+    console.error(
+      "❌ Error: Could not find 'myListings' container in the DOM."
+    );
+    return;
+  }
+
+  console.log('📌 Listings received for rendering:', listings);
+
+  myListingsContainer.innerHTML = ''; // Clear previous content
+
+  if (!Array.isArray(listings) || listings.length === 0) {
+    myListingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available</p>`;
+    return;
+  }
+
+  listings.forEach((listing) => {
+    console.log('🖼 Rendering Listing:', listing);
+
+    const title = listing.title || 'Untitled';
+    const description = listing.description || 'No description available';
+    const imageUrl = listing.media?.[0]?.url || '/images/placeholder.jpg';
+    const altText = listing.media?.[0]?.alt || 'No image available';
+    const endsAt = listing.endsAt
+      ? new Date(listing.endsAt).toLocaleString()
+      : 'N/A';
+
+    const listingElement = document.createElement('div');
+    listingElement.classList.add(
+      'p-4',
+      'border',
+      'rounded-lg',
+      'shadow-sm',
+      'bg-gray-100'
+    );
+
+    listingElement.innerHTML = `
+      <img src="${imageUrl}" alt="${altText}" class="w-full h-40 object-cover rounded-lg mb-2">
+      <h3 class="text-lg font-semibold">${title}</h3>
+      <p class="text-gray-700">${description}</p>
+      <p class="text-gray-600"><strong>Ends At:</strong> ${endsAt}</p>
+    `;
+
+    myListingsContainer.appendChild(listingElement);
   });
+}
+
 
