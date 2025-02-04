@@ -4,42 +4,43 @@ export function initializeCarousel() {
   console.log('✅ Initializing category carousel...');
 
   const carousel = document.getElementById('category-carousel');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
+  const dots = document.querySelectorAll('.dot');
   const categories = document.querySelectorAll('.category-item');
 
-  if (!carousel || !prevBtn || !nextBtn || categories.length === 0) {
+  if (!carousel || categories.length === 0) {
     console.error('❌ Carousel elements not found!');
     return;
   }
 
   let currentIndex = 0;
   const totalItems = categories.length;
-  const slideWidth = carousel.clientWidth;
 
   function updateCarousel() {
     console.log(`🔄 Moving to index: ${currentIndex}`);
-    carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-gray-700', i === currentIndex);
+      dot.classList.toggle('bg-white', i !== currentIndex);
+    });
   }
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < totalItems - 1) {
-      currentIndex++;
-      updateCarousel();
-    } else {
-      currentIndex = 0;
-      updateCarousel();
-    }
-  });
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalItems;
+    updateCarousel();
+  }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
+  // Auto-scroll every 4 seconds
+  let autoScroll = setInterval(nextSlide, 4000);
+
+  // Click event for dots
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(autoScroll); // Stop auto-scroll on manual navigation
+      currentIndex = i;
       updateCarousel();
-    } else {
-      currentIndex = totalItems - 1;
-      updateCarousel();
-    }
+      autoScroll = setInterval(nextSlide, 4000); // Restart auto-scroll
+    });
   });
 
   categories.forEach((category) => {
@@ -50,5 +51,5 @@ export function initializeCarousel() {
     });
   });
 
-  updateCarousel();
+  updateCarousel(); // Initial update
 }
