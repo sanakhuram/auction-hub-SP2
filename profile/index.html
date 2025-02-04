@@ -1,17 +1,59 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Auction Hub</title>
     <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-    <h1>Profile</h1>
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">User Profile</h2>
 
-    <form name="updateProfile">
-      <button>Update Profile</button>
-    </form>
-  </body>
+        <!-- Banner Image -->
+        <div class="relative">
+            <img id="profileBanner" class="w-full h-48 object-cover rounded-lg" src="/images/placeholder.jpg" alt="Profile Banner">
+        </div>
+
+        <!-- Profile Info -->
+        <div class="text-center mt-4">
+            <img id="profileAvatar" class="w-24 h-24 rounded-full mx-auto border-4 border-white -mt-12 shadow-md" src="/images/placeholder.jpg" alt="User Avatar">
+            <h3 id="profileName" class="text-xl font-medium mt-2"></h3>
+            <p id="profileEmail" class="text-sm text-gray-500"></p>
+            <p id="profileBio" class="mt-2 text-gray-600"></p>
+            <p id="profileCredits" class="mt-2 text-gray-800 font-bold"></p>
+            <p id="profileListings" class="text-gray-600"></p>
+            <p id="profileWins" class="text-gray-600"></p>
+        </div>
+
+        <!-- Update Profile Form -->
+        <form id="updateProfileForm" class="mt-6 space-y-4 p-4 border rounded-lg shadow-md bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-700">Update Profile</h3>
+
+            <label class="block">
+                <span class="text-gray-700">Bio:</span>
+                <textarea id="bioInput" class="w-full p-2 border rounded mt-1"></textarea>
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Avatar URL:</span>
+                <input type="text" id="avatarInput" class="w-full p-2 border rounded mt-1" placeholder="Enter avatar image URL">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Banner URL:</span>
+                <input type="text" id="bannerInput" class="w-full p-2 border rounded mt-1" placeholder="Enter banner image URL">
+            </label>
+
+            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">
+                Update Profile
+            </button>
+
+            <p id="updateMessage" class="text-center mt-4 text-green-600"></p>
+        </form>
+    </div>
+
+    <script type="module" src="/src/js/router/views/profile.js"></script>
+</body>
 </html>

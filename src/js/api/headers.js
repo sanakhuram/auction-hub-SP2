@@ -1,6 +1,7 @@
-import { API_KEY } from './constants.js';
-import { getToken } from '../utilities/token.js';
+//src/js/api/header.js
 
+import { API_KEY } from './constants.js';
+import { getToken } from '../token.js';
 /**
  * Generates headers for API requests, including Content-Type, Authorization, and X-Noroff-API-Key.
  * @param {boolean} hasBody - Indicates if the request has a body (for setting Content-Type).

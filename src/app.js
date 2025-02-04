@@ -2,7 +2,7 @@
 
 import './css/style.css';
 import router from './js/router';
-import { initializeApp } from './js/setupEvents'; // ✅ Carousel now handled in setupEvents.js
+import { initializeApp } from './js/setupEvents.js';
 
 async function init() {
   await router(window.location.pathname);
@@ -10,3 +10,4 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
