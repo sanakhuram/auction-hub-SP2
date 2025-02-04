@@ -3,9 +3,10 @@
 
 import { displaySingleListing } from '../../ui/listing/details.js';
 
-// Ensure the listing page loads the correct item when the DOM is ready
+// Load the correct listing when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   displaySingleListing();
 });
+
 
 

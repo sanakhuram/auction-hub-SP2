@@ -44,13 +44,13 @@ export async function getListings(categoryFilter = '') {
 }
 
 /**
- * Fetches a single listing by its ID.
+ * Fetches a single listing by its ID, including seller details.
  * @param {string} listingId - The ID of the listing to fetch.
  * @returns {Promise<Object>} - The listing data.
  */
 export async function getListingById(listingId) {
   try {
-    const apiUrl = `${API_AUCTION_LISTINGS}/${listingId}`;
+    const apiUrl = `${API_AUCTION_LISTINGS}/${listingId}?_seller=true&_bids=true`;
     console.log(`🔵 Fetching single listing: ${apiUrl}`);
 
     const response = await fetch(apiUrl);
@@ -63,3 +63,4 @@ export async function getListingById(listingId) {
     return null;
   }
 }
+
