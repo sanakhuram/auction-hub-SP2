@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ✅ Update UI with Profile Data
     document.getElementById('profileAvatar').src =
-      profile.avatar?.url || 'https://via.placeholder.com/150';
+      profile.avatar?.url || '/images/placeholder.jpg';
     document.getElementById('profileBanner').src =
-      profile.banner?.url || 'https://via.placeholder.com/800x200';
+      profile.banner?.url || '/images/banner.jpg';
     document.getElementById('profileName').textContent =
       profile.name || 'No name';
     document.getElementById('profileEmail').textContent =
