@@ -45,11 +45,14 @@ export function initializeCarousel() {
 
   categories.forEach((category) => {
     category.addEventListener('click', () => {
-      const selectedCategory = category.querySelector('img').alt;
+      const selectedCategory =
+        category.getAttribute('data-tag') || category.innerText.trim();
       console.log(`🟢 Category Selected: ${selectedCategory}`);
-      displayListings(selectedCategory);
+
+      // 🔥 Call sorting function when a category is clicked
+    displayListings(selectedCategory);
     });
   });
 
-  updateCarousel(); // Initial update
+  updateCarousel();
 }
