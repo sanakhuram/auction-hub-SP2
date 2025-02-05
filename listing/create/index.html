@@ -51,8 +51,15 @@
     </div>
   </div>
 </nav>
-<section class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-6">
-    <h1 class="text-3xl font-bold text-center">Create a New Listing</h1>
+<!-- 🔥 Banner Section (Image at the Top) -->
+<div class="w-full mt-5">
+    <img src="/images/banner.jpg" alt="Auction Hub Banner" class="w-full h-auto">
+</div>
+
+<h1 class="text-3xl text-center mt-10 mb-11 bg-olive p-5">Create Your Bid</h1>
+
+<section class="container mx-auto p-6 bg-primary shadow-lg rounded-lg m-10">
+    
     <form id="createListingForm" class="mt-6 space-y-4">
         <label class="block font-semibold">Title:</label>
         <input type="text" id="listingTitleForm" class="w-full p-2 border rounded-lg" required />
@@ -97,7 +104,7 @@
         <label class="block font-semibold">End Date:</label>
         <input type="datetime-local" id="endsAt" class="w-full p-2 border rounded-lg" required />
 
-        <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded mt-4 hover:bg-green-700 transition">Create Listing</button>
+        <button type="submit" class="w-full bg-btn-alt-gradient text-dark px-4 py-2 rounded-md mt-4 border border-black">Create Listing</button>
     </form>
 </section>
 

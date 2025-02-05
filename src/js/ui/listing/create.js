@@ -64,24 +64,46 @@ export async function onCreateListing(event) {
   const imageAlt = document.getElementById('imageAltText')?.value.trim();
   const endsAt = document.getElementById('endsAt')?.value;
 
-  // Get checked tags
+  // ✅ Define allowed tags (adjust these based on what the API accepts)
+  const allowedTags = [
+    'art',
+    'vintage',
+    'watches',
+    'games',
+    'interior',
+    'jewelry',
+    'books',
+    'toys',
+    'vintage'
+  ];
+
+  // ✅ Get checked tags, convert to lowercase, and filter out invalid ones
   const tagElements = document.querySelectorAll("input[name='tags']:checked");
-  const tags = Array.from(tagElements).map((tag) => tag.value);
+  let tags = Array.from(tagElements)
+    .map((tag) => tag.value.toLowerCase())
+    .filter((tag) => allowedTags.includes(tag)); // Remove invalid tags
+
+   if (tags.length === 0) {
+    tags = undefined;
+  }
 
   if (!title || !endsAt) {
     alert('Title and End Date are required!');
     return;
   }
 
-  // Format media correctly
+  // ✅ Fix `endsAt` to ensure correct ISO 8601 format
+  const formattedEndsAt = new Date(endsAt).toISOString();
+
+  // ✅ Ensure `media` is correctly structured
   const media = imageUrl ? [{ url: imageUrl, alt: imageAlt || title }] : [];
 
   const listingData = {
     title,
-     description , // 
-    tags,
+    description,
+    tags, // ✅ Now properly formatted and validated
     media,
-    endsAt,
+    endsAt: formattedEndsAt, // ✅ Proper ISO format
   };
 
   console.log(
