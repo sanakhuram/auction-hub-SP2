@@ -6,8 +6,9 @@ import { onRegister } from './ui/auth/register.js';
 import { initializeCarousel } from './ui/carousel.js';
 import { fetchProfile } from './api/profile/read.js';
 import { onUpdateProfile } from './ui/profile/update.js';
-import { authGuard } from './utilities/authGuard.js'; // ✅ Protect profile page
+import { authGuard } from './utilities/authGuard.js';
 import { loadUserProfile } from './api/auth.js';
+import { onCreateListing } from './ui/listing/create.js';
 
 /**
  * Utility function to safely attach event listeners.
@@ -24,6 +25,7 @@ function attachEventListener(selector, event, handler) {
  */
 export function initializeApp() {
   try {
+    attachEventListener('#createListingForm', 'submit', onCreateListing);
     const currentPath = window.location.pathname;
     console.log(`🔹 Current Page: ${currentPath}`);
 
@@ -35,8 +37,7 @@ export function initializeApp() {
       displaySingleListing();
     } else if (currentPath.includes('/profile/')) {
       console.log('👤 Profile Page Detected - Fetching Profile...');
-
-      authGuard(); // ✅ Protect profile pages
+      authGuard();
 
       const username = localStorage.getItem('username');
       if (username) {
@@ -44,35 +45,48 @@ export function initializeApp() {
           .then((profileData) => {
             if (!profileData) return;
 
-            // ✅ Safely select and update elements
-            const nameEl = document.getElementById('profileName');
-            const emailEl = document.getElementById('profileEmail');
-            const bioEl = document.getElementById('profileBio');
-            const avatarEl = document.getElementById('profileAvatar');
-            const bannerEl = document.getElementById('profileBanner');
-            const creditsEl = document.getElementById('profileCredits');
-            const listingsEl = document.getElementById('profileListings');
-            const winsEl = document.getElementById('profileWins');
+            // ✅ Fix: Ensure elements exist before assignment
+            const profileNameEl = document.getElementById('profileName');
+            if (profileNameEl)
+              profileNameEl.textContent = profileData.name || 'Unknown User';
 
-            if (nameEl) nameEl.textContent = profileData.name || 'Unknown User';
-            if (emailEl)
-              emailEl.textContent = profileData.email || 'No Email Provided';
-            if (bioEl)
-              bioEl.textContent = profileData.bio || 'No bio available';
-            if (avatarEl)
-              avatarEl.src =
+            const profileEmailEl = document.getElementById('profileEmail');
+            if (profileEmailEl)
+              profileEmailEl.textContent =
+                profileData.email || 'No Email Provided';
+
+            const profileBioEl = document.getElementById('profileBio');
+            if (profileBioEl)
+              profileBioEl.textContent = profileData.bio || 'No bio available';
+
+            const profileAvatarEl = document.getElementById('profileAvatar');
+            if (profileAvatarEl)
+              profileAvatarEl.src =
                 profileData.avatar?.url || '/images/default-avatar.png';
-            if (bannerEl)
-              bannerEl.src =
+
+            const profileBannerEl = document.getElementById('profileBanner');
+            if (profileBannerEl)
+              profileBannerEl.src =
                 profileData.banner?.url || '/images/default-banner.jpg';
-            if (creditsEl)
-              creditsEl.textContent = `Credits: ${profileData.credits || 0}`;
-            if (listingsEl)
-              listingsEl.textContent = `Listings: ${
+
+            const profileCreditsEl = document.getElementById('profileCredits');
+            if (profileCreditsEl)
+              profileCreditsEl.textContent = `Credits: ${
+                profileData.credits || 0
+              }`;
+
+            const profileListingsEl =
+              document.getElementById('profileListings');
+            if (profileListingsEl)
+              profileListingsEl.textContent = `Listings: ${
                 profileData._count?.listings || 0
               }`;
-            if (winsEl)
-              winsEl.textContent = `Wins: ${profileData._count?.wins || 0}`;
+
+            const profileWinsEl = document.getElementById('profileWins');
+            if (profileWinsEl)
+              profileWinsEl.textContent = `Wins: ${
+                profileData._count?.wins || 0
+              }`;
 
             console.log('✅ Profile Data Loaded Successfully:', profileData);
           })
@@ -107,20 +121,21 @@ export function initializeApp() {
 // ✅ Ensure event listeners are set when the DOM loads
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
-  loadUserProfile(); // ✅ Load user profile to show avatar & logout button
+  loadUserProfile();
 });
 
-// ✅ Fix the Footer Subscribe Button Event Listener
-document
-  .getElementById('subscribe-btn')
-  ?.addEventListener('click', function () {
+// ✅ Fix: Ensure subscribe button exists before adding an event listener
+const subscribeBtn = document.getElementById('subscribe-btn');
+if (subscribeBtn) {
+  subscribeBtn.addEventListener('click', function () {
     var emailInput = document.getElementById('email-input');
     var message = document.getElementById('subscribe-message');
 
-    if (emailInput.value.trim() !== '') {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(emailInput.value.trim())) {
       message.classList.remove('hidden');
       message.textContent = 'Thank you for subscribing!';
-
       setTimeout(() => {
         message.classList.add('hidden');
         emailInput.value = '';
@@ -130,3 +145,4 @@ document
       message.textContent = 'Please enter a valid email.';
     }
   });
+}

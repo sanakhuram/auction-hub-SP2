@@ -19,26 +19,25 @@ export async function displayListings(categoryFilter = '') {
   try {
     const listings = await getListings(categoryFilter);
 
+    console.log('✅ API Response:', listings); // 🔍 Debug log
+
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
-        '<p class="text-red-500 font-semibold text-lg">No listings found for this category.</p>';
+        '<p class="text-red-500 font-semibold text-lg">No listings found.</p>';
       return;
     }
-
-    console.log(`✅ Listings received:`, listings);
 
     // Sort listings by newest and soonest ending
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
-      .slice(0, 8); // ✅ Show only 8 newest listings
+      .slice(0, 8);
 
     const endingSoonListings = [...listings]
       .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
-      .slice(0, 8); // ✅ Show only 8 listings ending soon
+      .slice(0, 8);
 
-    const allListings = listings.slice(0, 12); // ✅ Show 12 listings in the grid
+    const allListings = listings.slice(0, 12);
 
-    // Render Listings
     listingsContainer.innerHTML = `
       <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 w-full">Newest Listings</h2>
       <div class="flex justify-center">
@@ -65,6 +64,7 @@ export async function displayListings(categoryFilter = '') {
       '<p class="text-red-500 font-semibold text-lg ">Error loading listings.</p>';
   }
 }
+
 
 function renderListings(listings, colorClass) {
   return listings

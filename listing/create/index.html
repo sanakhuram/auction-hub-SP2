@@ -1,16 +1,141 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create| Auction Hub</title>
     <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-    <h1>Create Post</h1>
+    <link rel="stylesheet" href="/src/css/style.css">
+     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+ <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lily+Script+One&family=Istok+Web:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background text-gray-900 font-body">
+<nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img src="/images/logodark.png" alt="Auction Hub Logo" class="h-12">
+    </div>
 
-    <form name="createPost">
-      <button>Create Post</button>
+    <!-- Mobile Navigation -->
+    <div class="md:hidden flex-1 flex justify-center space-x-6">
+      <a href="/" class="text-white"><i class="fas fa-home text-2xl"></i></a>
+      <a href="/profile/" class="text-white"><i class="fas fa-user text-2xl"></i></a>
+      <a href="/auth/login/" class="text-white" id="mobile-login"><i class="fas fa-sign-in-alt text-2xl"></i></a>
+      <a href="#" class="text-white hidden" id="mobile-logout"><i class="fas fa-sign-out-alt text-2xl"></i></a>
+    </div>
+
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex space-x-6 text-lg mx-auto">
+      <li><a href="/" class="hover:text-background transition">Home</a></li>
+      <li><a href="/profile/" class="hover:text-background transition">My Profile</a></li>
+      <li><a href="/auth/login/" id="loginLink" class="hover:text-background transition">Login</a></li>
+      <li>
+        <button id="logoutBtn" class="bg-btn-gradient text-white px-4 py-2 rounded-lg hover:bg-red-700 transition hidden">
+          Logout
+        </button>
+      </li>
+    </ul>
+
+    <!-- Desktop User Profile -->
+    <div id="user-profile-desktop" class="hidden md:flex items-center space-x-3">
+      <a href="/profile/">
+        <img id="user-avatar-desktop" src="/images/default-avatar.png" alt="User Avatar" class="h-10 w-10 rounded-full">
+      </a>
+    </div>
+  </div>
+</nav>
+<section class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-6">
+    <h1 class="text-3xl font-bold text-center">Create a New Listing</h1>
+    <form id="createListingForm" class="mt-6 space-y-4">
+        <label class="block font-semibold">Title:</label>
+        <input type="text" id="listingTitleForm" class="w-full p-2 border rounded-lg" required />
+
+        <label class="block font-semibold">Description:</label>
+        <textarea id="listingContentForm" class="w-full p-2 border rounded-lg" required></textarea>
+
+        <label class="block font-semibold">Image URL:</label>
+        <input type="text" id="imageURL" class="w-full p-2 border rounded-lg" required />
+
+        <label class="block font-semibold">Image Alt Text:</label>
+        <input type="text" id="imageAltText" class="w-full p-2 border rounded-lg" required />
+
+        <label class="block font-semibold">Select Tags:</label>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="art" class="form-checkbox text-primary"> <span>Art</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="vintage" class="form-checkbox text-primary"> <span>Vintage</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="toys" class="form-checkbox text-primary"> <span>Toys</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="watches" class="form-checkbox text-primary"> <span>Watches</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="games" class="form-checkbox text-primary"> <span>Games</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="interior" class="form-checkbox text-primary"> <span>Interior</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="jewelry" class="form-checkbox text-primary"> <span>Jewelry</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="books" class="form-checkbox text-primary"> <span>Books</span>
+            </label>
+        </div>
+
+        <label class="block font-semibold">End Date:</label>
+        <input type="datetime-local" id="endsAt" class="w-full p-2 border rounded-lg" required />
+
+        <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded mt-4 hover:bg-green-700 transition">Create Listing</button>
     </form>
-  </body>
+</section>
+
+<!-- Subscribe Section -->
+<section class="bg-[#7F9C94] text-white py-10">
+    <div class="container mx-auto text-center">
+        <h3 class="text-2xl font-bold font-secondary">SUBSCRIBE</h3>
+        
+        <div class="mt-4 flex flex-col items-center">
+            <input id="email-input" type="email" placeholder="Your email" class="mt-2 p-3 w-full sm:w-1/3 rounded-lg border shadow-md text-gray-900">
+            <button id="subscribe-btn" class="mt-2 px-6 py-2 border border-white text-white rounded-lg hover:bg-white hover:text-primary transition">
+                Submit
+            </button>
+            <p id="subscribe-message" class="text-green-300 mt-2 hidden">Thank you for subscribing!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-background text-gray-900 text-center p-6">
+    <!-- Social Icons -->
+    <div class="flex justify-center space-x-6 mt-4">
+        <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
+        <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
+        <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="mt-4">
+        <a href="/" class="px-2 hover:text-gray-600">Home</a> |
+        <a href="/profile/" class="px-2 hover:text-gray-600">Profile</a> |
+        <a href="/subscribe/" class="px-2 hover:text-gray-600">Subscribe</a>
+    </div>
+</footer>
+
+<!-- Copyright Section -->
+<div class="text-center text-sm mt-5 mb-5">
+    <p>&copy; 2025 All rights reserved Auction Hub.</p>
+</div>
+</body>
 </html>
