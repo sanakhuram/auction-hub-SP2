@@ -1,3 +1,6 @@
+
+//src/app.js
+
 import './css/style.css';
 import router from './js/router/index.js';
 import { initializeApp } from './js/setupEvents.js';
