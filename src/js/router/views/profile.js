@@ -1,7 +1,9 @@
+//src/js/router/views/profile.js
+
 import { authGuard } from '../../utilities/authGuard';
 import { fetchProfile } from '../../api/profile/read';
 import { onUpdateProfile } from '../../ui/profile/update.js';
-
+import { displayUserListings } from '../../ui/listing/profileListing.js';
 // ✅ Protect Route
 authGuard();
 
@@ -61,3 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 document
   .getElementById('updateProfileForm')
   ?.addEventListener('submit', onUpdateProfile);
+  
+
+displayUserListings();
