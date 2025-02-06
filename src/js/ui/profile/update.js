@@ -111,7 +111,7 @@ function displayListings(listings) {
       'border',
       'rounded-lg',
       'shadow-sm',
-      'bg-gray-100'
+      'bg-olive'
     );
 
     listingElement.innerHTML = `

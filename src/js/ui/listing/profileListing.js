@@ -40,12 +40,14 @@ export async function displayUserListings() {
 
 function createListingCard(listing) {
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-olive relative">
-      <img src="${getValidImage(listing.media)}"
-        alt="${listing.media?.[0]?.alt || listing.title}"
-        class="w-full h-40 object-cover rounded-md"
-        onerror="this.src='/images/placeholder.jpg';" />
-      <h3 class="text-lg mt-2">${listing.title}</h3>
+    <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full">
+      <a href="/listing/${listing.id}" class="block">
+        <img src="${getValidImage(listing.media)}"
+          alt="${listing.media?.[0]?.alt || listing.title}"
+          class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105"
+          onerror="this.src='/images/placeholder.jpg';" />
+      </a>
+      <h3 class="text-lg mt-2 font-semibold">${listing.title}</h3>
       <p class="text-gray-700">Current Bid: <strong>${
         listing.bidCount || 'N/A'
       } Credits</strong></p>
@@ -54,7 +56,7 @@ function createListingCard(listing) {
       ).toLocaleDateString()}</p>
 
       <a href="/listing/edit/?id=${listing.id}" 
-        class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
+        class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 transition hover:bg-blue-700">
         ✏️ Edit
       </a>
 
@@ -65,6 +67,7 @@ function createListingCard(listing) {
     </div>
   `;
 }
+
 
 async function deleteListingHandler(listingId) {
   const confirmDelete = confirm(
