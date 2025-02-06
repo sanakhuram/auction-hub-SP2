@@ -54,7 +54,7 @@ export async function displayListings(categoryFilter = '') {
       </div>
 
       <h2 class="text-black text-center text-xl p-5 mt-8 mb-6 bg-olive w-full">All Listings</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-secondary rounded-lg m-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-secondary rounded-lg m-10">
         ${renderListings(allListings, 'bg-olive border-orange-500')}
       </div>
     `;
