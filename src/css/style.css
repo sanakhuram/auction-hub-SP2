@@ -17,3 +17,17 @@
 .custom-border {
   border: 20px solid #D58F51;
 }
+.hover-effect {
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+/* First hover effect using btn-gradient */
+.hover-gradient-1:hover {
+  @apply scale-110;
+  background: linear-gradient(90deg, #A9AC81 0%, #D56651 100%);
+}
+
+/* Second hover effect using btn-alt-gradient */
+.hover-gradient-2:hover {
+  @apply scale-110;
+  background: linear-gradient(90deg, #84A8A4 0%, #F0E2C7 50.5%, #344240 100%);
+}

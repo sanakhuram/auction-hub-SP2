@@ -52,12 +52,60 @@
     </div>
   </div>
 </nav>
+<div class="w-full mt-5">
+    <img src="/images/banner-edit.png" alt="Auction Hub Banner" class="w-full h-auto">
+</div>
 
-    <h1>Edit Post</h1>
+<h1 class="text-3xl text-center mt-10 mb-11 bg-olive p-5">Edit Bid</h1>
+<section class="container mx-auto p-6 bg-sepia shadow-lg rounded-lg m-10 max-w-[1000px] w-full">
+    <form id="editListingForm" class="mt-6 space-y-4">
+        <label class="block font-semibold">Title:</label>
+        <input type="text" id="listingTitleForm" class="w-full p-2 border rounded-lg" required />
 
-    <form name="editPost">
-      <button>Edit Post</button>
+        <label class="block font-semibold">Description:</label>
+        <textarea id="listingContentForm" class="w-full p-2 border rounded-lg" required></textarea>
+
+        <label class="block font-semibold">Image URL:</label>
+        <input type="text" id="imageURL" class="w-full p-2 border rounded-lg" required />
+
+        <label class="block font-semibold">Image Alt Text:</label>
+        <input type="text" id="imageAltText" class="w-full p-2 border rounded-lg" required />
+
+        <label class="block font-semibold">Select Tags:</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="art" class="form-checkbox text-primary"> <span>Art</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="vintage" class="form-checkbox text-primary"> <span>Vintage</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="toys" class="form-checkbox text-primary"> <span>Toys</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="watches" class="form-checkbox text-primary"> <span>Watches</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="games" class="form-checkbox text-primary"> <span>Games</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="interior" class="form-checkbox text-primary"> <span>Interior</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="jewelry" class="form-checkbox text-primary"> <span>Jewelry</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" name="tags" value="books" class="form-checkbox text-primary"> <span>Books</span>
+            </label>
+        </div>
+
+        <label class="block font-semibold">End Date:</label>
+        <input type="datetime-local" id="endsAt" class="w-full p-2 border rounded-lg" required />
+
+        <button type="submit" class="w-full bg-btn-gradient text-dark px-4 py-2 rounded-md mt-4 border border-black">Update</button>
     </form>
+</section>
+
   <!-- Subscribe Section -->
 <section class="bg-[#7F9C94] text-white py-10">
     <div class="container mx-auto text-center">

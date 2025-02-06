@@ -21,9 +21,16 @@ module.exports = {
         secondary: ['Istok Web', 'sans-serif'],
       },
       backgroundImage: {
-        'btn-gradient': 'linear-gradient(90deg, #A9AC81 0%, #D56651 100%)', 
+        'btn-gradient': 'linear-gradient(90deg, #A9AC81 0%, #D56651 100%)',
         'btn-alt-gradient':
-          'linear-gradient(90deg, #84A8A4 0%, #F0E2C7 50.5%, #344240 100%)', 
+          'linear-gradient(90deg, #84A8A4 0%, #F0E2C7 50.5%, #344240 100%)',
+      },
+      transitionProperty: {
+        transform: 'transform',
+        background: 'background',
+      },
+      scale: {
+        110: '1.1',
       },
     },
   },
