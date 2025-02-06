@@ -1,3 +1,5 @@
+//src/js/ui/profile/read.js
+
 import { authGuard } from '../../utilities/authGuard.js';
 import { fetchProfile } from '../../api/profile/read.js';
 

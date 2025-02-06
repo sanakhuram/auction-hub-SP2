@@ -1,3 +1,5 @@
+//src/js/api/profile/read.js
+
 import { API_AUCTION_PROFILES } from '../constants.js';
 import { headers } from '../headers.js';
 import { getAuthToken } from '../utils.js';

@@ -85,8 +85,8 @@ function renderListings(listings, colorClass) {
           listing.endsAt
         ).toLocaleDateString()}</p>
         <a href="/listing/?id=${listing.id}" 
-          class="inline-block bg-sepia text-white px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition">
-          View Listing
+          class="inline-block bg-btn-gradient text-dark px-4 py-2 mt-3 rounded-lg hover:bg-blue-700 transition border border-body">
+          Place Bid
         </a>
       </div>
     `

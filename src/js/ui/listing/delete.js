@@ -1,1 +1,3 @@
-export async function onDeletePost(event) {}
+//src/js/ui/listing/delete.js
+
+
