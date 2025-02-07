@@ -56,11 +56,13 @@
 
 
 <div class="relative w-full">
+
     <img id="profileBanner" class="w-full h-48 object-cover rounded-lg" src="/images/banner.png" alt="Profile Banner">
     
         <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-12">
         <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-white shadow-md bg-gray-200" src="/images/placeholder.jpg" alt="User Avatar">
     </div>
+    <i id="editProfileIcon" class="fas fa-pencil-alt text-white bg-gray-700 p-2 rounded-full absolute top-4 right-4 cursor-pointer shadow-md hover:bg-gray-500 transition"></i>
 </div>
 <div class="flex justify-between w-full mt-10 mb-10">
     <!-- Left Side -->
@@ -77,35 +79,43 @@
         <p id="profileWins" class="text-gray-600">Wins: 0</p>
     </div>
 </div>
+
+
 <div class="flex justify-center items-center ">
-<a id="create-listing" href="/listing/create/" class="bg-btn-gradient textblack px-6 py-3 rounded-lg">➕ Create a Bid</a>
+<a id="create-listing" href="/listing/create/" class="bg-btn-gradient textblack px-6 py-3 rounded-lg">➕ Create a Listing</a>
 </div>     
-          <form id="updateProfileForm" class="m-6 space-y-4 p-4 border rounded-lg shadow-md bg-muted">
-            <h3 class="text-lg font-secondary text-gray-700 text-center p-10">Update Profile</h3>
 
-            <label class="block">
-                <span class="text-gray-700">Bio:</span>
-                <textarea id="bioInput" class="w-full p-2 border rounded mt-1"></textarea>
-            </label>
+<div id="profileFormContainer" class="hidden">
+    <form id="updateProfileForm" class="m-6 space-y-4 p-4 border rounded-lg shadow-md bg-muted">
+        <h3 class="text-lg font-secondary text-gray-700 text-center p-10">Update Profile</h3>
 
-            <label class="block">
-                <span class="text-gray-700">Avatar URL:</span>
-                <input type="text" id="avatarInput" class="w-full p-2 border rounded mt-1" placeholder="Enter avatar image URL">
-            </label>
+        <label class="block">
+            <span class="text-gray-700">Bio:</span>
+            <textarea id="bioInput" class="w-full p-2 border rounded mt-1"></textarea>
+        </label>
 
-            <label class="block">
-                <span class="text-gray-700">Banner URL:</span>
-                <input type="text" id="bannerInput" class="w-full p-2 border rounded mt-1" placeholder="Enter banner image URL">
-            </label>
+        <label class="block">
+            <span class="text-gray-700">Avatar URL:</span>
+            <input type="text" id="avatarInput" class="w-full p-2 border rounded mt-1" placeholder="Enter avatar image URL">
+        </label>
 
-            <button type="submit" class="w-full bg-btn-gradient text-white p-2 rounded-lg ">
-                Update Profile
-            </button>
+        <label class="block">
+            <span class="text-gray-700">Banner URL:</span>
+            <input type="text" id="bannerInput" class="w-full p-2 border rounded mt-1" placeholder="Enter banner image URL">
+        </label>
 
-            <p id="updateMessage" class="text-center mt-4 text-dark"></p>
-        </form>
+        <button type="submit" class="w-full bg-btn-gradient text-white p-2 rounded-lg">
+            Update Profile
+        </button>
+
+        <p id="updateMessage" class="text-center mt-4 text-dark"></p>
+    </form>
+</div>
+
+</div>
+
     </div>
-<h2 class="text-2xl text-center mt-10 bg-olive p-5">My Bids</h2>
+<h2 class="text-2xl text-center mt-10 bg-olive p-5">My Listings</h2>
 <div class="mt-10 p-5 border rounded-lg shadow-md bg-secondary mb-10">
 <div id="myListings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
 </div>
