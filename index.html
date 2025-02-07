@@ -133,7 +133,20 @@
     </div>
   </div>
 </section>
-
+    <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-3 p-4">
+  <input 
+    type="text" 
+    id="search-input" 
+    placeholder="Search listings..." 
+    class="p-2 border rounded-lg w-full sm:w-1/3 text-gray-900 shadow-md"
+  />
+  <button 
+    id="search-btn" 
+    class="px-4 py-2 bg-btn-gradient text-white rounded-lg "
+  >
+    Search
+  </button>
+</div>
   <div id="listings-container" >
     <h2 class="text-2xl text-center  text-dark mb-4">Newest Listings</h2>
     <div id="newest-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
@@ -142,8 +155,14 @@
     <div id="ending-soon-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
 
     <h2 class="text-2xlfont-bold text-center text-orange-600 mt-6 mb-4">View All Listings</h2>
+
+
+
     <div id="all-listings" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
   </div>
+<div id="pagination-controls" class="flex flex-wrap justify-center items-center space-x-2 m-6 p-4 sm:space-x-4 sm:p-6">
+</div>
+
 
 <!-- Subscribe Section -->
 <section class="bg-primary text-white py-10">
