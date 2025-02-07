@@ -160,3 +160,15 @@ if (subscribeBtn) {
     }
   });
 }
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.location.pathname.includes('/profile/')) {
+    const editIcon = document.getElementById('editProfileIcon');
+    const profileForm = document.getElementById('profileFormContainer');
+
+    if (editIcon && profileForm) {
+      editIcon.addEventListener('click', function () {
+        profileForm.classList.toggle('hidden'); // Show/Hide the form
+      });
+    }
+  }
+});
