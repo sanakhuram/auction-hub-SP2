@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('✅ Profile Data Loaded Successfully:', profile);
     const userData = profile.data;
 
-    // ✅ Update UI with Profile Data
-    document.getElementById('profileAvatar').src =
+      document.getElementById('profileAvatar').src =
       userData.avatar?.url || '/images/placeholder.jpg';
     document.getElementById('profileBanner').src =
       userData.banner?.url || '/images/banner.png';
@@ -66,7 +65,7 @@ function displayListings(listings) {
 
   console.log('📌 Listings received for rendering:', listings);
 
-  myListingsContainer.innerHTML = ''; // Clear previous content
+  myListingsContainer.innerHTML = ''; 
 
   if (!Array.isArray(listings) || listings.length === 0) {
     myListingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available</p>`;

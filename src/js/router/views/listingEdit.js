@@ -1,4 +1,4 @@
-import { authGuard } from '../../utilities/authGuard.js';
+
 import { getListingById } from '../../api/listing/read.js';
 import {
   populateEditListingForm,
@@ -6,7 +6,7 @@ import {
 } from '../../ui/listing/update.js';
 
 export async function initializeEditPage() {
-  authGuard();
+ 
 
   const editListingForm = document.getElementById('editListingForm');
   if (!editListingForm) {

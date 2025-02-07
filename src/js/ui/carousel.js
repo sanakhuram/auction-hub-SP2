@@ -39,7 +39,7 @@ export function initializeCarousel() {
       clearInterval(autoScroll); // Stop auto-scroll on manual navigation
       currentIndex = i;
       updateCarousel();
-      autoScroll = setInterval(nextSlide, 4000); // Restart auto-scroll
+      autoScroll = setInterval(nextSlide, 6000); // Restart auto-scroll
     });
   });
 

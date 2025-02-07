@@ -41,7 +41,7 @@ export async function displayUserListings() {
 function createListingCard(listing) {
   return `
     <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full">
-      <a href="/listing/${listing.id}" class="block">
+      <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
           class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105"
