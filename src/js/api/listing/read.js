@@ -1,16 +1,20 @@
 import { API_AUCTION_LISTINGS } from '../constants.js';
 
 /**
- * Fetches listings from the API, optionally filtering by category.
- * @param {string} [categoryFilter] - The category to filter by (optional).
+ * Fetches listings from the API, supporting search and category filtering.
+ * @param {string} categoryFilter - The category to filter by (optional).
+ * @param {string} searchQuery - The search query for filtering (optional).
  * @returns {Promise<Array>} - The fetched listings.
  */
-export async function getListings(categoryFilter = '') {
+export async function getListings(categoryFilter = '', searchQuery = '') {
   try {
     let apiUrl = `${API_AUCTION_LISTINGS}?sort=created&sortOrder=desc&_active=true`;
 
-    // ✅ Correct category filtering using `_tag`
-    if (categoryFilter) {
+    if (searchQuery) {
+      apiUrl = `${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(
+        searchQuery
+      )}`;
+    } else if (categoryFilter) {
       apiUrl += `&_tag=${encodeURIComponent(categoryFilter)}`;
     }
 
@@ -23,14 +27,14 @@ export async function getListings(categoryFilter = '') {
 
     const data = await response.json();
 
-    // ✅ Ensure we extract the listings array from `data`
+    // ✅ Extract listings properly
     const listings = data.data || [];
 
     return listings.map((listing) => ({
       id: listing.id,
       title: listing.title,
       description: listing.description || '',
-      category: listing.tags?.[0] || 'Other', // ✅ Get the first tag as category
+      category: listing.tags?.[0] || 'Other', // ✅ Get first tag as category
       media: listing.media || [],
       created: listing.created,
       endsAt: listing.endsAt,
@@ -63,4 +67,5 @@ export async function getListingById(listingId) {
     return null;
   }
 }
+
 
