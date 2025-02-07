@@ -31,3 +31,24 @@
   @apply scale-110;
   background: linear-gradient(90deg, #84A8A4 0%, #F0E2C7 50.5%, #344240 100%);
 }
+
+/* Custom Scrollbar */
+@layer utilities {
+  ::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted rounded-lg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #f7320b, #bfc751);
+    @apply rounded-lg;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #D58F51, #1b4742);
+  }
+}

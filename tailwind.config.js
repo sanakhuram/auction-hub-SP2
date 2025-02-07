@@ -28,9 +28,19 @@ module.exports = {
       transitionProperty: {
         transform: 'transform',
         background: 'background',
+        opacity: 'opacity',
       },
       scale: {
         110: '1.1',
+        120: '1.2',
+      },
+      borderRadius: {
+        xl: '1.5rem',
+        '2xl': '2rem',
+      },
+      boxShadow: {
+        soft: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        strong: '0 10px 20px rgba(0, 0, 0, 0.3)',
       },
     },
   },

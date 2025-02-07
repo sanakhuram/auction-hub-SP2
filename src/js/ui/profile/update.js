@@ -30,10 +30,9 @@ export async function onUpdateProfile(event) {
   }
 
   try {
-    // ✅ Send update request
     const updatedProfile = await updateProfile(username, updateData);
 
-    // ✅ Update all UI elements
+    // ✅ Update UI elements only if data exists
     if (updatedProfile.bio)
       document.getElementById('profileBio').textContent = updatedProfile.bio;
     if (updatedProfile.avatar?.url)
@@ -41,32 +40,31 @@ export async function onUpdateProfile(event) {
     if (updatedProfile.banner?.url)
       document.getElementById('profileBanner').src = updatedProfile.banner.url;
 
-    if (updatedProfile.credits !== undefined)
+    if (updatedProfile.credits !== undefined) {
       document.getElementById(
         'profileCredits'
       ).textContent = `Credits: ${updatedProfile.credits}`;
-    if (updatedProfile.bids !== undefined)
+    }
+    if (updatedProfile.bids !== undefined) {
       document.getElementById(
         'profileBids'
       ).textContent = `Bids: ${updatedProfile.bids.length}`;
-    if (updatedProfile.wins !== undefined)
+    }
+    if (updatedProfile.wins !== undefined) {
       document.getElementById(
         'profileWins'
       ).textContent = `Wins: ${updatedProfile.wins.length}`;
-
-    console.log('✅ Profile Updated Successfully:', updatedProfile);
+    }
 
     document.getElementById('updateMessage').textContent =
       '✅ Profile updated successfully!';
 
-    // ✅ Fetch and Refresh Listings after Update
-    console.log('🔄 Fetching Updated Listings...');
+    // ✅ Fetch and refresh listings after profile update
     const latestProfile = await fetchProfile(username);
-    if (latestProfile && latestProfile.listings) {
+    if (latestProfile?.listings) {
       displayListings(latestProfile.listings);
     }
   } catch (error) {
-    console.error('❌ Error updating profile:', error);
     alert('Failed to update profile. Please check your input values.');
   }
 }
@@ -77,17 +75,9 @@ export async function onUpdateProfile(event) {
  */
 function displayListings(listings) {
   const myListingsContainer = document.getElementById('myListings');
-
-  if (!myListingsContainer) {
-    console.error(
-      "❌ Error: Could not find 'myListings' container in the DOM."
-    );
-    return;
-  }
+  if (!myListingsContainer) return;
 
   myListingsContainer.innerHTML = ''; // Clear previous content
-
-  console.log('📌 Listings received:', listings);
 
   if (!Array.isArray(listings) || listings.length === 0) {
     myListingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available</p>`;
@@ -95,8 +85,6 @@ function displayListings(listings) {
   }
 
   listings.forEach((listing) => {
-    console.log('🖼 Rendering Listing:', listing);
-
     const title = listing.title || 'Untitled';
     const description = listing.description || 'No description available';
     const imageUrl = listing.media?.[0]?.url || '/images/placeholder.jpg';

@@ -1,22 +1,16 @@
 import { displayListings } from './listing/display';
 
 export function initializeCarousel() {
-  console.log('✅ Initializing category carousel...');
-
   const carousel = document.getElementById('category-carousel');
   const dots = document.querySelectorAll('.dot');
   const categories = document.querySelectorAll('.category-item');
 
-  if (!carousel || categories.length === 0) {
-    console.error('❌ Carousel elements not found!');
-    return;
-  }
+  if (!carousel || categories.length === 0) return;
 
   let currentIndex = 0;
   const totalItems = categories.length;
 
   function updateCarousel() {
-    console.log(`🔄 Moving to index: ${currentIndex}`);
     carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
 
     dots.forEach((dot, i) => {
@@ -30,16 +24,14 @@ export function initializeCarousel() {
     updateCarousel();
   }
 
-  // Auto-scroll every 4 seconds
   let autoScroll = setInterval(nextSlide, 4000);
 
-  // Click event for dots
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
-      clearInterval(autoScroll); // Stop auto-scroll on manual navigation
+      clearInterval(autoScroll);
       currentIndex = i;
       updateCarousel();
-      autoScroll = setInterval(nextSlide, 6000); // Restart auto-scroll
+      autoScroll = setInterval(nextSlide, 6000);
     });
   });
 
@@ -47,10 +39,7 @@ export function initializeCarousel() {
     category.addEventListener('click', () => {
       const selectedCategory =
         category.getAttribute('data-tag') || category.innerText.trim();
-      console.log(`🟢 Category Selected: ${selectedCategory}`);
-
-      // 🔥 Call sorting function when a category is clicked
-    displayListings(selectedCategory);
+      displayListings(selectedCategory);
     });
   });
 

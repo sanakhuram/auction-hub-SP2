@@ -18,31 +18,25 @@ export async function getListings(categoryFilter = '', searchQuery = '') {
       apiUrl += `&_tag=${encodeURIComponent(categoryFilter)}`;
     }
 
-    console.log('🟡 Fetching listings from API:', apiUrl);
-
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`❌ API Error: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`API Error: ${response.status}`);
 
     const data = await response.json();
-
-    // ✅ Extract listings properly
     const listings = data.data || [];
 
     return listings.map((listing) => ({
       id: listing.id,
       title: listing.title,
       description: listing.description || '',
-      category: listing.tags?.[0] || 'Other', // ✅ Get first tag as category
+      category: listing.tags?.[0] || 'Other',
       media: listing.media || [],
       created: listing.created,
       endsAt: listing.endsAt,
-      bidCount: listing._count?.bids || 0, // ✅ Extract bid count
+      bidCount: listing._count?.bids || 0,
       seller: listing.seller?.name || 'Unknown Seller',
     }));
   } catch (error) {
-    console.error('❌ Failed to fetch listings:', error);
+    console.error('Failed to fetch listings:', error);
     return [];
   }
 }
@@ -55,17 +49,14 @@ export async function getListings(categoryFilter = '', searchQuery = '') {
 export async function getListingById(listingId) {
   try {
     const apiUrl = `${API_AUCTION_LISTINGS}/${listingId}?_seller=true&_bids=true`;
-    console.log(`🔵 Fetching single listing: ${apiUrl}`);
-
     const response = await fetch(apiUrl);
+
     if (!response.ok)
-      throw new Error(`❌ Failed to fetch listing ID ${listingId}`);
+      throw new Error(`Failed to fetch listing ID ${listingId}`);
 
     return await response.json();
   } catch (error) {
-    console.error(`❌ Error fetching listing ID ${listingId}:`, error);
+    console.error(`Error fetching listing ID ${listingId}:`, error);
     return null;
   }
 }
-
-

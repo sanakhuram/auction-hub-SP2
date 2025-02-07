@@ -5,39 +5,20 @@ import {
 } from '../../utilities/pagination';
 import { getCurrentSearchQuery } from '../../utilities/search';
 
-/**
- * Fetches and displays listings, supporting pagination, search, and category filtering.
- * @param {string} categoryFilter - The category to filter by.
- * @param {string} searchQuery - The search query for filtering.
- * @param {number} currentPage - The current page number.
- */
 export async function displayListings(
   categoryFilter = '',
   searchQuery = '',
   currentPage = 1
 ) {
-  console.log(
-    `🔵 Fetching listings... Category: ${categoryFilter || 'All'}, Search: ${
-      searchQuery || 'None'
-    }, Page: ${currentPage}`
-  );
-
   const listingsContainer = document.querySelector('#listings-container');
-  if (!listingsContainer) {
-    console.error('❌ #listings-container NOT FOUND in DOM!');
-    return;
-  }
+  if (!listingsContainer) return;
 
   listingsContainer.innerHTML =
     '<p class="text-purple-600 font-semibold text-lg">Loading listings...</p>';
 
   try {
-    if (!searchQuery) {
-      searchQuery = getCurrentSearchQuery(); // ✅ Keeps search results when paginating
-    }
-
+    if (!searchQuery) searchQuery = getCurrentSearchQuery();
     const listings = await getListings(categoryFilter, searchQuery);
-    console.log('✅ API Response:', listings);
 
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
@@ -50,11 +31,11 @@ export async function displayListings(
       listings,
       currentPage
     );
+
     // Sort listings by newest and soonest ending
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
       .slice(0, 8);
-
     const endingSoonListings = [...listings]
       .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
       .slice(0, 8);
@@ -75,29 +56,20 @@ export async function displayListings(
       </div>
 
       <h2 class="text-black text-center text-xl p-5 mt-8 mb-6 bg-olive w-full">All Listings</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-secondary rounded-lg m-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-secondary rounded-lg m-10">
         ${renderListings(paginatedItems, 'bg-olive border-orange-500')}
       </div>
     `;
 
-  
-    // Render pagination controls
     renderPaginationControls(totalPages, currentPage, (newPage) => {
-      displayListings(categoryFilter, searchQuery, newPage); // Pass searchQuery properly
+      displayListings(categoryFilter, searchQuery, newPage);
     });
   } catch (error) {
-    console.error('❌ Error fetching listings:', error);
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
   }
 }
 
-/**
- * Renders listing items in the UI.
- * @param {Array} listings - List of listings to render.
- * @param {string} colorClass - Additional styling classes.
- * @returns {string} - HTML for the listings.
- */
 function renderListings(listings, colorClass) {
   return listings
     .map(
@@ -125,9 +97,6 @@ function renderListings(listings, colorClass) {
     .join('');
 }
 
-/**
- * Ensures the listing has a valid image or provides a placeholder.
- */
 function getValidImage(media) {
   return Array.isArray(media) && media.length > 0 && media[0]?.url
     ? media[0].url

@@ -1,4 +1,3 @@
-//src/js/api/profile/update.js
 import { API_AUCTION_PROFILES } from '../constants.js';
 import { headers } from '../headers.js';
 import { getAuthToken, isValidUrl } from '../utils.js';
@@ -23,8 +22,6 @@ export async function updateProfile(username, data) {
     throw new Error('Invalid Banner URL. Please enter a valid image URL.');
   }
 
-  console.log('🔹 Sending API Request:', JSON.stringify(data));
-
   try {
     const response = await fetch(`${API_AUCTION_PROFILES}/${username}`, {
       method: 'PUT',
@@ -33,23 +30,16 @@ export async function updateProfile(username, data) {
     });
 
     const responseData = await response.json();
-
     if (!response.ok) {
-      console.error('❌ API Update Failed:', responseData);
       throw new Error(
-        `Failed to update profile: ${
-          responseData.errors
-            ? responseData.errors[0].message
-            : response.statusText
-        }`
+        responseData.errors
+          ? responseData.errors[0].message
+          : response.statusText
       );
     }
 
     return responseData.data; // ✅ Return updated profile data
   } catch (error) {
-    console.error('❌ Error updating profile via API:', error);
-    throw error;
+    throw new Error('Error updating profile. Please try again.');
   }
 }
-
-
