@@ -17,7 +17,6 @@ export function setupDarkModeToggle() {
   )
     return;
 
-  // Function to switch logos based on mode
   function updateLogo(isDarkMode) {
     if (isDarkMode) {
       logoLight.classList.add('hidden');
@@ -28,7 +27,6 @@ export function setupDarkModeToggle() {
     }
   }
 
-  // Function to apply dark mode
   function enableDarkMode() {
     html.classList.add('dark');
     localStorage.setItem('theme', 'dark');
@@ -37,7 +35,6 @@ export function setupDarkModeToggle() {
     updateLogo(true);
   }
 
-  // Function to disable dark mode
   function enableLightMode() {
     html.classList.remove('dark');
     localStorage.setItem('theme', 'light');
@@ -46,7 +43,6 @@ export function setupDarkModeToggle() {
     updateLogo(false);
   }
 
-  // Check stored theme or system preference
   const savedTheme = localStorage.getItem('theme');
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme: dark)'
@@ -58,7 +54,6 @@ export function setupDarkModeToggle() {
     enableLightMode();
   }
 
-  // Event listeners for both toggles
   [themeToggleMobile, themeToggleDesktop].forEach((toggle) => {
     toggle.addEventListener('click', () => {
       if (html.classList.contains('dark')) {
@@ -69,7 +64,6 @@ export function setupDarkModeToggle() {
     });
   });
 
-  // Update theme if system preference changes dynamically
   window
     .matchMedia('(prefers-color-scheme: dark)')
     .addEventListener('change', (e) => {

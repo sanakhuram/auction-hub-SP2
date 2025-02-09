@@ -66,6 +66,7 @@ export async function onCreateListing(event) {
     'jewelry',
     'books',
     'collectibles',
+    'cars',
     'toys',
   ];
 

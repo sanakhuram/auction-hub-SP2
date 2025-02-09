@@ -5,16 +5,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#84A8A4', // green
-        secondary: '#D56651', // orange
-        accent: '#968CAC', // lilac dark
-        background: '#F0E2C7', // beige
-        light: '#F5F5F2', // whitish
-        dark: '#000000', // black
-        muted: '#B2A3D2', // lilac
-        grayish: '#B7B7B7', // grey
-        sepia: '#D58F51', // light orange
-        olive: '#A9AC81', // olive
+        primary: '#84A8A4', // ✅ Green
+        secondary: '#D56651', // ✅ Orange
+        accent: '#968CAC', // ✅ Lilac dark
+        background: '#F0E2C7', // ✅ Beige
+        light: '#F5F5F2', // ✅ Whitish
+        dark: '#000000', // ✅ Black
+        muted: '#B2A3D2', // ✅ Lilac
+        grayish: '#B7B7B7', // ✅ Grey
+        sepia: '#D58F51', // ✅ Light Orange
+        olive: '#A9AC81', // ✅ Olive
       },
       fontFamily: {
         body: ['Roboto', 'sans-serif'],
@@ -47,6 +47,8 @@ module.exports = {
         accent: '0 4px 6px rgba(150, 140, 172, 0.5)', // ✅ Lilac shadow
         dark: '0 4px 6px rgba(0, 0, 0, 0.6)', // ✅ Black shadow for dark mode
         whiteGlow: '0 4px 6px rgba(255, 255, 255, 0.8)', // ✅ White glow shadow
+        neonBlue: '0 0 15px rgba(0, 195, 255, 0.8)', // ✅ Neon Blue Glow
+        insetDark: 'inset 0 4px 6px rgba(0, 0, 0, 0.6)', // ✅ Inset Dark Shadow
       },
     },
   },
