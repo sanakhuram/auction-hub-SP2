@@ -43,7 +43,7 @@ export function renderPaginationControls(
 
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.innerHTML += `
-      <button class="px-4 py-2 border rounded-lg ${
+      <button class="px-4 py-2 border rounded-lg shadow-dark mt-3 ${
         i === currentPage ? 'bg-accent text-white' : 'bg-muted'
       } hover:bg-olive" data-page="${i}">
         ${i}
@@ -52,7 +52,7 @@ export function renderPaginationControls(
   }
 
   if (currentPage < totalPages) {
-    paginationContainer.innerHTML += `<button class="px-4 py-2 border rounded-lg bg-muted hover:bg-accent" data-page="${
+    paginationContainer.innerHTML += `<button class="px-4 py-2 border rounded-lg bg-muted hover:bg-accent mt-3" data-page="${
       currentPage + 1
     }">Next</button>`;
   }

@@ -14,22 +14,22 @@
     @apply font-secondary;
   }
 }
+
+/* Custom Borders */
 .custom-border {
-  border: 20px solid #D58F51;
+  border: 8px solid #D58F51;
 }
+
+/* Smooth Transition Effects */
 .hover-effect {
   transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
 }
-/* First hover effect using btn-gradient */
-.hover-gradient-1:hover {
-  @apply scale-110;
-  background: linear-gradient(90deg, #A9AC81 0%, #D56651 100%);
-}
 
-/* Second hover effect using btn-alt-gradient */
-.hover-gradient-2:hover {
-  @apply scale-110;
-  background: linear-gradient(90deg, #84A8A4 0%, #F0E2C7 50.5%, #344240 100%);
+/* Logout Button Hover Effect */
+#logoutBtn:hover {
+  @apply scale-110 brightness-125 shadow-lg;
+  background: linear-gradient(90deg, #D56651, #A9AC81);
+  transition: background 0.4s ease-in-out, transform 0.3s ease-in-out;
 }
 
 /* Custom Scrollbar */
@@ -38,7 +38,7 @@
     height: 8px;
     width: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-muted rounded-lg;
   }
@@ -51,4 +51,37 @@
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(45deg, #D58F51, #1b4742);
   }
+}
+
+@layer components {
+  /* Reusable Button Style */
+  .btn-animated {
+    @apply px-6 py-3 text-white font-bold rounded-lg transition-all duration-500 ease-in-out transform hover:scale-110;
+    background-size: 200% auto;
+    animation: gradientAnimation 6s linear infinite;
+  }
+
+  .btn-gradient-1 {
+    background-image: linear-gradient(90deg, #A9AC81, #D56651, #F0E2C7, #344240);
+  }
+
+  .btn-gradient-2 {
+    background-image: linear-gradient(90deg, #84A8A4, #F0E2C7, #D56651, #A9AC81);
+  }
+
+  .btn-animated:hover {
+    background-position: right center;
+    transition: background 0.5s ease-in-out, filter 0.2s ease-in-out;
+    filter: brightness(1.1);
+  }
+}
+
+/* Keyframe animation for gradient movement */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.active-nav {
+  @apply text-secondary font-bold border-b-2 border-secondary;
 }

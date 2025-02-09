@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./**/*.{html,js,ts}', '!./node_modules/**/*'],
   darkMode: 'class',
@@ -41,6 +42,11 @@ module.exports = {
       boxShadow: {
         soft: '0 4px 6px rgba(0, 0, 0, 0.1)',
         strong: '0 10px 20px rgba(0, 0, 0, 0.3)',
+        primary: '0 4px 6px rgba(132, 168, 164, 0.5)', // ✅ Green shadow
+        secondary: '0 4px 6px rgba(213, 102, 81, 0.5)', // ✅ Orange shadow
+        accent: '0 4px 6px rgba(150, 140, 172, 0.5)', // ✅ Lilac shadow
+        dark: '0 4px 6px rgba(0, 0, 0, 0.6)', // ✅ Black shadow for dark mode
+        whiteGlow: '0 4px 6px rgba(255, 255, 255, 0.8)', // ✅ White glow shadow
       },
     },
   },
