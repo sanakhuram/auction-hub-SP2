@@ -26,13 +26,11 @@ export async function displayListings(
       return;
     }
 
-    // Apply pagination
     const { paginatedItems, totalPages } = paginateListings(
       listings,
       currentPage
     );
 
-    // Sort listings by newest and soonest ending
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
       .slice(0, 8);

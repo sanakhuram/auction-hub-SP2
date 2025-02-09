@@ -1,8 +1,5 @@
 import { fetchProfile } from './profile/read';
 
-/**
- * Logs out the user by clearing session data and updating UI.
- */
 export function logout() {
   // Remove user session data
   localStorage.removeItem('username');
@@ -55,9 +52,7 @@ export function updateUserInfo(updatedData) {
   if (updatedData.token) localStorage.setItem('token', updatedData.token);
 }
 
-/**
- * Loads user profile information and updates UI elements accordingly.
- */
+
 export async function loadUserProfile() {
   const username = localStorage.getItem('username');
   const authToken = localStorage.getItem('token');
@@ -76,7 +71,6 @@ export async function loadUserProfile() {
     const profileData = await fetchProfile(username);
     if (!profileData) throw new Error('No profile data received.');
 
-    // Show profile and logout button, hide login
     document.getElementById('user-profile-desktop')?.classList.remove('hidden');
     document.getElementById('user-profile-mobile')?.classList.remove('hidden');
     document.getElementById('logoutBtn')?.classList.remove('hidden');
@@ -84,7 +78,6 @@ export async function loadUserProfile() {
     document.getElementById('mobile-login')?.classList.add('hidden');
     document.getElementById('loginLink')?.classList.add('hidden');
 
-    // Update avatar images
     const avatarUrl = profileData.avatar?.url || '/images/default-avatar.png';
     document
       .getElementById('user-avatar-desktop')
@@ -93,7 +86,6 @@ export async function loadUserProfile() {
       .getElementById('user-avatar-mobile')
       ?.setAttribute('src', avatarUrl);
 
-    // Make avatars clickable to profile
     document
       .getElementById('user-avatar-desktop')
       ?.parentElement?.setAttribute('href', '/profile/');
@@ -104,3 +96,13 @@ export async function loadUserProfile() {
     console.error('Error loading user profile:', error);
   }
 }
+document.addEventListener('DOMContentLoaded', function () {
+  const mobileLogout = document.getElementById('mobile-logout');
+
+  if (mobileLogout) {
+    mobileLogout.addEventListener('click', function (event) {
+      event.preventDefault();
+      logout(); 
+    });
+  }
+});

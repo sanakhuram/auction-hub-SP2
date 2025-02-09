@@ -8,11 +8,9 @@ export async function displaySingleListing() {
   const listingContainer = document.getElementById('listing-details');
 
   if (!listingContainer) {
-    console.error('❌ #listing-details container NOT FOUND in DOM!');
-    return;
+    return; // Just exit without logging anything
   }
 
-  // Get listing ID from URL parameters
   const params = new URLSearchParams(window.location.search);
   const listingId = params.get('id');
 
@@ -23,11 +21,9 @@ export async function displaySingleListing() {
   }
 
   try {
-    console.log(`🔍 Fetching listing with ID: ${listingId}`);
     const listingResponse = await getListingById(listingId);
 
     if (!listingResponse || !listingResponse.data) {
-      console.error('❌ No listing data found.');
       listingContainer.innerHTML =
         "<p class='text-red-500 text-center'>Listing not found.</p>";
       return;
@@ -35,20 +31,17 @@ export async function displaySingleListing() {
 
     const listing = listingResponse.data;
 
-    console.log('✅ Listing details fetched:', listing);
-
-    // Generate HTML
     listingContainer.innerHTML = `
-      <h1 class="text-2xl text-center bg-accent w-full p-4 mb-20 text-gray-800">${
-        listing.title
-      }</h1>
+      <h1 class="text-2xl text-center bg-accent w-full p-4 mb-20 text-gray-800">
+        ${listing.title}
+      </h1>
       <img src="${getValidImage(listing.media)}" 
         alt="${listing.media?.[0]?.alt || listing.title}"
         class="w-full max-w-lg object-cover rounded-md mt-4 mx-auto m-10 custom-border"
         onerror="this.src='/images/placeholder.jpg';"
       />
           
-      <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-lg  bg-secondary">
+      <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-lg bg-secondary">
         <img src="${
           listing.seller?.avatar?.url || '/images/default-avatar.png'
         }" 
@@ -56,28 +49,26 @@ export async function displaySingleListing() {
           class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300"
         />
         <div>
-          <p class="text-gray-700 font-semibold text-lg text-center p-5 ">${
-            listing.seller?.name || 'Unknown Seller'
-          }</p>
-          <p class="text-black text-sm text-center">${
-            listing.seller?.bio || 'No bio available.'
-          }</p>
+          <p class="text-gray-700 font-semibold text-lg text-center p-5 ">
+            ${listing.seller?.name || 'Unknown Seller'}
+          </p>
+          <p class="text-black text-sm text-center">
+            ${listing.seller?.bio || 'No bio available.'}
+          </p>
         </div>
-        <h2 class="text-xl  mt-6 text-center">Description</h2>
-      <p class="text-black mt-2 text-center bg-secondary p-5 m-10">${
-        listing.description || 'No description available.'
-      }</p>
+        <h2 class="text-xl mt-6 text-center">Description</h2>
+        <p class="text-black mt-2 text-center bg-secondary p-5 m-10">
+          ${listing.description || 'No description available.'}
+        </p>
       </div>
       <div class="mt-4">
-        <p class="text-gray-700 text-center m-5"><strong>Current Bids:</strong> ${
-          listing._count?.bids || 0
-        }</p>
-        <p class="text-gray-500 text-center m-5"><strong>Ends in:</strong> ${formatTimeLeft(
-          listing.endsAt
-        )}</p>
+        <p class="text-gray-700 text-center m-5"><strong>Current Bids:</strong> 
+          ${listing._count?.bids || 0}
+        </p>
+        <p class="text-gray-500 text-center m-5"><strong>Ends in:</strong> 
+          ${formatTimeLeft(listing.endsAt)}
+        </p>
       </div>
-
-
 
       <div class="mt-6">
         <h2 class="text-xl text-center m-5">Bid Now</h2>
@@ -92,7 +83,6 @@ export async function displaySingleListing() {
       </div>
     `;
 
-    // Add event listener for placing a bid
     document
       .getElementById('bidForm')
       .addEventListener('submit', async (event) => {
@@ -112,26 +102,29 @@ export async function displaySingleListing() {
           document.getElementById('bidMessage').textContent =
             'Bid placed successfully!';
           setTimeout(() => {
-            location.reload(); // Refresh page to show updated bid count
+            location.reload();
           }, 2000);
         }
       });
   } catch (error) {
-    console.error('❌ Error fetching listing:', error);
     listingContainer.innerHTML =
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";
   }
 }
 
 /**
- * Ensures the listing has a valid image or provides a placeholder.
+ * Returns a valid image URL or a placeholder if no media exists.
+ * @param {Array} media - Listing media array
+ * @returns {string} - Image URL
  */
 function getValidImage(media) {
   return media?.[0]?.url || '/images/placeholder.jpg';
 }
 
 /**
- * Formats the remaining time until the listing ends.
+ * Formats the remaining time for the auction.
+ * @param {string} endDate - The auction end date
+ * @returns {string} - Formatted time left
  */
 function formatTimeLeft(endDate) {
   const now = new Date();
@@ -143,3 +136,14 @@ function formatTimeLeft(endDate) {
   const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
   return `${days}d ${hours}h ${minutes}m`;
 }
+
+/**
+ * Runs displaySingleListing only if #listing-details exists.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  const listingContainer = document.getElementById('listing-details');
+
+  if (listingContainer) {
+    displaySingleListing();
+  }
+});

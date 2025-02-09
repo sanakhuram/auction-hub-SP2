@@ -47,7 +47,7 @@ function createListingCard(listing) {
           class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105"
           onerror="this.src='/images/placeholder.jpg';" />
       </a>
-      <h3 class="text-lg mt-2 font-semibold">${listing.title}</h3>
+      <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
       <p class="text-gray-700">Current Bid: <strong>${
         listing.bidCount || 'N/A'
       } Credits</strong></p>

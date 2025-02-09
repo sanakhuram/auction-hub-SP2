@@ -1,10 +1,7 @@
 import { displayListings } from '../ui/listing/display.js';
 
-let currentSearchQuery = ''; // ✅ Store the search query globally
+let currentSearchQuery = ''; 
 
-/**
- * Initializes the search functionality by updating listings dynamically.
- */
 export function initializeSearch() {
   const searchInput = document.getElementById('search-input');
   const searchBtn = document.getElementById('search-btn');
@@ -15,23 +12,19 @@ export function initializeSearch() {
   }
 
   searchBtn.addEventListener('click', () => {
-    currentSearchQuery = searchInput.value.trim(); // ✅ Store query globally
-    displayListings('', currentSearchQuery, 1); // ✅ Always reset to page 1 when searching
+    currentSearchQuery = searchInput.value.trim();
+    displayListings('', currentSearchQuery, 1); 
   });
 
-  // Enable search on "Enter" keypress
   searchInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Prevent form submission if inside a form
+      event.preventDefault(); 
       currentSearchQuery = searchInput.value.trim();
       displayListings('', currentSearchQuery, 1);
     }
   });
 }
 
-/**
- * Returns the stored search query to ensure pagination keeps search results.
- */
 export function getCurrentSearchQuery() {
   return currentSearchQuery;
 }
