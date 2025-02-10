@@ -1,5 +1,5 @@
-import { updateProfile } from '../../api/profile/update.js';
-import { fetchProfile } from '../../api/profile/read.js';
+import { updateProfile } from "../../api/profile/update.js";
+import { fetchProfile } from "../../api/profile/read.js";
 
 /**
  * Handles updating the profile UI when the user submits the form.
@@ -8,24 +8,24 @@ import { fetchProfile } from '../../api/profile/read.js';
 export async function onUpdateProfile(event) {
   if (event) event.preventDefault();
 
-  const username = localStorage.getItem('username');
+  const username = localStorage.getItem("username");
   if (!username) {
-    alert('No username found. Redirecting to login...');
-    window.location.href = '/auth/login/';
+    alert("No username found. Redirecting to login...");
+    window.location.href = "/auth/login/";
     return;
   }
 
-  const bio = document.getElementById('bioInput')?.value.trim();
-  const avatarUrl = document.getElementById('avatarInput')?.value.trim();
-  const bannerUrl = document.getElementById('bannerInput')?.value.trim();
+  const bio = document.getElementById("bioInput")?.value.trim();
+  const avatarUrl = document.getElementById("avatarInput")?.value.trim();
+  const bannerUrl = document.getElementById("bannerInput")?.value.trim();
 
   const updateData = {};
   if (bio) updateData.bio = bio;
-  if (avatarUrl) updateData.avatar = { url: avatarUrl, alt: 'User Avatar' };
-  if (bannerUrl) updateData.banner = { url: bannerUrl, alt: 'User Banner' };
+  if (avatarUrl) updateData.avatar = { url: avatarUrl, alt: "User Avatar" };
+  if (bannerUrl) updateData.banner = { url: bannerUrl, alt: "User Banner" };
 
   if (Object.keys(updateData).length === 0) {
-    alert('Please update at least one field.');
+    alert("Please update at least one field.");
     return;
   }
 
@@ -34,30 +34,27 @@ export async function onUpdateProfile(event) {
 
     // ✅ Update UI elements only if data exists
     if (updatedProfile.bio)
-      document.getElementById('profileBio').textContent = updatedProfile.bio;
+      document.getElementById("profileBio").textContent = updatedProfile.bio;
     if (updatedProfile.avatar?.url)
-      document.getElementById('profileAvatar').src = updatedProfile.avatar.url;
+      document.getElementById("profileAvatar").src = updatedProfile.avatar.url;
     if (updatedProfile.banner?.url)
-      document.getElementById('profileBanner').src = updatedProfile.banner.url;
+      document.getElementById("profileBanner").src = updatedProfile.banner.url;
 
     if (updatedProfile.credits !== undefined) {
-      document.getElementById(
-        'profileCredits'
-      ).textContent = `Credits: ${updatedProfile.credits}`;
+      document.getElementById("profileCredits").textContent =
+        `Credits: ${updatedProfile.credits}`;
     }
     if (updatedProfile.bids !== undefined) {
-      document.getElementById(
-        'profileBids'
-      ).textContent = `Bids: ${updatedProfile.bids.length}`;
+      document.getElementById("profileBids").textContent =
+        `Bids: ${updatedProfile.bids.length}`;
     }
     if (updatedProfile.wins !== undefined) {
-      document.getElementById(
-        'profileWins'
-      ).textContent = `Wins: ${updatedProfile.wins.length}`;
+      document.getElementById("profileWins").textContent =
+        `Wins: ${updatedProfile.wins.length}`;
     }
 
-    document.getElementById('updateMessage').textContent =
-      '✅ Profile updated successfully!';
+    document.getElementById("updateMessage").textContent =
+      "✅ Profile updated successfully!";
 
     // ✅ Fetch and refresh listings after profile update
     const latestProfile = await fetchProfile(username);
@@ -65,7 +62,7 @@ export async function onUpdateProfile(event) {
       displayListings(latestProfile.listings);
     }
   } catch (error) {
-    alert('Failed to update profile. Please check your input values.');
+    alert("Failed to update profile. Please check your input values.");
   }
 }
 
@@ -74,10 +71,10 @@ export async function onUpdateProfile(event) {
  * @param {Array} listings - Array of listing objects.
  */
 function displayListings(listings) {
-  const myListingsContainer = document.getElementById('myListings');
+  const myListingsContainer = document.getElementById("myListings");
   if (!myListingsContainer) return;
 
-  myListingsContainer.innerHTML = ''; // Clear previous content
+  myListingsContainer.innerHTML = ""; // Clear previous content
 
   if (!Array.isArray(listings) || listings.length === 0) {
     myListingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available</p>`;
@@ -85,21 +82,21 @@ function displayListings(listings) {
   }
 
   listings.forEach((listing) => {
-    const title = listing.title || 'Untitled';
-    const description = listing.description || 'No description available';
-    const imageUrl = listing.media?.[0]?.url || '/images/placeholder.jpg';
-    const altText = listing.media?.[0]?.alt || 'No image available';
+    const title = listing.title || "Untitled";
+    const description = listing.description || "No description available";
+    const imageUrl = listing.media?.[0]?.url || "/images/placeholder.jpg";
+    const altText = listing.media?.[0]?.alt || "No image available";
     const endsAt = listing.endsAt
       ? new Date(listing.endsAt).toLocaleString()
-      : 'N/A';
+      : "N/A";
 
-    const listingElement = document.createElement('div');
+    const listingElement = document.createElement("div");
     listingElement.classList.add(
-      'p-4',
-      'border',
-      'rounded-lg',
-      'shadow-sm',
-      'bg-olive'
+      "p-4",
+      "border",
+      "rounded-lg",
+      "shadow-sm",
+      "bg-olive",
     );
 
     listingElement.innerHTML = `

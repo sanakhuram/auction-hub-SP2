@@ -1,15 +1,15 @@
-import { getListingById } from '../../api/listing/read.js';
-import { placeBid } from '../../api/listing/bid.js';
+import { getListingById } from "../../api/listing/read.js";
+import { placeBid } from "../../api/listing/bid.js";
 
 export async function displaySingleListing() {
-  const listingContainer = document.getElementById('listing-details');
+  const listingContainer = document.getElementById("listing-details");
 
   if (!listingContainer) {
-    return; 
+    return;
   }
 
   const params = new URLSearchParams(window.location.search);
-  const listingId = params.get('id');
+  const listingId = params.get("id");
 
   if (!listingId) {
     listingContainer.innerHTML =
@@ -40,22 +40,22 @@ export async function displaySingleListing() {
           
       <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-accent bg-secondary">
         <img src="${
-          listing.seller?.avatar?.url || '/images/default-avatar.png'
+          listing.seller?.avatar?.url || "/images/default-avatar.png"
         }" 
           alt="Seller Avatar"
           class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300"
         />
         <div>
           <p class="text-gray-700 font-semibold text-lg text-center p-5 ">
-            ${listing.seller?.name || 'Unknown Seller'}
+            ${listing.seller?.name || "Unknown Seller"}
           </p>
           <p class="text-black text-sm text-center">
-            ${listing.seller?.bio || 'No bio available.'}
+            ${listing.seller?.bio || "No bio available."}
           </p>
         </div>
         <h2 class="text-xl mt-6 text-center">Description</h2>
         <p class="text-black mt-2 text-center bg-secondary p-5 m-10">
-          ${listing.description || 'No description available.'}
+          ${listing.description || "No description available."}
         </p>
       </div>
       <div class="mt-4">
@@ -81,23 +81,23 @@ export async function displaySingleListing() {
     `;
 
     document
-      .getElementById('bidForm')
-      .addEventListener('submit', async (event) => {
+      .getElementById("bidForm")
+      .addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const bidAmount = parseFloat(
-          document.getElementById('bidAmount').value
+          document.getElementById("bidAmount").value,
         );
         if (!bidAmount || bidAmount <= 0) {
-          alert('Please enter a valid bid amount.');
+          alert("Please enter a valid bid amount.");
           return;
         }
 
         const bidResponse = await placeBid(listingId, bidAmount);
         if (bidResponse) {
-          document.getElementById('bidMessage').classList.remove('hidden');
-          document.getElementById('bidMessage').textContent =
-            'Bid placed successfully!';
+          document.getElementById("bidMessage").classList.remove("hidden");
+          document.getElementById("bidMessage").textContent =
+            "Bid placed successfully!";
           setTimeout(() => {
             location.reload();
           }, 2000);
@@ -115,7 +115,7 @@ export async function displaySingleListing() {
  * @returns {string} - Image URL
  */
 function getValidImage(media) {
-  return media?.[0]?.url || '/images/placeholder.jpg';
+  return media?.[0]?.url || "/images/placeholder.jpg";
 }
 
 /**
@@ -127,7 +127,7 @@ function formatTimeLeft(endDate) {
   const now = new Date();
   const end = new Date(endDate);
   const timeLeft = end - now;
-  if (timeLeft <= 0) return 'Auction ended';
+  if (timeLeft <= 0) return "Auction ended";
   const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
   const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
@@ -137,12 +137,10 @@ function formatTimeLeft(endDate) {
 /**
  * Runs displaySingleListing only if #listing-details exists.
  */
-document.addEventListener('DOMContentLoaded', function () {
-  const listingContainer = document.getElementById('listing-details');
+document.addEventListener("DOMContentLoaded", function () {
+  const listingContainer = document.getElementById("listing-details");
 
   if (listingContainer) {
     displaySingleListing();
   }
 });
-
-

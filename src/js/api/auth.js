@@ -1,28 +1,28 @@
-import { fetchProfile } from './profile/read';
+import { fetchProfile } from "./profile/read";
 
 export function logout() {
   // Remove user session data
-  localStorage.removeItem('username');
-  localStorage.removeItem('token');
-  localStorage.removeItem('accessToken');
+  localStorage.removeItem("username");
+  localStorage.removeItem("token");
+  localStorage.removeItem("accessToken");
   sessionStorage.clear();
 
   // Update UI elements
-  document.getElementById('logoutBtn')?.classList.add('hidden');
-  document.getElementById('loginBtn')?.classList.remove('hidden');
-  document.getElementById('user-profile-desktop')?.classList.add('hidden');
-  document.getElementById('user-profile-mobile')?.classList.add('hidden');
+  document.getElementById("logoutBtn")?.classList.add("hidden");
+  document.getElementById("loginBtn")?.classList.remove("hidden");
+  document.getElementById("user-profile-desktop")?.classList.add("hidden");
+  document.getElementById("user-profile-mobile")?.classList.add("hidden");
   document
-    .getElementById('user-avatar-desktop')
-    ?.setAttribute('src', '/images/default-avatar.png');
+    .getElementById("user-avatar-desktop")
+    ?.setAttribute("src", "/images/default-avatar.png");
   document
-    .getElementById('user-avatar-mobile')
-    ?.setAttribute('src', '/images/default-avatar.png');
-  document.getElementById('mobile-logout')?.classList.add('hidden');
-  document.getElementById('mobile-login')?.classList.remove('hidden');
+    .getElementById("user-avatar-mobile")
+    ?.setAttribute("src", "/images/default-avatar.png");
+  document.getElementById("mobile-logout")?.classList.add("hidden");
+  document.getElementById("mobile-login")?.classList.remove("hidden");
 
-  alert('You have been logged out.');
-  setTimeout(() => (window.location.href = '/auth/login/'), 500);
+  alert("You have been logged out.");
+  setTimeout(() => (window.location.href = "/auth/login/"), 500);
 }
 
 /**
@@ -30,8 +30,8 @@ export function logout() {
  * @returns {Object|null} An object containing username and token, or null if no user is logged in.
  */
 export function getLoggedInUser() {
-  const username = localStorage.getItem('username');
-  const token = localStorage.getItem('token');
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
   return username && token ? { username, token } : null;
 }
 
@@ -40,7 +40,7 @@ export function getLoggedInUser() {
  * @returns {boolean} True if the user is logged in, otherwise false.
  */
 export function isUserLoggedIn() {
-  return !!localStorage.getItem('token');
+  return !!localStorage.getItem("token");
 }
 
 /**
@@ -48,61 +48,60 @@ export function isUserLoggedIn() {
  * @param {Object} updatedData - An object containing the updated user information.
  */
 export function updateUserInfo(updatedData) {
-  if (updatedData.name) localStorage.setItem('username', updatedData.name);
-  if (updatedData.token) localStorage.setItem('token', updatedData.token);
+  if (updatedData.name) localStorage.setItem("username", updatedData.name);
+  if (updatedData.token) localStorage.setItem("token", updatedData.token);
 }
 
-
 export async function loadUserProfile() {
-  const username = localStorage.getItem('username');
-  const authToken = localStorage.getItem('token');
+  const username = localStorage.getItem("username");
+  const authToken = localStorage.getItem("token");
 
   if (!username || !authToken) {
-    document.getElementById('loginLink')?.classList.remove('hidden');
-    document.getElementById('logoutBtn')?.classList.add('hidden');
-    document.getElementById('user-profile-desktop')?.classList.add('hidden');
-    document.getElementById('user-profile-mobile')?.classList.add('hidden');
-    document.getElementById('mobile-logout')?.classList.add('hidden');
-    document.getElementById('mobile-login')?.classList.remove('hidden');
+    document.getElementById("loginLink")?.classList.remove("hidden");
+    document.getElementById("logoutBtn")?.classList.add("hidden");
+    document.getElementById("user-profile-desktop")?.classList.add("hidden");
+    document.getElementById("user-profile-mobile")?.classList.add("hidden");
+    document.getElementById("mobile-logout")?.classList.add("hidden");
+    document.getElementById("mobile-login")?.classList.remove("hidden");
     return;
   }
 
   try {
     const profileData = await fetchProfile(username);
-    if (!profileData) throw new Error('No profile data received.');
+    if (!profileData) throw new Error("No profile data received.");
 
-    document.getElementById('user-profile-desktop')?.classList.remove('hidden');
-    document.getElementById('user-profile-mobile')?.classList.remove('hidden');
-    document.getElementById('logoutBtn')?.classList.remove('hidden');
-    document.getElementById('mobile-logout')?.classList.remove('hidden');
-    document.getElementById('mobile-login')?.classList.add('hidden');
-    document.getElementById('loginLink')?.classList.add('hidden');
+    document.getElementById("user-profile-desktop")?.classList.remove("hidden");
+    document.getElementById("user-profile-mobile")?.classList.remove("hidden");
+    document.getElementById("logoutBtn")?.classList.remove("hidden");
+    document.getElementById("mobile-logout")?.classList.remove("hidden");
+    document.getElementById("mobile-login")?.classList.add("hidden");
+    document.getElementById("loginLink")?.classList.add("hidden");
 
-    const avatarUrl = profileData.avatar?.url || '/images/default-avatar.png';
+    const avatarUrl = profileData.avatar?.url || "/images/default-avatar.png";
     document
-      .getElementById('user-avatar-desktop')
-      ?.setAttribute('src', avatarUrl);
+      .getElementById("user-avatar-desktop")
+      ?.setAttribute("src", avatarUrl);
     document
-      .getElementById('user-avatar-mobile')
-      ?.setAttribute('src', avatarUrl);
+      .getElementById("user-avatar-mobile")
+      ?.setAttribute("src", avatarUrl);
 
     document
-      .getElementById('user-avatar-desktop')
-      ?.parentElement?.setAttribute('href', '/profile/');
+      .getElementById("user-avatar-desktop")
+      ?.parentElement?.setAttribute("href", "/profile/");
     document
-      .getElementById('user-avatar-mobile')
-      ?.parentElement?.setAttribute('href', '/profile/');
+      .getElementById("user-avatar-mobile")
+      ?.parentElement?.setAttribute("href", "/profile/");
   } catch (error) {
-    console.error('Error loading user profile:', error);
+    console.error("Error loading user profile:", error);
   }
 }
-document.addEventListener('DOMContentLoaded', function () {
-  const mobileLogout = document.getElementById('mobile-logout');
+document.addEventListener("DOMContentLoaded", function () {
+  const mobileLogout = document.getElementById("mobile-logout");
 
   if (mobileLogout) {
-    mobileLogout.addEventListener('click', function (event) {
+    mobileLogout.addEventListener("click", function (event) {
       event.preventDefault();
-      logout(); 
+      logout();
     });
   }
 });

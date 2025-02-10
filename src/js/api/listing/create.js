@@ -1,5 +1,5 @@
-import { API_AUCTION_LISTINGS } from '../constants.js';
-import { headers } from '../headers.js';
+import { API_AUCTION_LISTINGS } from "../constants.js";
+import { headers } from "../headers.js";
 
 /**
  * Creates a new auction listing.
@@ -8,11 +8,11 @@ import { headers } from '../headers.js';
  */
 export async function createListing(listingData) {
   try {
-    console.log('📡 Sending POST request to:', API_AUCTION_LISTINGS);
-    console.log('📝 Data being sent:', JSON.stringify(listingData, null, 2));
+    console.log("📡 Sending POST request to:", API_AUCTION_LISTINGS);
+    console.log("📝 Data being sent:", JSON.stringify(listingData, null, 2));
 
     const response = await fetch(API_AUCTION_LISTINGS, {
-      method: 'POST',
+      method: "POST",
       headers: headers(true),
       body: JSON.stringify(listingData),
     });
@@ -20,14 +20,14 @@ export async function createListing(listingData) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error(`❌ Error ${response.status}:`, errorData);
-      throw new Error(errorData.message || 'Failed to create listing');
+      throw new Error(errorData.message || "Failed to create listing");
     }
 
     const responseData = await response.json();
-    console.log('✅ API Response Data:', responseData);
+    console.log("✅ API Response Data:", responseData);
     return responseData;
   } catch (error) {
-    console.error('❌ API Error:', error);
-    throw new Error('An error occurred while creating your listing.');
+    console.error("❌ API Error:", error);
+    throw new Error("An error occurred while creating your listing.");
   }
 }

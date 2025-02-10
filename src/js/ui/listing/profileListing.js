@@ -1,15 +1,15 @@
-import { deleteListing } from '../../api/listing/delete';
-import { fetchProfile } from '../../api/profile/read';
+import { deleteListing } from "../../api/listing/delete";
+import { fetchProfile } from "../../api/profile/read";
 
 export async function displayUserListings() {
-  const listingsContainer = document.querySelector('#myListings');
+  const listingsContainer = document.querySelector("#myListings");
   if (!listingsContainer) return;
 
   listingsContainer.innerHTML =
     '<p class="text-purple-600 font-semibold text-lg">Loading listings...</p>';
 
   try {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem("username");
     if (!username) {
       listingsContainer.innerHTML = `<p class="text-red-500 text-center">You need to log in to view your listings.</p>`;
       return;
@@ -31,7 +31,7 @@ export async function displayUserListings() {
 
     listingsContainer.innerHTML = userListings
       .map((listing) => createListingCard(listing))
-      .join('');
+      .join("");
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg ">Error loading your listings.</p>';
@@ -49,10 +49,10 @@ function createListingCard(listing) {
       </a>
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
       <p class="text-gray-700">Current Bid: <strong>${
-        listing.bidCount || 'N/A'
+        listing.bidCount || "N/A"
       } Credits</strong></p>
       <p class="text-gray-700">Ends on: ${new Date(
-        listing.endsAt
+        listing.endsAt,
       ).toLocaleDateString()}</p>
 
 <a href="/listing/edit/?id=${listing.id}" 
@@ -72,29 +72,28 @@ function createListingCard(listing) {
   `;
 }
 
-
 async function deleteListingHandler(listingId) {
   const confirmDelete = confirm(
-    'Are you sure you want to delete this listing?'
+    "Are you sure you want to delete this listing?",
   );
   if (!confirmDelete) return;
 
   try {
     const success = await deleteListing(listingId);
     if (success) {
-      alert('✅ Listing deleted successfully!');
+      alert("✅ Listing deleted successfully!");
       displayUserListings();
     } else {
-      alert('❌ Failed to delete listing. Please try again.');
+      alert("❌ Failed to delete listing. Please try again.");
     }
   } catch (error) {
-    alert('Error deleting listing. Check console logs.');
+    alert("Error deleting listing. Check console logs.");
   }
 }
 
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('delete-listing')) {
-    const listingId = event.target.getAttribute('data-id');
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-listing")) {
+    const listingId = event.target.getAttribute("data-id");
     deleteListingHandler(listingId);
   }
 });
@@ -103,12 +102,12 @@ function getValidImage(media) {
   if (Array.isArray(media) && media.length > 0 && media[0]?.url) {
     return media[0].url;
   }
-  return '/images/placeholder.jpg';
+  return "/images/placeholder.jpg";
 }
-document.querySelectorAll('.delete-listing').forEach((button) => {
-  button.addEventListener('click', function (e) {
-    const ripple = document.createElement('span');
-    ripple.classList.add('ripple');
+document.querySelectorAll(".delete-listing").forEach((button) => {
+  button.addEventListener("click", function (e) {
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
     this.appendChild(ripple);
 
     const rect = this.getBoundingClientRect();

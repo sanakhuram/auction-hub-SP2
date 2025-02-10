@@ -1,6 +1,6 @@
-import { API_AUCTION_LISTINGS } from '../constants';
-import { headers } from '../headers';
-import { getToken } from '../../token';
+import { API_AUCTION_LISTINGS } from "../constants";
+import { headers } from "../headers";
+import { getToken } from "../../token";
 
 /**
  * Deletes a listing by ID.
@@ -10,7 +10,7 @@ import { getToken } from '../../token';
 export async function deleteListing(listingId) {
   const token = getToken();
   if (!token) {
-    alert('❌ Authentication token is missing.');
+    alert("❌ Authentication token is missing.");
     return false;
   }
 
@@ -20,7 +20,7 @@ export async function deleteListing(listingId) {
     console.log(`🗑 Sending DELETE request to: ${apiUrl}`);
 
     const response = await fetch(apiUrl, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: headers(false),
     });
 
@@ -33,7 +33,7 @@ export async function deleteListing(listingId) {
     console.log(`✅ Listing ${listingId} deleted successfully.`);
     return true;
   } catch (error) {
-    console.error('🚨 API Error deleting listing:', error);
+    console.error("🚨 API Error deleting listing:", error);
     return false;
   }
 }

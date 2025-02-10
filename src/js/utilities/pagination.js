@@ -27,13 +27,13 @@ export function paginateListings(listings, currentPage = 1, itemsPerPage = 12) {
 export function renderPaginationControls(
   totalPages,
   currentPage,
-  onPageChange
+  onPageChange,
 ) {
-  const paginationContainer = document.getElementById('pagination-controls');
+  const paginationContainer = document.getElementById("pagination-controls");
 
   if (!paginationContainer) return;
 
-  paginationContainer.innerHTML = ''; 
+  paginationContainer.innerHTML = "";
 
   if (currentPage > 1) {
     paginationContainer.innerHTML += `<button class="px-4 py-2 border rounded-lg bg-gray-300 hover:bg-gray-400" data-page="${
@@ -44,7 +44,7 @@ export function renderPaginationControls(
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.innerHTML += `
       <button class="px-4 py-2 border rounded-lg shadow-dark mt-3 ${
-        i === currentPage ? 'bg-accent text-white' : 'bg-muted'
+        i === currentPage ? "bg-accent text-white" : "bg-muted"
       } hover:bg-olive" data-page="${i}">
         ${i}
       </button>
@@ -57,9 +57,9 @@ export function renderPaginationControls(
     }">Next</button>`;
   }
 
-  paginationContainer.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      const newPage = parseInt(event.target.getAttribute('data-page'));
+  paginationContainer.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const newPage = parseInt(event.target.getAttribute("data-page"));
       onPageChange(newPage);
     });
   });

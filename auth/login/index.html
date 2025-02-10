@@ -1,136 +1,252 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | Auction Hub</title>
     <script type="module" src="/src/app.js"></script>
-  <link rel="stylesheet" href="/src/css/style.css">
-   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-      <link
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lily+Script+One&family=Istok+Web:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-background text-gray-900 font-body dark:bg-dark dark:text-white">
-  <header>
-<nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary">
-  <div class="container mx-auto flex justify-between items-center">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lily+Script+One&family=Istok+Web:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-background text-gray-900 font-body dark:bg-dark dark:text-white"
+  >
+    <header>
+      <nav
+        class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary"
+      >
+        <div class="container mx-auto flex justify-between items-center">
+          <!-- Logo (Light & Dark Mode) with Link -->
+          <div class="flex items-center">
+            <a href="/" class="cursor-pointer">
+              <img
+                id="logo-light"
+                src="/images/logolight.png"
+                alt="Auction Hub Logo"
+                class="w-16"
+              />
+              <img
+                id="logo-dark"
+                src="/images/logodark.png"
+                alt="Auction Hub Logo"
+                class="w-16 hidden"
+              />
+            </a>
+          </div>
 
-<!-- Logo (Light & Dark Mode) with Link -->
-<div class="flex items-center">
-  <a href="/" class="cursor-pointer">
-    <img id="logo-light" src="/images/logolight.png" alt="Auction Hub Logo" class="w-16">
-    <img id="logo-dark" src="/images/logodark.png" alt="Auction Hub Logo" class="w-16 hidden">
-  </a>
-</div>
+          <ul class="hidden md:flex space-x-6 text-lg mx-auto items-center">
+            <button
+              id="theme-toggle-desktop"
+              class="text-white text-xl hover:text-secondary transition"
+            >
+              <i id="theme-icon-desktop" class="fas fa-moon"></i>
+            </button>
 
-    <ul class="hidden md:flex space-x-6 text-lg mx-auto items-center">
+            <li>
+              <a
+                href="/"
+                class="nav-link hover:text-secondary transition"
+                data-nav="home"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="/profile/"
+                class="nav-link hover:text-secondary transition"
+                data-nav="profile"
+                >My Profile</a
+              >
+            </li>
+            <li>
+              <a
+                href="/auth/login/"
+                id="loginLink"
+                class="nav-link hover:text-secondary transition"
+                data-nav="login"
+                >Login</a
+              >
+            </li>
 
-      <button id="theme-toggle-desktop" class="text-white text-xl hover:text-secondary transition">
-        <i id="theme-icon-desktop" class="fas fa-moon"></i>
-      </button>
+            <li>
+              <button
+                id="logoutBtn"
+                class="bg-btn-gradient text-white px-4 py-2 rounded-lg hover:brightness-110 transition hidden border border-white"
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
 
-        <li><a href="/" class="nav-link hover:text-secondary transition" data-nav="home">Home</a></li>
-        <li><a href="/profile/" class="nav-link hover:text-secondary transition" data-nav="profile">My Profile</a></li>
-        <li><a href="/auth/login/" id="loginLink" class="nav-link hover:text-secondary transition" data-nav="login">Login</a></li>
-        
-        <li>
-          <button id="logoutBtn" class="bg-btn-gradient text-white px-4 py-2 rounded-lg hover:brightness-110 transition hidden border border-white">
-            Logout
-          </button>
-        </li>
-      </ul>
+          <div class="md:hidden flex space-x-4 items-center">
+            <a href="/" class="nav-link text-white"
+              ><i class="fas fa-home text-xl" data-nav="home"></i
+            ></a>
+            <a href="/profile/" class="nav-link text-white"
+              ><i class="fas fa-user text-xl" data-nav="profile"></i
+            ></a>
+            <a href="/auth/login/" class="nav-link text-white" id="mobile-login"
+              ><i class="fas fa-sign-in-alt text-xl" data-nav="login"></i
+            ></a>
+            <a href="/auth/login/" class="text-white hidden" id="mobile-logout"
+              ><i class="fas fa-sign-out-alt text-xl"></i
+            ></a>
 
-  <div class="md:hidden flex space-x-4 items-center">
-      <a href="/" class="nav-link text-white"><i class="fas fa-home text-xl" data-nav="home"></i></a>
-      <a href="/profile/" class="nav-link text-white"><i class="fas fa-user text-xl" data-nav="profile"></i></a>
-      <a href="/auth/login/" class="nav-link text-white" id="mobile-login"><i class="fas fa-sign-in-alt text-xl" data-nav="login"></i></a>
-      <a href="/auth/login/" class="text-white hidden" id="mobile-logout"><i class="fas fa-sign-out-alt text-xl"></i></a>
+            <button
+              id="theme-toggle-mobile"
+              class="text-white text-xl hover:text-secondary transition"
+            >
+              <i id="theme-icon-mobile" class="fas fa-moon"></i>
+            </button>
+          </div>
 
-      <button id="theme-toggle-mobile" class="text-white text-xl hover:text-secondary transition">
-        <i id="theme-icon-mobile" class="fas fa-moon"></i>
-      </button>
+          <div class="flex items-center space-x-3">
+            <a href="/profile/">
+              <img
+                id="user-avatar-desktop"
+                src="/images/default-avatar.png"
+                alt="User Avatar"
+                class="h-12 w-12 rounded-full border-2 border-secondary hover:border-white transition"
+              />
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Loader -->
+    <div
+      id="loader"
+      class="fixed inset-0 flex justify-center items-center bg-white dark:bg-dark z-50"
+    >
+      <img
+        src="/images/loader.png"
+        alt="Loading..."
+        class="w-20 h-20 animate-spin"
+      />
     </div>
-
-    <div class="flex items-center space-x-3">
-      <a href="/profile/">
-        <img id="user-avatar-desktop" src="/images/default-avatar.png" alt="User Avatar" class="h-12 w-12 rounded-full border-2 border-secondary hover:border-white transition">
-      </a>
-    </div>
-
-  </div>
-</nav>
-  </header>
-
-<div class="container mx-auto flex flex-col md:flex-row items-center justify-center py-10 md:py-20 gap-6 md:gap-10">
-  
-    <div class="w-full md:w-1/2 p-6">
+    <div
+      class="container mx-auto flex flex-col md:flex-row items-center justify-center py-10 md:py-20 gap-6 md:gap-10"
+    >
+      <div class="w-full md:w-1/2 p-6">
         <h2 class="text-3xl mb-3">Welcome back!</h2>
-        <p class="mb-3 font-secondary text-sm">Enter your credentials to access your account</p>
-        
+        <p class="mb-3 font-secondary text-sm">
+          Enter your credentials to access your account
+        </p>
+
         <form name="login" class="space-y-4">
-            <div>
-                <label for="email" class="block font-medium">Email address</label>
-                <input id="email" type="email" name="email" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 dark:text-black focus:ring-primary shadow-inner shadow-accent" placeholder="Enter your email">
-            </div>
+          <div>
+            <label for="email" class="block font-medium">Email address</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              required
+              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 dark:text-black focus:ring-primary shadow-inner shadow-accent"
+              placeholder="Enter your email"
+            />
+          </div>
 
-            <div>
-                <label for="password" class="block font-medium">Password</label>
-                <input type="password" name="password" id="password" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 dark:text-black focus:ring-primary shadow-inner shadow-accent" placeholder="Enter your password">
-            </div>
+          <div>
+            <label for="password" class="block font-medium">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required
+              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 dark:text-black focus:ring-primary shadow-inner shadow-accent"
+              placeholder="Enter your password"
+            />
+          </div>
 
-            <button class="w-full px-4 py-3 bg-btn-alt-gradient text-black rounded-lg mt-5 hover:bg-btn-gradient hover:text-white  hover:border-secondary 
-           transition-all duration-300 ease-in-out hover:shadow-lg">Login</button>
+          <button
+            class="w-full px-4 py-3 bg-btn-alt-gradient text-black rounded-lg mt-5 hover:bg-btn-gradient hover:text-white hover:border-secondary transition-all duration-300 ease-in-out hover:shadow-lg"
+          >
+            Login
+          </button>
         </form>
 
-        <p class="mt-4">Don’t have an account? <a href="/auth/register/" class="text-primary hover:underline font-heading ">Sign Up</a></p>
+        <p class="mt-4">
+          Don’t have an account?
+          <a
+            href="/auth/register/"
+            class="text-primary hover:underline font-heading"
+            >Sign Up</a
+          >
+        </p>
+      </div>
+
+      <div class="hidden md:block w-full md:w-1/2">
+        <img
+          id="theme-image"
+          src="/images/light.jpg"
+          alt="Decorative Illustration"
+          class="w-full h-auto"
+        />
+      </div>
     </div>
 
-    <div class="hidden md:block w-full md:w-1/2">
-        <img id="theme-image"  src="/images/light.jpg" alt="Decorative Illustration" class="w-full h-auto">
-    </div>
-</div>
+    <section class="bg-primary text-white py-10 dark:bg-accent">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold font-secondary">
+          SUBSCRIBE
+        </h3>
 
-<section class="bg-primary text-white py-10 dark:bg-accent ">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold font-secondary">SUBSCRIBE</h3>
-        
-        <div class="mt-6 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <input id="email-input" type="email" placeholder="Your email" 
-                class="p-3 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 rounded-lg border shadow-dark text-accent bg-white 
-                        focus:outline-none focus:ring-2 focus:ring-secondary transition ">
-            
-            <button id="subscribe-btn" 
-                    class="px-6 py-3 border border-white text-white rounded-lg hover:bg-white hover:text-primary 
-                    transition shadow-dark font-bold text-lg sm:text-xl">
-                Submit
-            </button>
+        <div
+          class="mt-6 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4"
+        >
+          <input
+            id="email-input"
+            type="email"
+            placeholder="Your email"
+            class="p-3 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 rounded-lg border shadow-dark text-accent bg-white focus:outline-none focus:ring-2 focus:ring-secondary transition"
+          />
+
+          <button
+            id="subscribe-btn"
+            class="px-6 py-3 border border-white text-white rounded-lg hover:bg-white hover:text-primary transition shadow-dark font-bold text-lg sm:text-xl"
+          >
+            Submit
+          </button>
         </div>
-        
-        <p id="subscribe-message" class="text-dark text-lg mt-3 hidden">Thank you for subscribing!</p>
-    </div>
-</section>
 
-<footer class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white">
-    <!-- Social Icons -->
-    <div class="flex justify-center space-x-6 mt-4">
+        <p id="subscribe-message" class="text-dark text-lg mt-3 hidden">
+          Thank you for subscribing!
+        </p>
+      </div>
+    </section>
+
+    <footer
+      class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white"
+    >
+      <!-- Social Icons -->
+      <div class="flex justify-center space-x-6 mt-4">
         <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
         <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
         <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
-    </div>
+      </div>
 
-    <div class="mt-4">
+      <div class="mt-4">
         <a href="/" class="px-2 hover:text-gray-600">Home</a> |
         <a href="/profile/" class="px-2 hover:text-gray-600">Profile</a> |
         <a href="/" class="px-2 hover:text-gray-600">Subscribe</a>
+      </div>
+    </footer>
+
+    <div class="text-center text-sm mt-5 mb-5">
+      <p>&copy; 2025 All rights reserved Auction Hub.</p>
     </div>
-</footer>
-
-<div class="text-center text-sm mt-5 mb-5">
-    <p>&copy; 2025 All rights reserved Auction Hub.</p>
-</div>
-</body>
+  </body>
 </html>
-

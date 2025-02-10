@@ -1,4 +1,4 @@
-import { API_AUCTION_LISTINGS } from '../constants.js';
+import { API_AUCTION_LISTINGS } from "../constants.js";
 
 /**
  * Fetches listings from the API, supporting search and category filtering.
@@ -6,13 +6,13 @@ import { API_AUCTION_LISTINGS } from '../constants.js';
  * @param {string} searchQuery - The search query for filtering (optional).
  * @returns {Promise<Array>} - The fetched listings.
  */
-export async function getListings(categoryFilter = '', searchQuery = '') {
+export async function getListings(categoryFilter = "", searchQuery = "") {
   try {
     let apiUrl = `${API_AUCTION_LISTINGS}?sort=created&sortOrder=desc&_active=true`;
 
     if (searchQuery) {
       apiUrl = `${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(
-        searchQuery
+        searchQuery,
       )}`;
     } else if (categoryFilter) {
       apiUrl += `&_tag=${encodeURIComponent(categoryFilter)}`;
@@ -27,16 +27,16 @@ export async function getListings(categoryFilter = '', searchQuery = '') {
     return listings.map((listing) => ({
       id: listing.id,
       title: listing.title,
-      description: listing.description || '',
-      category: listing.tags?.[0] || 'Other',
+      description: listing.description || "",
+      category: listing.tags?.[0] || "Other",
       media: listing.media || [],
       created: listing.created,
       endsAt: listing.endsAt,
       bidCount: listing._count?.bids || 0,
-      seller: listing.seller?.name || 'Unknown Seller',
+      seller: listing.seller?.name || "Unknown Seller",
     }));
   } catch (error) {
-    console.error('Failed to fetch listings:', error);
+    console.error("Failed to fetch listings:", error);
     return [];
   }
 }

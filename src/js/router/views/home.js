@@ -1,11 +1,10 @@
-import { displayListings } from '../../ui/listing/display.js';
+import { displayListings } from "../../ui/listing/display.js";
 
-
-document.addEventListener('DOMContentLoaded', async () => {
-  console.log('📌 DOM Loaded - Calling displayListings()...');
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("📌 DOM Loaded - Calling displayListings()...");
   try {
     await displayListings();
   } catch (error) {
-    console.error('❌ Error loading listings:', error);
+    console.error("❌ Error loading listings:", error);
   }
 });

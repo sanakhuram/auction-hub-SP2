@@ -7,29 +7,36 @@
   body {
     @apply font-body;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     @apply font-heading;
   }
-  p, span {
+  p,
+  span {
     @apply font-secondary;
   }
 }
 
 /* Custom Borders */
 .custom-border {
-  border: 8px solid #D58F51;
+  border: 8px solid #d58f51;
 }
 
 /* Smooth Transition Effects */
 .hover-effect {
-  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    background 0.3s ease-in-out;
 }
 
 /* Logout Button Hover Effect */
 #logoutBtn:hover {
   @apply scale-110 brightness-125 shadow-lg;
-  background: linear-gradient(90deg, #D56651, #A9AC81);
-  transition: background 0.4s ease-in-out, transform 0.3s ease-in-out;
+  background: linear-gradient(90deg, #d56651, #a9ac81);
+  transition:
+    background 0.4s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
 /* Custom Scrollbar */
@@ -49,7 +56,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #D58F51, #1b4742);
+    background: linear-gradient(45deg, #d58f51, #1b4742);
   }
 }
 
@@ -62,49 +69,79 @@
   }
 
   .btn-gradient-1 {
-    background-image: linear-gradient(90deg, #A9AC81, #D56651, #F0E2C7, #344240);
+    background-image: linear-gradient(
+      90deg,
+      #a9ac81,
+      #d56651,
+      #f0e2c7,
+      #344240
+    );
   }
 
   .btn-gradient-2 {
-    background-image: linear-gradient(90deg, #84A8A4, #F0E2C7, #D56651, #A9AC81);
+    background-image: linear-gradient(
+      90deg,
+      #84a8a4,
+      #f0e2c7,
+      #d56651,
+      #a9ac81
+    );
   }
 
   .btn-animated:hover {
     background-position: right center;
-    transition: background 0.5s ease-in-out, filter 0.2s ease-in-out;
+    transition:
+      background 0.5s ease-in-out,
+      filter 0.2s ease-in-out;
     filter: brightness(1.1);
   }
 }
 
 /* Keyframe animation for gradient movement */
 @keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 .active-nav {
   @apply text-secondary font-bold border-b-2 border-secondary;
 }
 
-
 input[type="datetime-local"] {
-    color: #4A5568; 
-    background-color: #D9D5C9; 
-    border: 1px solid #A9AC81; 
-    border-radius: 8px;
-    padding: 8px;
+  color: #4a5568;
+  background-color: #d9d5c9;
+  border: 1px solid #a9ac81;
+  border-radius: 8px;
+  padding: 8px;
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(40%) sepia(90%) saturate(600%) hue-rotate(120deg);
-    cursor: pointer;
+  filter: invert(40%) sepia(90%) saturate(600%) hue-rotate(120deg);
+  cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
-    input[type="datetime-local"] {
-        background-color: #2D3748; 
-        color: white;
-        border-color: #CBD5E0;
-    }
+  input[type="datetime-local"] {
+    background-color: #2d3748;
+    color: white;
+    border-color: #cbd5e0;
+  }
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
