@@ -2,7 +2,7 @@ import { authGuard } from "../../utilities/authGuard";
 import { fetchProfile } from "../../api/profile/read";
 import { onUpdateProfile } from "../../ui/profile/update.js";
 import { displayUserListings } from "../../ui/listing/profileListing.js";
-
+import { displayUserBids } from "../../ui/profile/displayBids.js";
 // ✅ Protect Route
 authGuard();
 
@@ -50,3 +50,4 @@ document
   .getElementById("updateProfileForm")
   ?.addEventListener("submit", onUpdateProfile);
 displayUserListings();
+displayUserBids();
