@@ -1,6 +1,7 @@
 //src/js/ui/auth/login.js
 
 import { login } from "../../api/auth/login";
+import { showAlert } from "../../utilities/alert";
 
 /**
  * Handles the login form submission.
@@ -18,8 +19,10 @@ export async function onLogin(event) {
   try {
     await login({ email, password });
 
-    alert("Login successful! Redirecting to your profile...");
-    window.location.href = "/profile/";
+    showAlert("Login successful! Redirecting to your profile...", "success");
+    setTimeout(() => {
+      window.location.href = "/profile/";
+    }, 2000);
   } catch (error) {
     if (errorMessage) {
       errorMessage.innerText = `Login failed: ${error.message}`;

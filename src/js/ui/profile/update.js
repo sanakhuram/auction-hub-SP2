@@ -1,6 +1,6 @@
 import { updateProfile } from "../../api/profile/update.js";
 import { fetchProfile } from "../../api/profile/read.js";
-
+import { showAlert } from "../../utilities/alert.js";
 /**
  * Handles updating the profile UI when the user submits the form.
  * @param {Event} event - The form submission event.
@@ -10,8 +10,10 @@ export async function onUpdateProfile(event) {
 
   const username = localStorage.getItem("username");
   if (!username) {
-    alert("No username found. Redirecting to login...");
-    window.location.href = "/auth/login/";
+    showAlert("No username found. Redirecting to login...", "error");
+    setTimeout(() => {
+      window.location.href = "/auth/login/";
+    }, 2000);
     return;
   }
 
@@ -32,7 +34,6 @@ export async function onUpdateProfile(event) {
   try {
     const updatedProfile = await updateProfile(username, updateData);
 
-    // ✅ Update UI elements only if data exists
     if (updatedProfile.bio)
       document.getElementById("profileBio").textContent = updatedProfile.bio;
     if (updatedProfile.avatar?.url)
@@ -56,13 +57,16 @@ export async function onUpdateProfile(event) {
     document.getElementById("updateMessage").textContent =
       "✅ Profile updated successfully!";
 
-    // ✅ Fetch and refresh listings after profile update
     const latestProfile = await fetchProfile(username);
     if (latestProfile?.listings) {
       displayListings(latestProfile.listings);
     }
   } catch (error) {
-    alert("Failed to update profile. Please check your input values.");
+    console.error("❌ Error updating profile:", error);
+    showAlert(
+      "Failed to update profile. Please check your input values.",
+      "error",
+    );
   }
 }
 

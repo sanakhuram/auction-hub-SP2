@@ -1,8 +1,9 @@
 import { updateListing } from "../../api/listing/update.js";
+import { showAlert } from "../../utilities/alert.js";
 
 export function populateEditListingForm(listing) {
   if (!listing || Object.keys(listing).length === 0) {
-    alert("Error: Listing data could not be loaded.");
+    showAlert("Error: Listing data could not be loaded." , "error");
     return;
   }
 
@@ -29,7 +30,7 @@ export async function onUpdateEdit(event) {
   const listingId = editListingForm.dataset.id;
 
   if (!listingId) {
-    alert("Error: No listing ID found.");
+    showAlert("Error: No listing ID found.", "error");
     return;
   }
 
@@ -48,11 +49,19 @@ export async function onUpdateEdit(event) {
     ],
   };
 
-  const updatedListing = await updateListing(listingId, updatedData);
-  if (updatedListing) {
-    alert("Listing updated successfully!");
-    window.location.href = `/listing/?id=${listingId}`;
-  } else {
-    alert("Failed to update listing.");
+  try {
+    const updatedListing = await updateListing(listingId, updatedData);
+    if (updatedListing) {
+      showAlert("✅ Listing updated successfully!", "success");
+      setTimeout(() => {
+        window.location.href = `/listing/?id=${listingId}`;
+      }, 2000);
+    } else {
+      showAlert("❌ Failed to update listing.", "error");
+    }
+  } catch (error) {
+    console.error("❌ Error updating listing:", error);
+    showAlert("Error updating listing. Please try again.", "error");
   }
 }
+

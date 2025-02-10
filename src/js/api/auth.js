@@ -1,3 +1,4 @@
+import { showAlert ,showConfirmAlert } from "../utilities/alert";
 import { fetchProfile } from "./profile/read";
 
 export function logout() {
@@ -21,8 +22,10 @@ export function logout() {
   document.getElementById("mobile-logout")?.classList.add("hidden");
   document.getElementById("mobile-login")?.classList.remove("hidden");
 
-  alert("You have been logged out.");
-  setTimeout(() => (window.location.href = "/auth/login/"), 500);
+  // Show alert message
+  showAlert("You have been logged out.", "warning");
+
+  setTimeout(() => (window.location.href = "/auth/login/"), 1000);
 }
 
 /**
@@ -52,6 +55,9 @@ export function updateUserInfo(updatedData) {
   if (updatedData.token) localStorage.setItem("token", updatedData.token);
 }
 
+/**
+ * Loads the user's profile and updates the UI accordingly.
+ */
 export async function loadUserProfile() {
   const username = localStorage.getItem("username");
   const authToken = localStorage.getItem("token");
@@ -63,6 +69,8 @@ export async function loadUserProfile() {
     document.getElementById("user-profile-mobile")?.classList.add("hidden");
     document.getElementById("mobile-logout")?.classList.add("hidden");
     document.getElementById("mobile-login")?.classList.remove("hidden");
+
+    showAlert("You are not logged in. Please sign in to bid.", "info");
     return;
   }
 
@@ -91,17 +99,28 @@ export async function loadUserProfile() {
     document
       .getElementById("user-avatar-mobile")
       ?.parentElement?.setAttribute("href", "/profile/");
+
+    showAlert("Welcome back, " + username + "!", "success");
   } catch (error) {
     console.error("Error loading user profile:", error);
+    showAlert("Failed to load profile. Please try again.", "error");
   }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   const mobileLogout = document.getElementById("mobile-logout");
 
   if (mobileLogout) {
     mobileLogout.addEventListener("click", function (event) {
       event.preventDefault();
-      logout();
+
+      showConfirmAlert("Are you sure you want to log out?").then(
+        (confirmed) => {
+          if (confirmed) {
+            logout();
+          }
+        },
+      );
     });
   }
 });

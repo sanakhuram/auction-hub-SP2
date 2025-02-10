@@ -1,5 +1,6 @@
 import { getListingById } from "../../api/listing/read.js";
 import { placeBid } from "../../api/listing/bid.js";
+import { showAlert } from "../../utilities/alert.js";
 
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
@@ -89,7 +90,7 @@ export async function displaySingleListing() {
           document.getElementById("bidAmount").value,
         );
         if (!bidAmount || bidAmount <= 0) {
-          alert("Please enter a valid bid amount.");
+        showAlert("Please enter a valid bid amount.", "error");
           return;
         }
 

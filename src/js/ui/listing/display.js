@@ -5,6 +5,7 @@ import {
 } from "../../utilities/pagination";
 import { getCurrentSearchQuery } from "../../utilities/search";
 
+
 export async function displayListings(
   categoryFilter = "",
   searchQuery = "",
@@ -14,7 +15,7 @@ export async function displayListings(
   const loader = document.getElementById("loader");
   if (!listingsContainer || !loader) return;
 
-  loader.style.display = "flex"; // Show loader while fetching
+  loader.style.display = "flex"; 
 
   try {
     if (!searchQuery) searchQuery = getCurrentSearchQuery();
@@ -23,7 +24,7 @@ export async function displayListings(
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
         '<p class="text-red-500 font-semibold text-lg">No listings found.</p>';
-      loader.style.display = "none"; // Hide loader if no data
+      loader.style.display = "none"; 
       return;
     }
 
@@ -72,7 +73,7 @@ export async function displayListings(
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
   } finally {
-    loader.style.display = "none"; // Hide loader after everything loads
+    loader.style.display = "none"; 
   }
 }
 

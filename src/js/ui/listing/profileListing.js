@@ -1,5 +1,6 @@
 import { deleteListing } from "../../api/listing/delete";
 import { fetchProfile } from "../../api/profile/read";
+import { showAlert, showConfirmAlert } from "../../utilities/alert";
 
 export async function displayUserListings() {
   const listingsContainer = document.querySelector("#myListings");
@@ -71,9 +72,8 @@ function createListingCard(listing) {
     </div>
   `;
 }
-
 async function deleteListingHandler(listingId) {
-  const confirmDelete = confirm(
+  const confirmDelete = await showConfirmAlert(
     "Are you sure you want to delete this listing?",
   );
   if (!confirmDelete) return;
@@ -81,13 +81,13 @@ async function deleteListingHandler(listingId) {
   try {
     const success = await deleteListing(listingId);
     if (success) {
-      alert("✅ Listing deleted successfully!");
+      showAlert("✅ Listing deleted successfully!", "success");
       displayUserListings();
     } else {
-      alert("❌ Failed to delete listing. Please try again.");
+      showAlert("❌ Failed to delete listing. Please try again.", "error");
     }
   } catch (error) {
-    alert("Error deleting listing. Check console logs.");
+    showAlert("Error deleting listing. Check console logs.", "error");
   }
 }
 

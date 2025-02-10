@@ -1,5 +1,6 @@
 import { createListing } from "../../api/listing/create.js";
 import { getListingById } from "../../api/listing/read.js";
+import { showAlert } from "../../utilities/alert.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const listingDetailsContainer = document.getElementById("listing-details");
@@ -27,8 +28,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     listingDetailsContainer.innerHTML = `
       <h1 class="text-2xl font-bold">${listing.title}</h1>
       <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}" 
-           alt="${listing.media?.[0]?.alt || listing.title}" 
-           class="w-full h-60 object-cover rounded-md">
+        alt="${listing.media?.[0]?.alt || listing.title}" 
+        class="w-full h-60 object-cover rounded-md">
       <p class="text-gray-700">${
         listing.description || "No description available"
       }</p>
@@ -77,7 +78,7 @@ export async function onCreateListing(event) {
 
   if (tags.length === 0) tags = undefined;
   if (!title || !endsAt) {
-    alert("Title and End Date are required!");
+    showAlert("Title and End Date are required!", "error");
     return;
   }
 
@@ -96,10 +97,12 @@ export async function onCreateListing(event) {
     const response = await createListing(listingData);
 
     if (response) {
-      alert("Listing created successfully!");
-      window.location.href = "/";
+      showAlert("Listing created successfully!", "success");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
     }
   } catch (error) {
-    alert("Failed to create listing: " + error.message);
+    showAlert("Failed to create listing: " + error.message, "error");
   }
 }

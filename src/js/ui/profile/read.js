@@ -1,7 +1,6 @@
-//src/js/ui/profile/read.js
-
 import { authGuard } from "../../utilities/authGuard.js";
 import { fetchProfile } from "../../api/profile/read.js";
+import { showAlert } from "../../utilities/alert.js";
 
 authGuard();
 document.addEventListener("DOMContentLoaded", async () => {
@@ -9,8 +8,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const username = localStorage.getItem("username");
   if (!username) {
-    alert("No username found. Redirecting to login...");
-    window.location.href = "/auth/login/";
+    showAlert("No username found. Redirecting to login...", "error");
+    setTimeout(() => {
+      window.location.href = "/auth/login/";
+    }, 2000);
     return;
   }
 
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayListings(userData.listings);
   } catch (error) {
     console.error("❌ Error fetching profile:", error);
-    alert("Failed to load profile. Please try again.");
+    showAlert("Failed to load profile. Please try again.", "error");
   }
 });
 

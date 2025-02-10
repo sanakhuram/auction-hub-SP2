@@ -12,10 +12,9 @@ import { loadUserProfile } from "./api/auth.js";
 import { onCreateListing } from "./ui/listing/create.js";
 import { initializeEditPage } from "./router/views/listingEdit.js";
 import { initializeSearch } from "./utilities/search";
-/**
- * Helper function to attach event listeners safely.
- * Prevents errors if the element doesn't exist.
- */
+import { showAlert } from "./utilities/alert.js";
+
+
 function attachEventListener(selector, event, handler) {
   const element = document.querySelector(selector);
   if (element) {
@@ -23,19 +22,16 @@ function attachEventListener(selector, event, handler) {
   }
 }
 
-/**
- * Function to initialize the application based on the current page.
- */
+
 export function initializeApp() {
   try {
     attachEventListener("#createListingForm", "submit", onCreateListing);
     const currentPath = window.location.pathname;
 
-    // Select elements that should only be visible on the home page
     const carousel = document.getElementById("carouselContainer");
     const listingContainer = document.getElementById("listingContainer");
 
-    // Check if it's the home page
+
     if (currentPath === "/") {
       if (carousel) carousel.style.display = "block";
       if (listingContainer) listingContainer.style.display = "block";
@@ -46,7 +42,6 @@ export function initializeApp() {
       if (listingContainer) listingContainer.style.display = "none";
     }
 
-    // Page-specific logic
     if (currentPath.includes("/listing/edit/")) {
       authGuard();
       initializeEditPage();
@@ -57,7 +52,7 @@ export function initializeApp() {
       loadProfilePage();
     }
 
-    // Attach event listeners for authentication
+ 
     attachEventListener("form[name='register']", "submit", onRegister);
     attachEventListener("form[name='login']", "submit", onLogin);
     attachEventListener("#logoutBtn", "click", () => {
@@ -65,21 +60,17 @@ export function initializeApp() {
       window.location.href = "/auth/login/";
     });
 
-    // Attach profile update form event
     attachEventListener("#updateProfileForm", "submit", async (event) => {
       event.preventDefault();
       await onUpdateProfile(event);
     });
   } catch (error) {
-    alert(
-      "An error occurred while initializing the application. Please try again.",
+    showAlert(
+      "An error occurred while initializing the application. Please try again.","error",
     );
   }
 }
 
-/**
- * Function to load profile data and set up profile-related UI elements.
- */
 function loadProfilePage() {
   const username = localStorage.getItem("username");
   if (!username) {
@@ -102,7 +93,6 @@ function loadProfilePage() {
         profileWins: `Wins: ${profileData._count?.wins || 0}`,
       };
 
-      // Set text content or attributes for profile elements
       Object.keys(profileElements).forEach((id) => {
         const element = document.getElementById(id);
         if (element) {
@@ -114,20 +104,18 @@ function loadProfilePage() {
         }
       });
 
-      // Set up the profile edit button (Only on profile page)
-      const editIcon = document.getElementById("editProfileIcon");
+       const editIcon = document.getElementById("editProfileIcon");
       const profileForm = document.getElementById("profileFormContainer");
 
       if (editIcon && profileForm) {
         editIcon.addEventListener("click", function () {
-          profileForm.classList.toggle("hidden"); // Show/Hide the form
+          profileForm.classList.toggle("hidden"); 
         });
       }
     })
     .catch(() => {});
 }
 
-// Run the application when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   initializeApp();
   loadUserProfile();
@@ -137,9 +125,7 @@ if (window.location.pathname === "/") {
   initializeSearch();
 }
 
-/**
- * Subscription Form Handling
- */
+
 const subscribeBtn = document.getElementById("subscribe-btn");
 if (subscribeBtn) {
   subscribeBtn.addEventListener("click", function () {
@@ -167,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (editIcon && profileForm) {
       editIcon.addEventListener("click", function () {
-        profileForm.classList.toggle("hidden"); // Show/Hide the form
+        profileForm.classList.toggle("hidden"); 
       });
     }
   }

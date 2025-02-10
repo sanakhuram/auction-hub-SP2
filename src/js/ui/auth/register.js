@@ -1,6 +1,5 @@
-//src/js/ui/auth/register.js
-
 import { register } from "../../api/auth/register";
+import { showAlert } from "../../utilities/alert";
 
 /**
  * Handles the registration form submission.
@@ -22,17 +21,21 @@ export async function onRegister(event) {
   try {
     const data = await register({ name, email, password });
 
-    alert("Registration successful! Redirecting to the login page...");
-    window.location.href = "/auth/login/";
+    showAlert(
+      "Registration successful! Redirecting to the login page...",
+      "success",
+    );
+    setTimeout(() => {
+      window.location.href = "/auth/login/";
+    }, 2000);
   } catch (error) {
     console.error("Registration error:", error);
 
     if (errorMessage) {
       errorMessage.innerText = `Registration failed: ${error.message}`;
       errorMessage.style.display = "block";
-    } else {
-      alert(`Registration failed: ${error.message}`);
     }
+    showAlert(`Registration failed: ${error.message}`, "error");
   } finally {
     registerButton.disabled = false;
   }
