@@ -8,22 +8,34 @@ export function setupDarkModeToggle() {
   const html = document.documentElement;
   const logoLight = document.getElementById('logo-light');
   const logoDark = document.getElementById('logo-dark');
+  const themeImage = document.getElementById('theme-image'); // Image that changes in dark mode
 
   if (
     !themeToggleMobile ||
     !themeToggleDesktop ||
     !themeIconMobile ||
-    !themeIconDesktop
+    !themeIconDesktop ||
+    !logoLight ||
+    !logoDark ||
+    !themeImage
   )
     return;
 
-  function updateLogo(isDarkMode) {
+  function updateThemeElements(isDarkMode) {
     if (isDarkMode) {
+      // Switch to dark mode logo
       logoLight.classList.add('hidden');
       logoDark.classList.remove('hidden');
+
+      // Change to dark mode image
+      themeImage.src = '/images/dark.jpg';
     } else {
+      // Switch to light mode logo
       logoLight.classList.remove('hidden');
       logoDark.classList.add('hidden');
+
+      // Change to light mode image
+      themeImage.src = '/images/light.jpg';
     }
   }
 
@@ -32,7 +44,7 @@ export function setupDarkModeToggle() {
     localStorage.setItem('theme', 'dark');
     themeIconMobile.classList.replace('fa-moon', 'fa-sun');
     themeIconDesktop.classList.replace('fa-moon', 'fa-sun');
-    updateLogo(true);
+    updateThemeElements(true);
   }
 
   function enableLightMode() {
@@ -40,9 +52,10 @@ export function setupDarkModeToggle() {
     localStorage.setItem('theme', 'light');
     themeIconMobile.classList.replace('fa-sun', 'fa-moon');
     themeIconDesktop.classList.replace('fa-sun', 'fa-moon');
-    updateLogo(false);
+    updateThemeElements(false);
   }
 
+  // Detect stored or preferred theme
   const savedTheme = localStorage.getItem('theme');
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme: dark)'
@@ -54,6 +67,7 @@ export function setupDarkModeToggle() {
     enableLightMode();
   }
 
+  // Toggle event listener
   [themeToggleMobile, themeToggleDesktop].forEach((toggle) => {
     toggle.addEventListener('click', () => {
       if (html.classList.contains('dark')) {
@@ -64,6 +78,7 @@ export function setupDarkModeToggle() {
     });
   });
 
+  // Auto change theme based on system settings
   window
     .matchMedia('(prefers-color-scheme: dark)')
     .addEventListener('change', (e) => {

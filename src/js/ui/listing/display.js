@@ -38,7 +38,7 @@ export async function displayListings(
       .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
       .slice(0, 8);
 
-listingsContainer.innerHTML = `
+    listingsContainer.innerHTML = `
   <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 mt-6 shadow-secondary w-full">
     Newest Listings
   </h2>
@@ -65,10 +65,9 @@ listingsContainer.innerHTML = `
   </div>
 `;
 
-renderPaginationControls(totalPages, currentPage, (newPage) => {
-  displayListings(categoryFilter, searchQuery, newPage);
-});
-
+    renderPaginationControls(totalPages, currentPage, (newPage) => {
+      displayListings(categoryFilter, searchQuery, newPage);
+    });
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
@@ -85,15 +84,14 @@ function renderListings(listings, colorClass) {
           class="w-full h-40 object-cover rounded-md mt-2"
           onerror="this.src='/images/placeholder.jpg';" />
         
-        <h3 class="text-base font-bold font-secondary line-clamp-2 mt-2">${
-          listing.title
+        <h3 class="text-base font-bold font-secondary line-clamp-2 mt-2">${listing.title
         }</h3>
 
-        <p class="text-gray-700 mt-2">Current Bid: 
+        <p class="text-gray-700 mt-2 dark:text-white">Current Bid: 
           <strong>${listing.bidCount || 'N/A'} Credits</strong>
         </p>
 
-        <p class="text-gray-500">Ends on: ${new Date(
+        <p class="text-gray-700">Ends on: ${new Date(
           listing.endsAt
         ).toLocaleDateString()}</p>
 
@@ -106,7 +104,6 @@ function renderListings(listings, colorClass) {
     )
     .join('');
 }
-
 
 function getValidImage(media) {
   return Array.isArray(media) && media.length > 0 && media[0]?.url

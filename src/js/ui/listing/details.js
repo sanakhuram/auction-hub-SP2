@@ -1,14 +1,11 @@
 import { getListingById } from '../../api/listing/read.js';
 import { placeBid } from '../../api/listing/bid.js';
 
-/**
- * Fetches and displays a single listing dynamically.
- */
 export async function displaySingleListing() {
   const listingContainer = document.getElementById('listing-details');
 
   if (!listingContainer) {
-    return; // Just exit without logging anything
+    return; 
   }
 
   const params = new URLSearchParams(window.location.search);
@@ -32,16 +29,16 @@ export async function displaySingleListing() {
     const listing = listingResponse.data;
 
     listingContainer.innerHTML = `
-      <h1 class="text-2xl text-center bg-accent w-full p-4 mb-20 text-gray-800">
+      <h1 class="text-2xl text-center bg-accent w-full shadow-secondary p-4 mb-20 text-gray-800">
         ${listing.title}
       </h1>
       <img src="${getValidImage(listing.media)}" 
         alt="${listing.media?.[0]?.alt || listing.title}"
-        class="w-full max-w-lg object-cover rounded-md mt-4 mx-auto m-10 custom-border"
+        class="w-full max-w-lg object-cover rounded-md mt-4 mx-auto m-10 custom-border shadow-secondary"
         onerror="this.src='/images/placeholder.jpg';"
       />
           
-      <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-lg bg-secondary">
+      <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-accent bg-secondary">
         <img src="${
           listing.seller?.avatar?.url || '/images/default-avatar.png'
         }" 
@@ -62,24 +59,24 @@ export async function displaySingleListing() {
         </p>
       </div>
       <div class="mt-4">
-        <p class="text-gray-700 text-center m-5"><strong>Current Bids:</strong> 
+        <p class="text-gray-700 text-center dark:text-white m-5"><strong>Current Bids:</strong> 
           ${listing._count?.bids || 0}
         </p>
-        <p class="text-gray-500 text-center m-5"><strong>Ends in:</strong> 
+        <p class="text-gray-500 text-center m-5 dark:text-white"><strong>Ends in:</strong> 
           ${formatTimeLeft(listing.endsAt)}
         </p>
       </div>
 
       <div class="mt-6">
-        <h2 class="text-xl text-center m-5">Bid Now</h2>
+        <h2 class="text-xl text-center m-5 dark:text-white">Bid Now</h2>
         <form id="bidForm" class="mt-3 text-center">
           <input type="number" id="bidAmount" min="1" required 
-            class="p-2 border rounded-lg w-1/2" placeholder="Enter bid amount" />
-          <button type="submit" class="text-white px-4 py-2 rounded-lg bg-btn-gradient hover:opacity-90 transition">
+            class="p-2 border rounded-lg w-1/2 shadow-accent focus:ring-2 focus:ring-secondary focus:outline-none " placeholder="Enter bid amount" />
+          <button type="submit" class="text-white px-4 py-2 rounded-lg bg-btn-gradient hover:opacity-90 transition shadow-dark dark:shadow-orange-300 border border-white">
             Place Bid
           </button>
         </form>
-        <p id="bidMessage" class="mt-3 text-green-600 hidden">Bid placed successfully!</p>
+        <p id="bidMessage" class="mt-3 text-center text-secondary hidden">Bid placed successfully!</p>
       </div>
     `;
 
@@ -147,3 +144,5 @@ document.addEventListener('DOMContentLoaded', function () {
     displaySingleListing();
   }
 });
+
+

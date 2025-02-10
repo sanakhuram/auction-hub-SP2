@@ -86,3 +86,25 @@
   @apply text-secondary font-bold border-b-2 border-secondary;
 }
 
+
+input[type="datetime-local"] {
+    color: #4A5568; 
+    background-color: #D9D5C9; 
+    border: 1px solid #A9AC81; 
+    border-radius: 8px;
+    padding: 8px;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(40%) sepia(90%) saturate(600%) hue-rotate(120deg);
+    cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type="datetime-local"] {
+        background-color: #2D3748; 
+        color: white;
+        border-color: #CBD5E0;
+    }
+}
+

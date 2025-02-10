@@ -40,7 +40,7 @@ export async function displayUserListings() {
 
 function createListingCard(listing) {
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full">
+    <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full shadow-dark">
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
@@ -55,15 +55,19 @@ function createListingCard(listing) {
         listing.endsAt
       ).toLocaleDateString()}</p>
 
-      <a href="/listing/edit/?id=${listing.id}" 
-        class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 transition hover:bg-blue-700">
-        ✏️ Edit
-      </a>
+<a href="/listing/edit/?id=${listing.id}" 
+   class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
+          transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
+   ✏️ Edit
+</a>
 
-      <button data-id="${listing.id}" 
-        class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg hover:bg-red-700 transition">
-        🗑️ Delete
-      </button>
+    <button data-id="${listing.id}" 
+    class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
+           transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
+           focus:ring-4 focus:ring-red-300 focus:outline-none">
+    🗑️ Delete
+</button>
+
     </div>
   `;
 }
@@ -101,3 +105,16 @@ function getValidImage(media) {
   }
   return '/images/placeholder.jpg';
 }
+document.querySelectorAll('.delete-listing').forEach((button) => {
+  button.addEventListener('click', function (e) {
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    this.appendChild(ripple);
+
+    const rect = this.getBoundingClientRect();
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
