@@ -8,54 +8,37 @@ export function setupDarkModeToggle() {
   const html = document.documentElement;
   const logoLight = document.getElementById('logo-light');
   const logoDark = document.getElementById('logo-dark');
-  const themeImage = document.getElementById('theme-image'); // Image that changes in dark mode
-
-  if (
-    !themeToggleMobile ||
-    !themeToggleDesktop ||
-    !themeIconMobile ||
-    !themeIconDesktop ||
-    !logoLight ||
-    !logoDark ||
-    !themeImage
-  )
-    return;
+  const themeImage = document.getElementById('theme-image'); 
 
   function updateThemeElements(isDarkMode) {
-    if (isDarkMode) {
-      // Switch to dark mode logo
-      logoLight.classList.add('hidden');
-      logoDark.classList.remove('hidden');
+    if (logoLight && logoDark) {
+      logoLight.classList.toggle('hidden', isDarkMode);
+      logoDark.classList.toggle('hidden', !isDarkMode);
+    }
 
-      // Change to dark mode image
-      themeImage.src = '/images/dark.jpg';
-    } else {
-      // Switch to light mode logo
-      logoLight.classList.remove('hidden');
-      logoDark.classList.add('hidden');
-
-      // Change to light mode image
-      themeImage.src = '/images/light.jpg';
+    if (themeImage) {
+      themeImage.src = isDarkMode ? '/images/dark.jpg' : '/images/light.jpg';
     }
   }
 
   function enableDarkMode() {
     html.classList.add('dark');
     localStorage.setItem('theme', 'dark');
-    themeIconMobile.classList.replace('fa-moon', 'fa-sun');
-    themeIconDesktop.classList.replace('fa-moon', 'fa-sun');
+    if (themeIconMobile) themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+    if (themeIconDesktop)
+      themeIconDesktop.classList.replace('fa-moon', 'fa-sun');
     updateThemeElements(true);
   }
 
   function enableLightMode() {
     html.classList.remove('dark');
     localStorage.setItem('theme', 'light');
-    themeIconMobile.classList.replace('fa-sun', 'fa-moon');
-    themeIconDesktop.classList.replace('fa-sun', 'fa-moon');
+    if (themeIconMobile) themeIconMobile.classList.replace('fa-sun', 'fa-moon');
+    if (themeIconDesktop)
+      themeIconDesktop.classList.replace('fa-sun', 'fa-moon');
     updateThemeElements(false);
   }
 
-  // Detect stored or preferred theme
   const savedTheme = localStorage.getItem('theme');
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme: dark)'
@@ -67,18 +50,18 @@ export function setupDarkModeToggle() {
     enableLightMode();
   }
 
-  // Toggle event listener
   [themeToggleMobile, themeToggleDesktop].forEach((toggle) => {
-    toggle.addEventListener('click', () => {
-      if (html.classList.contains('dark')) {
-        enableLightMode();
-      } else {
-        enableDarkMode();
-      }
-    });
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        if (html.classList.contains('dark')) {
+          enableLightMode();
+        } else {
+          enableDarkMode();
+        }
+      });
+    }
   });
 
-  // Auto change theme based on system settings
   window
     .matchMedia('(prefers-color-scheme: dark)')
     .addEventListener('change', (e) => {
