@@ -1,7 +1,10 @@
-import { deleteListing } from "../../api/listing/delete";
-import { fetchProfile } from "../../api/profile/read";
-import { showAlert, showConfirmAlert } from "../../utilities/alert";
+import { deleteListing } from "../../api/listing/delete.js";
+import { fetchProfile } from "../../api/profile/read.js";
+import { showAlert, showConfirmAlert } from "../../utilities/alert.js";
 
+/**
+ * Fetches and displays the user's listings.
+ */
 export async function displayUserListings() {
   const listingsContainer = document.querySelector("#myListings");
   if (!listingsContainer) return;
@@ -17,13 +20,7 @@ export async function displayUserListings() {
     }
 
     const profileData = await fetchProfile(username);
-
-    if (!profileData || !profileData.listings) {
-      listingsContainer.innerHTML = `<p class="text-gray-500 text-center">No listings available.</p>`;
-      return;
-    }
-
-    const userListings = profileData.listings;
+    const userListings = profileData?.listings || [];
 
     if (userListings.length === 0) {
       listingsContainer.innerHTML = `<p class="text-gray-500 text-center">You have no active listings.</p>`;
@@ -33,12 +30,20 @@ export async function displayUserListings() {
     listingsContainer.innerHTML = userListings
       .map((listing) => createListingCard(listing))
       .join("");
+
+    attachDeleteEventListeners();
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg ">Error loading your listings.</p>';
+    console.error("❌ Error fetching listings:", error);
   }
 }
 
+/**
+ * Creates a listing card HTML structure.
+ * @param {Object} listing - Listing object from API.
+ * @returns {string} - The generated listing card HTML.
+ */
 function createListingCard(listing) {
   return `
     <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full shadow-dark">
@@ -56,22 +61,26 @@ function createListingCard(listing) {
         listing.endsAt,
       ).toLocaleDateString()}</p>
 
-<a href="/listing/edit/?id=${listing.id}" 
-   class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
-          transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
-   ✏️ Edit
-</a>
+      <a href="/listing/edit/?id=${listing.id}" 
+         class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
+                transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
+         ✏️ Edit
+      </a>
 
-    <button data-id="${listing.id}" 
-    class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
-           transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
-           focus:ring-4 focus:ring-red-300 focus:outline-none">
-    🗑️ Delete
-</button>
-
+      <button data-id="${listing.id}" 
+        class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
+               focus:ring-4 focus:ring-red-300 focus:outline-none">
+        🗑️ Delete
+      </button>
     </div>
   `;
 }
+
+/**
+ * Handles deleting a listing after confirmation.
+ * @param {string} listingId - The ID of the listing to delete.
+ */
 async function deleteListingHandler(listingId) {
   const confirmDelete = await showConfirmAlert(
     "Are you sure you want to delete this listing?",
@@ -88,32 +97,30 @@ async function deleteListingHandler(listingId) {
     }
   } catch (error) {
     showAlert("Error deleting listing. Check console logs.", "error");
+    console.error("❌ Error deleting listing:", error);
   }
 }
 
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("delete-listing")) {
-    const listingId = event.target.getAttribute("data-id");
-    deleteListingHandler(listingId);
-  }
-});
+/**
+ * Attaches event listeners for delete buttons dynamically.
+ */
+function attachDeleteEventListeners() {
+  document.querySelectorAll(".delete-listing").forEach((button) => {
+    button.addEventListener("click", function () {
+      const listingId = this.getAttribute("data-id");
+      deleteListingHandler(listingId);
+    });
+  });
+}
 
+/**
+ * Returns a valid image URL for the listing.
+ * @param {Array} media - The media array from API.
+ * @returns {string} - The valid image URL or placeholder.
+ */
 function getValidImage(media) {
   if (Array.isArray(media) && media.length > 0 && media[0]?.url) {
     return media[0].url;
   }
   return "/images/placeholder.jpg";
 }
-document.querySelectorAll(".delete-listing").forEach((button) => {
-  button.addEventListener("click", function (e) {
-    const ripple = document.createElement("span");
-    ripple.classList.add("ripple");
-    this.appendChild(ripple);
-
-    const rect = this.getBoundingClientRect();
-    ripple.style.left = `${e.clientX - rect.left}px`;
-    ripple.style.top = `${e.clientY - rect.top}px`;
-
-    setTimeout(() => ripple.remove(), 600);
-  });
-});

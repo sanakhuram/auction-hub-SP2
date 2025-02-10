@@ -1,45 +1,41 @@
 import { API_AUCTION_PROFILES } from "../constants.js";
 import { headers } from "../headers.js";
-import { getAuthToken, isValidUrl } from "../utils.js";
+import { getAuthToken } from "../utils.js";
 
 /**
- * Sends a PUT request to update the user's profile.
- * @param {string} username - The username of the profile being updated.
- * @param {Object} data - The profile data to update (bio, avatar, banner).
- * @returns {Promise<Object>} - The updated profile data or an error.
+ * Updates the user's profile if there are changes.
+ * @param {string} username - The profile username.
+ * @param {Object} updatedData - Only modified profile fields.
+ * @returns {Promise<Object>} - The updated profile or an error.
  */
-export async function updateProfile(username, data) {
+export async function updateProfile(username, updatedData) {
   const token = getAuthToken();
-  if (!username || !token) {
+  if (!token) {
     throw new Error("Authentication error. Please log in again.");
   }
 
-  // ✅ Validate URLs
-  if (data.avatar?.url && !isValidUrl(data.avatar.url)) {
-    throw new Error("Invalid Avatar URL. Please enter a valid image URL.");
-  }
-  if (data.banner?.url && !isValidUrl(data.banner.url)) {
-    throw new Error("Invalid Banner URL. Please enter a valid image URL.");
-  }
+  // API URL
+  const apiUrl = `${API_AUCTION_PROFILES}/${username}`;
 
   try {
-    const response = await fetch(`${API_AUCTION_PROFILES}/${username}`, {
+    const response = await fetch(apiUrl, {
       method: "PUT",
       headers: headers(true, token),
-      body: JSON.stringify(data),
+      body: JSON.stringify(updatedData),
     });
 
-    const responseData = await response.json();
+    const data = await response.json();
+
     if (!response.ok) {
       throw new Error(
-        responseData.errors
-          ? responseData.errors[0].message
-          : response.statusText,
+        data.errors?.[0]?.message ||
+          "Error updating profile. Please try again.",
       );
     }
 
-    return responseData.data; // ✅ Return updated profile data
+    return data.data;
   } catch (error) {
+    console.error("❌ Error in updateProfile:", error);
     throw new Error("Error updating profile. Please try again.");
   }
 }

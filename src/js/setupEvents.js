@@ -11,10 +11,15 @@ import { authGuard } from "./utilities/authGuard.js";
 import { loadUserProfile } from "./api/auth.js";
 import { onCreateListing } from "./ui/listing/create.js";
 import { initializeEditPage } from "./router/views/listingEdit.js";
-import { initializeSearch } from "./utilities/search";
+import { initializeSearch } from "./utilities/search.js";
 import { showAlert } from "./utilities/alert.js";
 
-
+/**
+ * Attaches an event listener to an element if it exists
+ * @param {string} selector - The CSS selector of the element
+ * @param {string} event - The event type (e.g., "click", "submit")
+ * @param {Function} handler - The function to execute when the event occurs
+ */
 function attachEventListener(selector, event, handler) {
   const element = document.querySelector(selector);
   if (element) {
@@ -22,15 +27,26 @@ function attachEventListener(selector, event, handler) {
   }
 }
 
-
+/**
+ * Initializes the application by setting up event listeners and checking the page context.
+ */
 export function initializeApp() {
   try {
     attachEventListener("#createListingForm", "submit", onCreateListing);
-    const currentPath = window.location.pathname;
+    attachEventListener("form[name='register']", "submit", onRegister);
+    attachEventListener("form[name='login']", "submit", onLogin);
+    attachEventListener("#logoutBtn", "click", () => {
+      logout();
+      window.location.href = "/auth/login/";
+    });
+    attachEventListener("#updateProfileForm", "submit", async (event) => {
+      event.preventDefault();
+      await onUpdateProfile(event);
+    });
 
+    const currentPath = window.location.pathname;
     const carousel = document.getElementById("carouselContainer");
     const listingContainer = document.getElementById("listingContainer");
-
 
     if (currentPath === "/") {
       if (carousel) carousel.style.display = "block";
@@ -51,26 +67,17 @@ export function initializeApp() {
       authGuard();
       loadProfilePage();
     }
-
- 
-    attachEventListener("form[name='register']", "submit", onRegister);
-    attachEventListener("form[name='login']", "submit", onLogin);
-    attachEventListener("#logoutBtn", "click", () => {
-      logout();
-      window.location.href = "/auth/login/";
-    });
-
-    attachEventListener("#updateProfileForm", "submit", async (event) => {
-      event.preventDefault();
-      await onUpdateProfile(event);
-    });
   } catch (error) {
     showAlert(
-      "An error occurred while initializing the application. Please try again.","error",
+      "An error occurred while initializing the application. Please try again.",
+      "error",
     );
   }
 }
 
+/**
+ * Loads the user's profile page and updates the UI accordingly.
+ */
 function loadProfilePage() {
   const username = localStorage.getItem("username");
   if (!username) {
@@ -104,48 +111,45 @@ function loadProfilePage() {
         }
       });
 
-       const editIcon = document.getElementById("editProfileIcon");
-      const profileForm = document.getElementById("profileFormContainer");
-
-      if (editIcon && profileForm) {
-        editIcon.addEventListener("click", function () {
-          profileForm.classList.toggle("hidden"); 
-        });
-      }
+      attachEventListener("#editProfileIcon", "click", () => {
+        document
+          .getElementById("profileFormContainer")
+          ?.classList.toggle("hidden");
+      });
     })
     .catch(() => {});
 }
 
+// ✅ Initialize the app when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   initializeApp();
   loadUserProfile();
 });
 
+// ✅ Initialize search on homepage
 if (window.location.pathname === "/") {
   initializeSearch();
 }
 
+// ✅ Subscribe button event
+attachEventListener("#subscribe-btn", "click", () => {
+  const emailInput = document.getElementById("email-input");
+  const message = document.getElementById("subscribe-message");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const subscribeBtn = document.getElementById("subscribe-btn");
-if (subscribeBtn) {
-  subscribeBtn.addEventListener("click", function () {
-    const emailInput = document.getElementById("email-input");
-    const message = document.getElementById("subscribe-message");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailRegex.test(emailInput.value.trim())) {
+    message.classList.remove("hidden");
+    message.textContent = "Thank you for subscribing!";
+    setTimeout(() => {
+      message.classList.add("hidden");
+      emailInput.value = "";
+    }, 3000);
+  } else {
+    message.classList.remove("hidden");
+    message.textContent = "Please enter a valid email.";
+  }
+});
 
-    if (emailRegex.test(emailInput.value.trim())) {
-      message.classList.remove("hidden");
-      message.textContent = "Thank you for subscribing!";
-      setTimeout(() => {
-        message.classList.add("hidden");
-        emailInput.value = "";
-      }, 3000);
-    } else {
-      message.classList.remove("hidden");
-      message.textContent = "Please enter a valid email.";
-    }
-  });
-}
 document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname.includes("/profile/")) {
     const editIcon = document.getElementById("editProfileIcon");
@@ -153,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (editIcon && profileForm) {
       editIcon.addEventListener("click", function () {
-        profileForm.classList.toggle("hidden"); 
+        profileForm.classList.toggle("hidden");
       });
     }
   }
