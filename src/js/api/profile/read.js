@@ -1,5 +1,3 @@
-//src/js/api/profile/read.js
-
 import { API_AUCTION_PROFILES } from "../constants.js";
 import { headers } from "../headers.js";
 import { getAuthToken } from "../utils.js";
@@ -17,7 +15,6 @@ export async function fetchProfile(username) {
     return null;
   }
 
-  // Include listings in the API request
   const apiUrl = `${API_AUCTION_PROFILES}/${username}?_listings=true`;
 
   try {
@@ -39,7 +36,7 @@ export async function fetchProfile(username) {
     }
 
     const data = await response.json();
-    return data?.data || null; // Return the 'data' field from the API response
+    return data?.data || null;
   } catch (error) {
     console.error("❌ Error fetching profile:", error);
     return null;
