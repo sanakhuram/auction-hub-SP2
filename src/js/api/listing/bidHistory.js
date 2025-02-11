@@ -44,7 +44,7 @@ export async function loadBidHistory(listingId) {
                       </div>`;
                   })
                   .join("")
-              : '<p class="text-gray-500 text-center col-span-2">No bids yet.</p>'
+              : '<p class="text-gray-800 text-center col-span-2">No bids yet.</p>'
           }
         </div>
       </div>`;

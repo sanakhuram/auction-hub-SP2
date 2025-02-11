@@ -35,8 +35,8 @@ export async function displayUserBids() {
                         class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105" />
                     </a>
                     <h3 class="text-lg mt-2">${bid.listing?.title || "Unknown Item"}</h3>
-                    <p class="text-gray-500">Bid Amount: <strong>${bidUSD}</strong></p>
-                    <p class="text-gray-500">Placed On: ${new Date(bid.created).toLocaleDateString()}</p>
+                    <p class="text-gray-800">Bid Amount: <strong>${bidUSD}</strong></p>
+                    <p class="text-gray-800">Placed On: ${new Date(bid.created).toLocaleDateString()}</p>
                   </div>
                 `;
             })
