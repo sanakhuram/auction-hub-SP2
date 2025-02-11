@@ -78,9 +78,14 @@ export async function displayListings(
 }
 
 function renderListings(listings, colorClass) {
+  const creditToUSD = 0.5; // Define the conversion rate
+
   return listings
-    .map(
-      (listing) => `
+    .map((listing) => {
+      const bidCredits = listing.bidCount || 0;
+      const bidUSD = bidCredits * creditToUSD;
+
+      return `
       <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-xs mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
@@ -92,7 +97,7 @@ function renderListings(listings, colorClass) {
         }</h3>
 
         <p class="text-gray-700 mt-2 dark:text-white">Current Bid: 
-          <strong>${listing.bidCount || "N/A"} Credits</strong>
+          <strong>${formatCurrency(bidUSD)}</strong>
         </p>
 
         <p class="text-gray-700">Ends on: ${new Date(
@@ -104,10 +109,23 @@ function renderListings(listings, colorClass) {
           Place Bid 
         </a>
       </div>
-    `,
-    )
+    `;
+    })
     .join("");
 }
+
+/**
+ * Formats a number into USD currency format.
+ * @param {number} amount - The amount to format
+ * @returns {string} - Formatted currency string
+ */
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+}
+
 
 function getValidImage(media) {
   return Array.isArray(media) && media.length > 0 && media[0]?.url
