@@ -1,5 +1,18 @@
 import { API_AUCTION_LISTINGS } from "../constants.js";
 import { headers } from "../headers.js";
+import { getListingById } from "./read.js";
+
+/**
+ * Formats a number into USD currency format.
+ * @param {number} amount - The amount to format.
+ * @returns {string} - Formatted currency string.
+ */
+export function formatCurrency(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+}
 
 /**
  * Places a bid on a listing.
@@ -24,62 +37,31 @@ export async function placeBid(listingId, bidAmount) {
 
     return await response.json();
   } catch (error) {
-    console.error(`Error placing bid:`, error);
+    console.error("❌ Error placing bid:", error);
     alert(`Failed to place bid: ${error.message}`);
     return null;
   }
 }
 
 /**
- * Fetches bid history for a given listing and updates the UI.
+ * Fetches bid history for a given listing.
  * @param {string} listingId - The ID of the listing.
+ * @returns {Promise<Array>} - Sorted bid history.
  */
 export async function fetchBids(listingId) {
   try {
-    const apiUrl = `${API_AUCTION_LISTINGS}/${listingId}/bids`;
-    const response = await fetch(apiUrl, { headers: headers() });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        console.warn("No bid history found. Returning empty list.");
-        return []; // Return empty array instead of error
-      }
-      throw new Error("Failed to fetch bid history");
+    const listingResponse = await getListingById(listingId); // Fetch full listing
+    if (!listingResponse || !listingResponse.data) {
+      console.warn("⚠️ No listing data found.");
+      return [];
     }
 
-    const bids = await response.json();
-    bids.sort((a, b) => b.amount - a.amount);
-    return bids;
+    const listing = listingResponse.data;
+    const bids = listing.bids || [];
+
+    return bids.sort((a, b) => b.amount - a.amount); // Sort bids from highest to lowest
   } catch (error) {
-    console.error("Error fetching bids:", error);
+    console.error("❌ Error fetching listing with bids:", error);
     return [];
-  }
-}
-
-/**
- * Loads bid history when the page loads and displays it in the UI.
- * @param {string} listingId - The ID of the listing.
- */
-export async function loadBidHistory(listingId) {
-  const bids = await fetchBids(listingId);
-
-  const bidHistoryContainer = document.getElementById("bid-history");
-  if (bidHistoryContainer) {
-    bidHistoryContainer.innerHTML =
-      `<h2 class="text-xl text-center m-5">Bid History</h2>` +
-      (bids.length
-        ? bids
-            .map(
-              (bid) =>
-                `<div class="p-3 border-b text-center"><strong>${
-                  bid.bidder || "Anonymous"
-                }:</strong> $$${
-                  bid.amount
-                } <span class='text-gray-500'>(${new Date(
-                  bid.timestamp,
-                ).toLocaleString()})</span></div>`,
-            )
-            .join("")
-        : '<p class="text-gray-500 text-center">No bids yet.</p>');
   }
 }

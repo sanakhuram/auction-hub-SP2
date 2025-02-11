@@ -15,7 +15,8 @@ export async function fetchProfile(username) {
     return null;
   }
 
-  const apiUrl = `${API_AUCTION_PROFILES}/${username}?_listings=true`;
+  // Ensure bids are included in the response
+  const apiUrl = `${API_AUCTION_PROFILES}/${username}?_listings=true&_bids=true`; // <- Added `_bids=true`
 
   try {
     const response = await fetch(apiUrl, {
@@ -42,3 +43,5 @@ export async function fetchProfile(username) {
     return null;
   }
 }
+
+

@@ -1,10 +1,8 @@
 import { deleteListing } from "../../api/listing/delete.js";
 import { fetchProfile } from "../../api/profile/read.js";
 import { showAlert, showConfirmAlert } from "../../utilities/alert.js";
+import { getListingById } from "../../api/listing/read.js"; // Import function to fetch a single listing
 
-/**
- * Fetches and displays the user's listings.
- */
 export async function displayUserListings() {
   const listingsContainer = document.querySelector("#myListings");
   if (!listingsContainer) return;
@@ -27,7 +25,15 @@ export async function displayUserListings() {
       return;
     }
 
-    listingsContainer.innerHTML = userListings
+    // Fetch full listing details for each listing
+    const fullListings = await Promise.all(
+      userListings.map(async (listing) => {
+        const fullListing = await getListingById(listing.id); // Fetch full listing
+        return fullListing?.data || listing; // Use full listing if available
+      }),
+    );
+
+    listingsContainer.innerHTML = fullListings
       .map((listing) => createListingCard(listing))
       .join("");
 
@@ -39,12 +45,20 @@ export async function displayUserListings() {
   }
 }
 
+
 /**
  * Creates a listing card HTML structure.
  * @param {Object} listing - Listing object from API.
  * @returns {string} - The generated listing card HTML.
  */
 function createListingCard(listing) {
+  // Check if bids exist inside `listing.bids` or `listing.bids.data`
+  const bidArray = listing.bids?.data || listing.bids || [];
+  const highestBid =
+    bidArray.length > 0
+      ? Math.max(...bidArray.map((bid) => bid.amount))
+      : listing.startingPrice || 0;
+
   return `
     <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full shadow-dark">
       <a href="/listing/?id=${listing.id}" class="block">
@@ -54,9 +68,8 @@ function createListingCard(listing) {
           onerror="this.src='/images/placeholder.jpg';" />
       </a>
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
-      <p class="text-gray-700">Current Bid: <strong>${
-        listing.bidCount || "N/A"
-      } Credits</strong></p>
+      
+      <p class="text-gray-700">Current Bid: <strong>${formatCurrency(highestBid)}</strong></p>
       <p class="text-gray-700">Ends on: ${new Date(
         listing.endsAt,
       ).toLocaleDateString()}</p>
@@ -75,6 +88,13 @@ function createListingCard(listing) {
       </button>
     </div>
   `;
+}
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
 }
 
 /**

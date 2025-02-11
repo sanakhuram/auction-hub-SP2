@@ -1,6 +1,7 @@
 import { getListingById } from "../../api/listing/read.js";
 import { placeBid } from "../../api/listing/bid.js";
 import { showAlert } from "../../utilities/alert.js";
+import { loadBidHistory } from "../../api/listing/bidHistory.js";
 
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
@@ -28,6 +29,10 @@ export async function displaySingleListing() {
     }
 
     const listing = listingResponse.data;
+    const highestBid =
+      listing.bids && listing.bids.length
+        ? Math.max(...listing.bids.map((bid) => bid.amount))
+        : 0;
 
     listingContainer.innerHTML = `
       <h1 class="text-2xl text-center bg-accent w-full shadow-secondary p-4 mb-20 text-gray-800">
@@ -47,7 +52,7 @@ export async function displaySingleListing() {
           class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300"
         />
         <div>
-          <p class="text-gray-700 font-semibold text-lg text-center p-5 ">
+          <p class="text-gray-700 font-semibold text-lg text-center p-5">
             ${listing.seller?.name || "Unknown Seller"}
           </p>
           <p class="text-black text-sm text-center">
@@ -61,25 +66,34 @@ export async function displaySingleListing() {
       </div>
       <div class="mt-4">
         <p class="text-gray-700 text-center dark:text-white m-5"><strong>Current Bids:</strong> 
-          ${listing._count?.bids || 0}
+          ${formatCurrency(highestBid)}
+        </p>
+        <p class="text-gray-700 text-center dark:text-white m-5"><strong>Starting Price:</strong> 
+          ${formatCurrency(listing.startingPrice || 1)}
         </p>
         <p class="text-gray-500 text-center m-5 dark:text-white"><strong>Ends in:</strong> 
           ${formatTimeLeft(listing.endsAt)}
         </p>
       </div>
+<div id="bid-history" class="mt-6 p-4 border rounded-lg shadow-lg bg-primary">
+  <h2 class="text-xl text-center m-5">Bid History</h2>
+  <p class="text-gray-500 text-center">Loading bid history...</p>
+</div>
 
       <div class="mt-6">
         <h2 class="text-xl text-center m-5 dark:text-white">Bid Now</h2>
         <form id="bidForm" class="mt-3 text-center">
           <input type="number" id="bidAmount" min="1" required 
-            class="p-2 border rounded-lg w-1/2 shadow-accent focus:ring-2 focus:ring-secondary focus:outline-none " placeholder="Enter bid amount" />
+            class="p-2 border rounded-lg w-1/2 shadow-accent focus:ring-2 focus:ring-secondary focus:outline-none" 
+            placeholder="Enter bid amount" />
           <button type="submit" class="text-white px-4 py-2 rounded-lg bg-btn-gradient hover:opacity-90 transition shadow-dark dark:shadow-orange-300 border border-white">
             Place Bid
           </button>
         </form>
-        <p id="bidMessage" class="mt-3 text-center text-secondary hidden">Bid placed successfully!</p>
+        <p id="bidMessage" class="mt-3 text-center text-secondary hidden"></p>
       </div>
     `;
+loadBidHistory(listingId);
 
     document
       .getElementById("bidForm")
@@ -90,15 +104,15 @@ export async function displaySingleListing() {
           document.getElementById("bidAmount").value,
         );
         if (!bidAmount || bidAmount <= 0) {
-        showAlert("Please enter a valid bid amount.", "error");
+          showAlert("Please enter a valid bid amount.", "error");
           return;
         }
 
         const bidResponse = await placeBid(listingId, bidAmount);
         if (bidResponse) {
-          document.getElementById("bidMessage").classList.remove("hidden");
-          document.getElementById("bidMessage").textContent =
-            "Bid placed successfully!";
+          const bidMessage = document.getElementById("bidMessage");
+          bidMessage.classList.remove("hidden");
+          bidMessage.textContent = `Bid placed successfully! Your bid: ${formatCurrency(bidAmount)}`;
           setTimeout(() => {
             location.reload();
           }, 2000);
@@ -109,6 +123,7 @@ export async function displaySingleListing() {
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";
   }
 }
+
 
 /**
  * Returns a valid image URL or a placeholder if no media exists.
@@ -136,6 +151,18 @@ function formatTimeLeft(endDate) {
 }
 
 /**
+ * Formats a number into USD currency format.
+ * @param {number} amount - The amount to format
+ * @returns {string} - Formatted currency string
+ */
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+}
+
+/**
  * Runs displaySingleListing only if #listing-details exists.
  */
 document.addEventListener("DOMContentLoaded", function () {
@@ -143,5 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (listingContainer) {
     displaySingleListing();
-  }
+    }
 });
+
