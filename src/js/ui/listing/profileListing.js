@@ -1,7 +1,7 @@
 import { deleteListing } from "../../api/listing/delete.js";
 import { fetchProfile } from "../../api/profile/read.js";
 import { showAlert, showConfirmAlert } from "../../utilities/alert.js";
-import { getListingById } from "../../api/listing/read.js"; // Import function to fetch a single listing
+import { getListingById } from "../../api/listing/read.js"; 
 
 export async function displayUserListings() {
   const listingsContainer = document.querySelector("#myListings");
@@ -25,11 +25,10 @@ export async function displayUserListings() {
       return;
     }
 
-    // Fetch full listing details for each listing
-    const fullListings = await Promise.all(
+      const fullListings = await Promise.all(
       userListings.map(async (listing) => {
-        const fullListing = await getListingById(listing.id); // Fetch full listing
-        return fullListing?.data || listing; // Use full listing if available
+        const fullListing = await getListingById(listing.id);
+        return fullListing?.data || listing; 
       }),
     );
 
@@ -52,15 +51,14 @@ export async function displayUserListings() {
  * @returns {string} - The generated listing card HTML.
  */
 function createListingCard(listing) {
-  // Check if bids exist inside `listing.bids` or `listing.bids.data`
-  const bidArray = listing.bids?.data || listing.bids || [];
+    const bidArray = listing.bids?.data || listing.bids || [];
   const highestBid =
     bidArray.length > 0
       ? Math.max(...bidArray.map((bid) => bid.amount))
       : listing.startingPrice || 0;
 
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-olive relative max-w-[1400px] mx-auto w-full shadow-dark">
+    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative max-w-[1400px] mx-auto w-full shadow-dark">
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"

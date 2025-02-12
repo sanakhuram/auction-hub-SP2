@@ -78,12 +78,12 @@ export async function displayListings(
 }
 
 function renderListings(listings, colorClass) {
-  const creditToUSD = 0.5; // Define the conversion rate
-
   return listings
     .map((listing) => {
-      const bidCredits = listing.bidCount || 0;
-      const bidUSD = bidCredits * creditToUSD;
+      const highestBid =
+        listing.bids.length > 0
+          ? Math.max(...listing.bids.map((bid) => bid.amount))
+          : listing.startingPrice || 0;
 
       return `
       <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-xs mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
@@ -97,7 +97,7 @@ function renderListings(listings, colorClass) {
         }</h3>
 
         <p class="text-gray-700 mt-2 dark:text-white">Current Bid: 
-          <strong>${formatCurrency(bidUSD)}</strong>
+          <strong>${formatCurrency(highestBid)}</strong>
         </p>
 
         <p class="text-gray-700">Ends on: ${new Date(
@@ -113,6 +113,8 @@ function renderListings(listings, colorClass) {
     })
     .join("");
 }
+
+
 
 /**
  * Formats a number into USD currency format.

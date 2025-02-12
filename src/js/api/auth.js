@@ -2,13 +2,12 @@ import { showAlert ,showConfirmAlert } from "../utilities/alert";
 import { fetchProfile } from "./profile/read";
 
 export function logout() {
-  // Remove user session data
+
   localStorage.removeItem("username");
   localStorage.removeItem("token");
   localStorage.removeItem("accessToken");
   sessionStorage.clear();
 
-  // Update UI elements
   document.getElementById("logoutBtn")?.classList.add("hidden");
   document.getElementById("loginBtn")?.classList.remove("hidden");
   document.getElementById("user-profile-desktop")?.classList.add("hidden");
@@ -22,7 +21,6 @@ export function logout() {
   document.getElementById("mobile-logout")?.classList.add("hidden");
   document.getElementById("mobile-login")?.classList.remove("hidden");
 
-  // Show alert message
   showAlert("You have been logged out.", "warning");
 
   setTimeout(() => (window.location.href = "/auth/login/"), 1000);

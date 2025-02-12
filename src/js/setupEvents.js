@@ -27,9 +27,6 @@ function attachEventListener(selector, event, handler) {
   }
 }
 
-/**
- * Initializes the application by setting up event listeners and checking the page context.
- */
 export function initializeApp() {
   try {
     attachEventListener("#createListingForm", "submit", onCreateListing);
@@ -75,9 +72,6 @@ export function initializeApp() {
   }
 }
 
-/**
- * Loads the user's profile page and updates the UI accordingly.
- */
 function loadProfilePage() {
   const username = localStorage.getItem("username");
   if (!username) {
@@ -120,18 +114,15 @@ function loadProfilePage() {
     .catch(() => {});
 }
 
-// ✅ Initialize the app when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   initializeApp();
   loadUserProfile();
 });
 
-// ✅ Initialize search on homepage
 if (window.location.pathname === "/") {
   initializeSearch();
 }
 
-// ✅ Subscribe button event
 attachEventListener("#subscribe-btn", "click", () => {
   const emailInput = document.getElementById("email-input");
   const message = document.getElementById("subscribe-message");

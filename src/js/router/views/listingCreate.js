@@ -2,7 +2,7 @@
 import { onCreateListing } from "../../ui/listing/create";
 import { authGuard } from "../../utilities/authGuard";
 
-authGuard(); // Ensure user is authenticated
+authGuard(); 
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("createListingForm");

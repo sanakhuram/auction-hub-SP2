@@ -3,6 +3,7 @@ import { placeBid } from "../../api/listing/bid.js";
 import { showAlert } from "../../utilities/alert.js";
 import { loadBidHistory } from "../../api/listing/bidHistory.js";
 
+
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
 

@@ -5,7 +5,7 @@ import { showAlert } from "../../utilities/alert.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const listingDetailsContainer = document.getElementById("listing-details");
 
-  if (!listingDetailsContainer) return; // Stop execution if element doesn't exist
+  if (!listingDetailsContainer) return; 
 
   const params = new URLSearchParams(window.location.search);
   const listingId = params.get("id");

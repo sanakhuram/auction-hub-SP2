@@ -8,12 +8,10 @@ import { API_AUCTION_LISTINGS } from "../constants.js";
  */
 export async function getListings(categoryFilter = "", searchQuery = "") {
   try {
-    let apiUrl = `${API_AUCTION_LISTINGS}?sort=created&sortOrder=desc&_active=true`;
+    let apiUrl = `${API_AUCTION_LISTINGS}?sort=created&sortOrder=desc&_bids=true&_active=true`;
 
     if (searchQuery) {
-      apiUrl = `${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(
-        searchQuery,
-      )}`;
+      apiUrl = `${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(searchQuery)}&_bids=true`;
     } else if (categoryFilter) {
       apiUrl += `&_tag=${encodeURIComponent(categoryFilter)}`;
     }
@@ -33,6 +31,8 @@ export async function getListings(categoryFilter = "", searchQuery = "") {
       created: listing.created,
       endsAt: listing.endsAt,
       bidCount: listing._count?.bids || 0,
+      bids: listing.bids || [], 
+      startingPrice: listing.startingPrice || 0,
       seller: listing.seller?.name || "Unknown Seller",
     }));
   } catch (error) {
@@ -40,6 +40,7 @@ export async function getListings(categoryFilter = "", searchQuery = "") {
     return [];
   }
 }
+
 
 /**
  * Fetches a single listing by its ID, including seller details.
