@@ -5,7 +5,7 @@ import { showAlert } from "../../utilities/alert.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const listingDetailsContainer = document.getElementById("listing-details");
 
-  if (!listingDetailsContainer) return; 
+  if (!listingDetailsContainer) return;
 
   const params = new URLSearchParams(window.location.search);
   const listingId = params.get("id");
@@ -25,18 +25,44 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    const images = getValidImages(listing.media);
+
+    // Image Navigation Setup
+    let currentImageIndex = 0;
+
+    function updateImage() {
+      document.getElementById("listing-image").src = images[currentImageIndex];
+    }
+
     listingDetailsContainer.innerHTML = `
-      <h1 class="text-2xl font-bold">${listing.title}</h1>
-      <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}" 
-        alt="${listing.media?.[0]?.alt || listing.title}" 
-        class="w-full h-60 object-cover rounded-md">
-      <p class="text-gray-700">${
+      <h1 class="text-2xl font-bold text-center mb-4">${listing.title}</h1>
+      
+      <div class="relative flex justify-center items-center">
+        <button id="prev-image" class="absolute left-0 bg-gray-600 text-white px-3 py-2 rounded-l">◀</button>
+        <img id="listing-image" class="w-full max-w-lg object-cover rounded-md" src="${images[0]}" />
+        <button id="next-image" class="absolute right-0 bg-gray-600 text-white px-3 py-2 rounded-r">▶</button>
+      </div>
+
+      <p class="text-gray-700 mt-4 text-center">${
         listing.description || "No description available"
       }</p>
-      <p class="text-sm text-gray-500">Ends on: ${new Date(
+
+      <p class="text-sm text-gray-500 text-center">Ends on: ${new Date(
         listing.endsAt,
       ).toLocaleString()}</p>
     `;
+
+    // Attach Event Listeners for Image Navigation
+    document.getElementById("prev-image").addEventListener("click", () => {
+      currentImageIndex =
+        (currentImageIndex - 1 + images.length) % images.length;
+      updateImage();
+    });
+
+    document.getElementById("next-image").addEventListener("click", () => {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      updateImage();
+    });
   } catch (error) {
     listingDetailsContainer.innerHTML =
       "<p class='text-red-500'>Failed to load listing.</p>";
@@ -54,9 +80,17 @@ export async function onCreateListing(event) {
   const description = document
     .getElementById("listingContentForm")
     ?.value.trim();
-  const imageUrl = document.getElementById("imageURL")?.value.trim();
-  const imageAlt = document.getElementById("imageAltText")?.value.trim();
   const endsAt = document.getElementById("endsAt")?.value;
+
+  // Collect image URLs from inputs
+  const image1 = document.getElementById("imageURL1")?.value.trim();
+  const image2 = document.getElementById("imageURL2")?.value.trim();
+  const image3 = document.getElementById("imageURL3")?.value.trim();
+
+  // Filter out empty inputs (only keep valid URLs)
+  const images = [image1, image2, image3].filter((url) => url !== "");
+
+  const imageAlt = document.getElementById("imageAltText")?.value.trim();
 
   const allowedTags = [
     "art",
@@ -83,7 +117,7 @@ export async function onCreateListing(event) {
   }
 
   const formattedEndsAt = new Date(endsAt).toISOString();
-  const media = imageUrl ? [{ url: imageUrl, alt: imageAlt || title }] : [];
+  const media = images.map((url) => ({ url, alt: imageAlt || title }));
 
   const listingData = {
     title,
@@ -105,4 +139,16 @@ export async function onCreateListing(event) {
   } catch (error) {
     showAlert("Failed to create listing: " + error.message, "error");
   }
+}
+
+/**
+ * Extracts up to 3 valid images from media array.
+ * @param {Array} media - Listing media array.
+ * @returns {Array} - Array of image URLs.
+ */
+function getValidImages(media) {
+  if (!Array.isArray(media) || media.length === 0) {
+    return ["/images/placeholder.jpg"];
+  }
+  return media.map((image) => image.url).slice(0, 3);
 }

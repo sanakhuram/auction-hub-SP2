@@ -1,28 +1,41 @@
 import { updateListing } from "../../api/listing/update.js";
 import { showAlert } from "../../utilities/alert.js";
 
+/**
+ * Populates the edit form with existing listing data.
+ * Supports multiple images (main image + 2 optional images).
+ */
 export function populateEditListingForm(listing) {
   if (!listing || Object.keys(listing).length === 0) {
-    showAlert("Error: Listing data could not be loaded." , "error");
+    showAlert("Error: Listing data could not be loaded.", "error");
     return;
   }
 
   document.getElementById("listingTitleForm").value = listing.data.title || "";
   document.getElementById("listingContentForm").value =
     listing.data.description || "";
-  document.getElementById("imageURL").value =
-    listing.data.media?.[0]?.url || "";
-  document.getElementById("imageAltText").value =
-    listing.data.media?.[0]?.alt || "";
   document.getElementById("endsAt").value = listing.data.endsAt
     ? new Date(listing.data.endsAt).toISOString().slice(0, 16)
     : "";
 
+  // Populate tags
   document.querySelectorAll('input[name="tags"]').forEach((checkbox) => {
     checkbox.checked = listing.data.tags.includes(checkbox.value);
   });
+
+  // Populate image URLs (Ensures the first image is main and others are optional)
+  const images = listing.data.media || [];
+  document.getElementById("imageURL1").value = images[0]?.url || "";
+  document.getElementById("imageURL2").value = images[1]?.url || "";
+  document.getElementById("imageURL3").value = images[2]?.url || "";
+
+  document.getElementById("imageAltText").value = images[0]?.alt || "";
 }
 
+/**
+ * Handles the form submission to update a listing.
+ * Updates title, description, tags, end date, and images.
+ */
 export async function onUpdateEdit(event) {
   event.preventDefault();
 
@@ -43,10 +56,18 @@ export async function onUpdateEdit(event) {
     ).map((input) => input.value),
     media: [
       {
-        url: document.getElementById("imageURL").value.trim(),
+        url: document.getElementById("imageURL1").value.trim(),
         alt: document.getElementById("imageAltText").value.trim(),
       },
-    ],
+      {
+        url: document.getElementById("imageURL2").value.trim(),
+        alt: document.getElementById("imageAltText").value.trim(),
+      },
+      {
+        url: document.getElementById("imageURL3").value.trim(),
+        alt: document.getElementById("imageAltText").value.trim(),
+      },
+    ].filter((image) => image.url !== ""), // Remove empty image inputs
   };
 
   try {
@@ -64,4 +85,3 @@ export async function onUpdateEdit(event) {
     showAlert("Error updating listing. Please try again.", "error");
   }
 }
-

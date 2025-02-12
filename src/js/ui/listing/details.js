@@ -3,7 +3,6 @@ import { placeBid } from "../../api/listing/bid.js";
 import { showAlert } from "../../utilities/alert.js";
 import { loadBidHistory } from "../../api/listing/bidHistory.js";
 
-
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
 
@@ -35,22 +34,39 @@ export async function displaySingleListing() {
         ? Math.max(...listing.bids.map((bid) => bid.amount))
         : 0;
 
+    const images = getValidImages(listing.media);
+    let currentImageIndex = 0;
+
+    function updateImage() {
+      document.getElementById("listing-image").src = images[currentImageIndex];
+    }
+
     listingContainer.innerHTML = `
-      <h1 class="text-2xl text-center bg-accent w-full shadow-secondary p-4 mb-20 text-gray-800">
+      <h1 class="text-2xl text-center bg-accent w-full shadow-secondary p-4 mb-6 text-gray-800">
         ${listing.title}
       </h1>
-      <img src="${getValidImage(listing.media)}" 
-        alt="${listing.media?.[0]?.alt || listing.title}"
-        class="w-full max-w-lg object-cover rounded-md mt-4 mx-auto m-10 custom-border shadow-secondary"
-        onerror="this.src='/images/placeholder.jpg';"
-      />
-          
-      <div class="flex flex-col items-center mt-2 border p-3 rounded-lg shadow-accent bg-secondary">
+
+      <!-- Image Carousel -->
+      <div class="relative flex justify-center items-center">
+        ${
+          images.length > 1
+            ? `<button id="prev-image" class="absolute left-0 bg-muted text-white px-3 py-2 rounded-l m-3">◀</button>`
+            : ""
+        }
+        <img id="listing-image" class="w-full max-w-lg object-cover rounded-md shadow-secondary custom-border m-5" src="${images[0]}" />
+        ${
+          images.length > 1
+            ? `<button id="next-image" class="absolute right-0 bg-muted text-white px-3 py-2 rounded-r m-3">▶</button>`
+            : ""
+        }
+      </div>
+
+      <div class="flex flex-col items-center mt-8 border p-3 rounded-lg shadow-accent bg-secondary ">
         <img src="${
           listing.seller?.avatar?.url || "/images/default-avatar.png"
         }" 
           alt="Seller Avatar"
-          class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300"
+          class="w-16 h-16 rounded-full border-2 border-gray-300"
         />
         <div>
           <p class="text-gray-700 font-semibold text-lg text-center p-5">
@@ -65,6 +81,7 @@ export async function displaySingleListing() {
           ${listing.description || "No description available."}
         </p>
       </div>
+
       <div class="mt-4">
         <p class="text-gray-700 text-center dark:text-white m-5"><strong>Current Bids:</strong> 
           ${formatCurrency(highestBid)}
@@ -76,10 +93,11 @@ export async function displaySingleListing() {
           ${formatTimeLeft(listing.endsAt)}
         </p>
       </div>
-<div id="bid-history" class="mt-6 p-4 border rounded-lg shadow-lg bg-primary">
-  <h2 class="text-xl text-center m-5">Bid History</h2>
-  <p class="text-gray-500 text-center">Loading bid history...</p>
-</div>
+
+      <div id="bid-history" class="mt-6 p-4 border rounded-lg shadow-lg bg-primary">
+        <h2 class="text-xl text-center m-5">Bid History</h2>
+        <p class="text-gray-500 text-center">Loading bid history...</p>
+      </div>
 
       <div class="mt-6">
         <h2 class="text-xl text-center m-5 dark:text-white">Bid Now</h2>
@@ -94,7 +112,21 @@ export async function displaySingleListing() {
         <p id="bidMessage" class="mt-3 text-center text-secondary hidden"></p>
       </div>
     `;
-loadBidHistory(listingId);
+
+    loadBidHistory(listingId);
+
+    if (images.length > 1) {
+      document.getElementById("prev-image").addEventListener("click", () => {
+        currentImageIndex =
+          (currentImageIndex - 1 + images.length) % images.length;
+        updateImage();
+      });
+
+      document.getElementById("next-image").addEventListener("click", () => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateImage();
+      });
+    }
 
     document
       .getElementById("bidForm")
@@ -125,14 +157,16 @@ loadBidHistory(listingId);
   }
 }
 
-
 /**
- * Returns a valid image URL or a placeholder if no media exists.
- * @param {Array} media - Listing media array
- * @returns {string} - Image URL
+ * Extracts up to 3 valid images from media array.
+ * @param {Array} media - Listing media array.
+ * @returns {Array} - Array of image URLs.
  */
-function getValidImage(media) {
-  return media?.[0]?.url || "/images/placeholder.jpg";
+function getValidImages(media) {
+  if (!Array.isArray(media) || media.length === 0) {
+    return ["/images/placeholder.jpg"];
+  }
+  return media.map((image) => image.url).slice(0, 3);
 }
 
 /**
@@ -171,6 +205,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (listingContainer) {
     displaySingleListing();
-    }
+  }
 });
-
