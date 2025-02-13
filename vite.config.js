@@ -25,6 +25,7 @@ export default defineConfig({
         listing: path.resolve(__dirname, "listing/index.html"),
         editListing: path.resolve(__dirname, "listing/edit/index.html"),
         createListing: path.resolve(__dirname, "listing/create/index.html"),
+        sellerProfile: path.resolve(__dirname, "profile/seller.html")
       },
     },
   },

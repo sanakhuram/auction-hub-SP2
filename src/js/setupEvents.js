@@ -13,6 +13,19 @@ import { onCreateListing } from "./ui/listing/create.js";
 import { initializeEditPage } from "./router/views/listingEdit.js";
 import { initializeSearch } from "./utilities/search.js";
 import { showAlert } from "./utilities/alert.js";
+import { loadSellerProfile } from "./ui/profile/seller.js";
+
+/**
+ * Runs event listeners for different pages
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname;
+
+  // ✅ Load Seller Profile Page if user is on `/profile/seller.html`
+  if (currentPath.includes("/profile/seller")) {
+    loadSellerProfile();
+  }
+});
 
 /**
  * Attaches an event listener to an element if it exists

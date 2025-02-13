@@ -6,9 +6,7 @@ import { loadBidHistory } from "../../api/listing/bidHistory.js";
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
 
-  if (!listingContainer) {
-    return;
-  }
+  if (!listingContainer) return;
 
   const params = new URLSearchParams(window.location.search);
   const listingId = params.get("id");
@@ -61,16 +59,21 @@ export async function displaySingleListing() {
         }
       </div>
 
-      <div class="flex flex-col items-center mt-8 border p-3 rounded-lg shadow-accent bg-secondary ">
-        <img src="${
-          listing.seller?.avatar?.url || "/images/default-avatar.png"
-        }" 
-          alt="Seller Avatar"
-          class="w-16 h-16 rounded-full border-2 border-gray-300"
-        />
+      <div class="flex flex-col items-center mt-8 border p-3 rounded-lg shadow-accent bg-secondary">
+        <a href="/profile/seller?seller=${listing.seller?.name}">
+          <img src="${
+            listing.seller?.avatar?.url || "/images/default-avatar.png"
+          }" 
+            alt="Seller Avatar"
+            class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
+          />
+        </a>
         <div>
           <p class="text-gray-700 font-semibold text-lg text-center p-5">
-            ${listing.seller?.name || "Unknown Seller"}
+            <a href="/profile/seller?seller=${listing.seller?.name}" 
+               class="text-black hover:underline">
+               ${listing.seller?.name || "Unknown Seller"}
+            </a>
           </p>
           <p class="text-black text-sm text-center">
             ${listing.seller?.bio || "No bio available."}
@@ -156,6 +159,7 @@ export async function displaySingleListing() {
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";
   }
 }
+
 
 /**
  * Extracts up to 3 valid images from media array.
