@@ -5,7 +5,6 @@ import {
 } from "../../utilities/pagination";
 import { getCurrentSearchQuery } from "../../utilities/search";
 
-
 export async function displayListings(
   categoryFilter = "",
   searchQuery = "",
@@ -15,7 +14,7 @@ export async function displayListings(
   const loader = document.getElementById("loader");
   if (!listingsContainer || !loader) return;
 
-  loader.style.display = "flex"; 
+  loader.style.display = "flex";
 
   try {
     if (!searchQuery) searchQuery = getCurrentSearchQuery();
@@ -24,7 +23,7 @@ export async function displayListings(
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
         '<p class="text-red-500 font-semibold text-lg">No listings found.</p>';
-      loader.style.display = "none"; 
+      loader.style.display = "none";
       return;
     }
 
@@ -69,11 +68,13 @@ export async function displayListings(
     renderPaginationControls(totalPages, currentPage, (newPage) => {
       displayListings(categoryFilter, searchQuery, newPage);
     });
+
+    updateTimers(); // Start the countdown timers
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
   } finally {
-    loader.style.display = "none"; 
+    loader.style.display = "none";
   }
 }
 
@@ -87,34 +88,66 @@ function renderListings(listings, colorClass) {
 
       return `
       <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-xs mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
-        <img src="${getValidImage(listing.media)}"
-          alt="${listing.media?.[0]?.alt || listing.title}"
-          class="w-full h-40 object-cover rounded-md mt-2"
-          onerror="this.src='/images/placeholder.jpg';" />
         
-        <h3 class="text-base font-bold font-secondary line-clamp-2 mt-2">${
+        <a href="/listing/?id=${listing.id}">
+          <img src="${getValidImage(listing.media)}"
+            alt="${listing.media?.[0]?.alt || listing.title}"
+            class="w-full h-40 object-cover rounded-md mt-2 cursor-pointer hover:opacity-80 transition-opacity"
+            onerror="this.src='/images/placeholder.jpg';" />
+        </a>
+
+        <h3 class="font-heading text-lg line-clamp-2 mt-2 dark:text-dark">${
           listing.title
         }</h3>
 
-        <p class="text-gray-700 mt-2 dark:text-white">Current Bid: 
+        <p class="text-red-800 mt-8">Current Bid: 
           <strong>${formatCurrency(highestBid)}</strong>
         </p>
 
-        <p class="text-gray-700">Ends on: ${new Date(
-          listing.endsAt,
-        ).toLocaleDateString()}</p>
-
-        <a href="/listing/?id=${listing.id}" 
-          class="inline-block bg-btn-gradient text-dark px-4 py-2 mt-3 rounded-lg border border-body hover:bg-dark hover:text-white transition-all">
-          Place Bid 
-        </a>
+        <p class="text-gray-700 mt-2">Ends on: 
+          <span class="countdown-timer px-3 py-1 rounded-lg text-white font-semibold bg-btn-gradient shadow-sm " 
+            data-end-time="${listing.endsAt}">
+          </span>
+        </p>
       </div>
     `;
     })
     .join("");
 }
 
+/**
+ * Updates the countdown timers for each listing
+ */
+function updateTimers() {
+  setInterval(() => {
+    document.querySelectorAll(".countdown-timer").forEach((timerElement) => {
+      const endTime = new Date(
+        timerElement.getAttribute("data-end-time"),
+      ).getTime();
+      const now = new Date().getTime();
+      const timeRemaining = endTime - now;
 
+      if (timeRemaining <= 0) {
+        timerElement.innerHTML =
+          "<span class='text-red-600 font-bold'>Expired</span>";
+        return;
+      }
+
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor(
+        (timeRemaining % (1000 * 60 * 60)) / (1000 * 60),
+      );
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      timerElement.innerHTML = `
+        ${days}d ${hours}h ${minutes}m ${seconds}s
+      `;
+    });
+  }, 1000);
+}
 
 /**
  * Formats a number into USD currency format.
@@ -128,7 +161,11 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-
+/**
+ * Gets a valid image URL or returns a placeholder if none exist
+ * @param {Array} media - Media array containing images
+ * @returns {string} - Valid image URL
+ */
 function getValidImage(media) {
   return Array.isArray(media) && media.length > 0 && media[0]?.url
     ? media[0].url
