@@ -18,7 +18,6 @@
 <nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary">
   <div class="container mx-auto flex justify-between items-center">
 
-<!-- Logo (Light & Dark Mode) with Link -->
 <div class="flex items-center">
   <a href="/" class="cursor-pointer">
     <img id="logo-light" src="/images/logolight.png" alt="Auction Hub Logo" class="w-16">
@@ -63,7 +62,7 @@
   </div>
 </nav>
   </header>
-  <!-- Loader -->
+
 <div id="loader" class="fixed inset-0 flex justify-center items-center bg-white dark:bg-dark z-50">
   <img src="/images/loader.png" alt="Loading..." class="w-20 h-20 animate-spin">
 </div>
@@ -81,14 +80,13 @@
     <i id="editProfileIcon" class="fas fa-pencil-alt text-white bg-gray-700 p-2 rounded-full absolute top-4 right-4 cursor-pointer shadow-md hover:bg-gray-500 transition"></i>
 </div>
 <div class="flex justify-between w-full mt-10 mb-10">
-    <!-- Left Side -->
+
     <div class="w-1/2 text-left">
         <h3 id="profileName" class="text-xl font-medium mt-2 dark:text-white">Name</h3>
         <p id="profileEmail" class="text-sm text-gray-500 dark:text-white">example@stud.noroff.no</p>
         <p id="profileBio" class="mt-2 text-gray-600 dark:text-white">hi....</p>
     </div>
 
-    <!-- Right Side -->
     <div class="w-1/2 text-right">
         <p id="profileCredits" class="mt-2 text-gray-800 font-bold dark:text-white">Credits: 0</p>
         <p id="profileListings" class="text-gray-600 dark:text-white">Listings: 0</p>
@@ -172,7 +170,7 @@
 </section>
 
 <footer class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white">
-    <!-- Social Icons -->
+
     <div class="flex justify-center space-x-6 mt-4">
         <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
         <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
@@ -189,5 +187,16 @@
 <div class="text-center text-sm mt-5 mb-5 dark:text-white">
     <p>&copy; 2025 All rights reserved Auction Hub.</p>
 </div>
+<button
+  id="backToTop"
+  class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
+  aria-label="Back to Top"
+>
+  <img
+    src="/images/back2top.png"
+    alt="Back to Top"
+    class="w-8 h-8 animate-spin-slow"
+  />
+</button>
 </body>
 </html>

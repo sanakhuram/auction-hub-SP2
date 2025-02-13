@@ -26,12 +26,8 @@ export async function fetchUserBids(username) {
     }
 
     const data = await response.json();
-
-    console.log("📌 API Response for User Bids:", data); 
-
     return data.data || [];
   } catch (error) {
-    console.error("❌ Error fetching user bids:", error);
     return [];
   }
 }

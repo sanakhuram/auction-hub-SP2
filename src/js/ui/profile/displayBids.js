@@ -14,7 +14,6 @@ export async function displayUserBids() {
     }
 
     const userBids = await fetchUserBids(username);
-    console.log("📌 User Bids:", userBids);
 
     if (!Array.isArray(userBids) || userBids.length === 0) {
       bidsContainer.innerHTML = `<p class="text-gray-500 text-center">You have not placed any bids.</p>`;
@@ -26,7 +25,7 @@ export async function displayUserBids() {
         <div id="bidsSliderTrack" class="flex space-x-4 transition-transform">
           ${userBids
             .map((bid) => {
-              const bidUSD = formatCurrency(bid.amount); 
+              const bidUSD = formatCurrency(bid.amount);
               return `
                   <div class="p-4 border rounded-lg shadow-md bg-muted text-white mb-5 w-72 flex-shrink-0 shadow-dark">
                     <a href="/listing/?id=${bid.listing?.id || bid.id}" class="block">
@@ -53,7 +52,6 @@ export async function displayUserBids() {
 
     initializeBidSlider();
   } catch (error) {
-    console.error("❌ Error displaying bids:", error);
     bidsContainer.innerHTML = `<p class="text-red-500 text-center">Error loading your bids.</p>`;
   }
 }

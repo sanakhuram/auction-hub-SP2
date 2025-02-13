@@ -69,7 +69,7 @@ export async function displayListings(
       displayListings(categoryFilter, searchQuery, newPage);
     });
 
-    updateTimers(); // Start the countdown timers
+    updateTimers(); 
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
@@ -104,8 +104,8 @@ function renderListings(listings, colorClass) {
           <strong>${formatCurrency(highestBid)}</strong>
         </p>
 
-        <p class="text-gray-700 mt-2">Ends on: 
-          <span class="countdown-timer px-3 py-1 rounded-lg text-white font-semibold bg-btn-gradient shadow-sm " 
+        <p class="text-gray-700 mt-2">Ends: 
+          <span class="countdown-timer px-3 py-1 rounded-lg text-white font-bold bg-btn-gradient shadow-sm " 
             data-end-time="${listing.endsAt}">
           </span>
         </p>
