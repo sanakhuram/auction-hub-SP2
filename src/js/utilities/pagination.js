@@ -44,7 +44,7 @@ export function renderPaginationControls(
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.innerHTML += `
       <button class="px-4 py-2 border rounded-lg shadow-dark mt-3 ${
-        i === currentPage ? "bg-accent text-white" : "bg-muted"
+        i === currentPage ? "bg-secondary text-white" : "bg-muted"
       } hover:bg-olive" data-page="${i}">
         ${i}
       </button>
