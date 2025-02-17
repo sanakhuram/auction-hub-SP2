@@ -6,7 +6,8 @@ dotenv.config();
 
 export default defineConfig({
   define: {
-    "process.env": process.env,
+    // Only expose specific environment variables
+    "import.meta.env.VITE_API_BASE": JSON.stringify(process.env.VITE_API_BASE),
   },
   appType: "mpa",
   base: "",
@@ -25,7 +26,7 @@ export default defineConfig({
         listing: path.resolve(__dirname, "listing/index.html"),
         editListing: path.resolve(__dirname, "listing/edit/index.html"),
         createListing: path.resolve(__dirname, "listing/create/index.html"),
-        sellerProfile: path.resolve(__dirname, "profile/seller.html")
+        sellerProfile: path.resolve(__dirname, "profile/seller.html"),
       },
     },
   },
