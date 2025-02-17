@@ -6,8 +6,7 @@ dotenv.config();
 
 export default defineConfig({
   define: {
-    // Only expose specific environment variables
-    "import.meta.env.VITE_API_BASE": JSON.stringify(process.env.VITE_API_BASE),
+    "process.env": process.env,
   },
   appType: "mpa",
   base: "",
