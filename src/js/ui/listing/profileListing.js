@@ -119,9 +119,6 @@ async function deleteListingHandler(listingId) {
   }
 }
 
-/**
- * Attaches event listeners for delete buttons dynamically.
- */
 function attachDeleteEventListeners() {
   document.querySelectorAll(".delete-listing").forEach((button) => {
     button.addEventListener("click", function () {

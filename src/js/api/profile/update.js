@@ -3,7 +3,7 @@ import { headers } from "../headers.js";
 import { getAuthToken } from "../utils.js";
 
 /**
- * Updates the user's profile if there are changes.
+ * Updates the user's profile with valid changes.
  * @param {string} username - The profile username.
  * @param {Object} updatedData - Only modified profile fields.
  * @returns {Promise<Object>} - The updated profile or an error.
@@ -14,7 +14,15 @@ export async function updateProfile(username, updatedData) {
     throw new Error("Authentication error. Please log in again.");
   }
 
-  // API URL
+  if (updatedData.avatar?.url && updatedData.avatar.url.length > 300) {
+    throw new Error("Avatar URL cannot exceed 300 characters.");
+  }
+  if (updatedData.banner?.url && updatedData.banner.url.length > 300) {
+    throw new Error("Banner URL cannot exceed 300 characters.");
+  }
+
+  delete updatedData.username;
+
   const apiUrl = `${API_AUCTION_PROFILES}/${username}`;
 
   try {
@@ -27,15 +35,16 @@ export async function updateProfile(username, updatedData) {
     const data = await response.json();
 
     if (!response.ok) {
+      if (response.status === 409) {
+        throw new Error("This profile information already exists.");
+      }
       throw new Error(
-        data.errors?.[0]?.message ||
-          "Error updating profile. Please try again.",
+        data.errors?.[0]?.message || "Error updating profile. Please try again."
       );
     }
 
     return data.data;
   } catch (error) {
-    console.error("❌ Error in updateProfile:", error);
-    throw new Error("Error updating profile. Please try again.");
+    throw new Error(error.message || "Error updating profile. Please try again.");
   }
 }

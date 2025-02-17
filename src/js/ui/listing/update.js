@@ -2,9 +2,11 @@ import { updateListing } from "../../api/listing/update.js";
 import { showAlert } from "../../utilities/alert.js";
 
 /**
- * Populates the edit form with existing listing data.
- * Supports multiple images (main image + 2 optional images).
+ * Creates a new auction listing.
+ * @param {Object} listingData - The listing data.
+ * @returns {Promise<Object>} - The created listing data.
  */
+
 export function populateEditListingForm(listing) {
   if (!listing || Object.keys(listing).length === 0) {
     showAlert("Error: Listing data could not be loaded.", "error");
@@ -18,12 +20,10 @@ export function populateEditListingForm(listing) {
     ? new Date(listing.data.endsAt).toISOString().slice(0, 16)
     : "";
 
-  // Populate tags
   document.querySelectorAll('input[name="tags"]').forEach((checkbox) => {
     checkbox.checked = listing.data.tags.includes(checkbox.value);
   });
 
-  // Populate image URLs (Ensures the first image is main and others are optional)
   const images = listing.data.media || [];
   document.getElementById("imageURL1").value = images[0]?.url || "";
   document.getElementById("imageURL2").value = images[1]?.url || "";
@@ -33,8 +33,9 @@ export function populateEditListingForm(listing) {
 }
 
 /**
- * Handles the form submission to update a listing.
- * Updates title, description, tags, end date, and images.
+ * Deletes a listing by ID.
+ * @param {string} listingId - The ID of the listing to delete.
+ * @returns {Promise<boolean>} - True if successful, false otherwise.
  */
 export async function onUpdateEdit(event) {
   event.preventDefault();
@@ -67,7 +68,7 @@ export async function onUpdateEdit(event) {
         url: document.getElementById("imageURL3").value.trim(),
         alt: document.getElementById("imageAltText").value.trim(),
       },
-    ].filter((image) => image.url !== ""), // Remove empty image inputs
+    ].filter((image) => image.url !== ""), 
   };
 
   try {
