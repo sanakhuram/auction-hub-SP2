@@ -68,7 +68,7 @@ export async function onUpdateEdit(event) {
         url: document.getElementById("imageURL3").value.trim(),
         alt: document.getElementById("imageAltText").value.trim(),
       },
-    ].filter((image) => image.url !== ""), 
+    ].filter((image) => image.url !== ""),
   };
 
   try {

@@ -39,12 +39,15 @@ export async function updateProfile(username, updatedData) {
         throw new Error("This profile information already exists.");
       }
       throw new Error(
-        data.errors?.[0]?.message || "Error updating profile. Please try again."
+        data.errors?.[0]?.message ||
+          "Error updating profile. Please try again.",
       );
     }
 
     return data.data;
   } catch (error) {
-    throw new Error(error.message || "Error updating profile. Please try again.");
+    throw new Error(
+      error.message || "Error updating profile. Please try again.",
+    );
   }
 }

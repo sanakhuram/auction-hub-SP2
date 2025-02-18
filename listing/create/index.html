@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create| Auction Hub</title>
+    <meta
+      name="description"
+      content="Create and list your bid on Auction Hub. Upload images, set an end date, and start selling to the highest bidder!"
+    />
+    <title>Create Listing | Auction Hub</title>
     <script type="module" src="/src/app.js"></script>
     <link rel="stylesheet" href="/src/css/style.css" />
     <link
@@ -142,18 +146,21 @@
     </div>
 
     <h1 class="text-3xl text-center mt-10 mb-11 bg-olive p-5 shadow-primary">
-      Create Your Bid
+      Create Listing
     </h1>
 
-    <section
+    <main
       class="container mx-auto p-6 bg-primary shadow-secondary rounded-lg m-10 max-w-[1000px]"
     >
+      <h2 class="text-2xl mt-5 text-center">Listing Details</h2>
+
       <form id="createListingForm" class="mt-6 space-y-4 font-secondary">
         <label class="block font-semibold">Title:</label>
         <input
           type="text"
           id="listingTitleForm"
           class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-secondary focus:outline-none shadow-inner shadow-accent"
+          placeholder="Enter a catchy title for your listing (e.g., 'Vintage Rolex Watch')"
           required
         />
 
@@ -161,6 +168,7 @@
         <textarea
           id="listingContentForm"
           class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-secondary focus:outline-none shadow-inner shadow-accent"
+          placeholder="Provide details about your listing, including condition, features, and history."
           required
         ></textarea>
         <label class="block font-semibold">Image URLs (Main & Optional):</label>
@@ -188,6 +196,7 @@
           type="text"
           id="imageAltText"
           class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-secondary focus:outline-none shadow-inner shadow-accent"
+          placeholder="Describe the main image for accessibility (e.g., 'Vintage Rolex Watch with leather strap')"
           required
         />
 
@@ -319,7 +328,7 @@
           </button>
         </div>
       </form>
-    </section>
+    </main>
     <section class="bg-primary text-white py-10 dark:bg-accent">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-xl sm:text-2xl md:text-3xl font-bold font-secondary">
@@ -349,21 +358,27 @@
         </p>
       </div>
     </section>
-
     <footer
       class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white"
     >
-      <!-- Social Icons -->
-      <div class="flex justify-center space-x-6 mt-4">
-        <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
-        <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
-        <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
-      </div>
-
+      <nav
+        aria-label="Social Media Links"
+        class="flex justify-center space-x-6 mt-4"
+      >
+        <a href="#" aria-label="Facebook"
+          ><i class="fab fa-facebook text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Instagram"
+          ><i class="fab fa-instagram text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Twitter"
+          ><i class="fab fa-twitter text-2xl"></i
+        ></a>
+      </nav>
       <div class="mt-4">
-        <a href="/" class="px-2 hover:text-gray-600">Home</a> |
-        <a href="/profile/" class="px-2 hover:text-gray-600">Profile</a> |
-        <a href="/" class="px-2 hover:text-gray-600">Subscribe</a>
+        <a href="/" class="px-2 hover:text-secondary">Home</a> |
+        <a href="/profile/" class="px-2 hover:text-secondary">Profile</a> |
+        <a href="/" class="px-2 hover:text-secondary">Subscribe</a>
       </div>
     </footer>
 
@@ -372,6 +387,7 @@
     </div>
     <button
       id="backToTop"
+      role="button"
       class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
       aria-label="Back to Top"
     >

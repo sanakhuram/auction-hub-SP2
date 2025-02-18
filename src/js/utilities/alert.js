@@ -13,10 +13,10 @@ export function showAlert(message, type = "info", duration = 3000) {
     alertContainer.id = "alertContainer";
     alertContainer.classList.add(
       "fixed",
-      "bottom-4", 
-      "left-1/2", 
+      "bottom-4",
+      "left-1/2",
       "transform",
-      "-translate-x-1/2", 
+      "-translate-x-1/2",
       "z-50",
       "space-y-2",
       "w-full",
@@ -44,10 +44,10 @@ export function showAlert(message, type = "info", duration = 3000) {
 
   switch (type) {
     case "success":
-      alertDiv.classList.add("bg-primary", "border", "border-olive"); 
+      alertDiv.classList.add("bg-primary", "border", "border-olive");
       break;
     case "error":
-      alertDiv.classList.add("bg-secondary", "border", "border-dark"); 
+      alertDiv.classList.add("bg-secondary", "border", "border-dark");
       break;
     case "warning":
       alertDiv.classList.add(
@@ -55,10 +55,10 @@ export function showAlert(message, type = "info", duration = 3000) {
         "border",
         "border-yellow-700",
         "text-black",
-      ); 
+      );
       break;
     default:
-      alertDiv.classList.add("bg-accent", "border", "border-muted"); 
+      alertDiv.classList.add("bg-accent", "border", "border-muted");
   }
 
   alertDiv.setAttribute("role", "alert");
@@ -82,7 +82,6 @@ export function showAlert(message, type = "info", duration = 3000) {
   }, duration);
 }
 
-
 /**
  * Displays a confirmation alert with "Yes" and "Cancel" buttons.
  * Returns a Promise that resolves to `true` if confirmed, `false` if canceled.
@@ -99,10 +98,10 @@ export function showConfirmAlert(message) {
       alertContainer.id = "alertContainer";
       alertContainer.classList.add(
         "fixed",
-        "bottom-4", 
-        "left-1/2", 
+        "bottom-4",
+        "left-1/2",
         "transform",
-        "-translate-x-1/2", 
+        "-translate-x-1/2",
         "z-50",
         "space-y-2",
         "w-full",

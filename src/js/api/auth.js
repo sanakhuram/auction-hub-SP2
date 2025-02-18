@@ -1,8 +1,7 @@
-import { showAlert ,showConfirmAlert } from "../utilities/alert";
+import { showAlert, showConfirmAlert } from "../utilities/alert";
 import { fetchProfile } from "./profile/read";
 
 export function logout() {
-
   localStorage.removeItem("username");
   localStorage.removeItem("token");
   localStorage.removeItem("accessToken");

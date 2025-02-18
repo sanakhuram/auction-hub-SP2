@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="View detailed auction listings on Auction Hub. Browse images, check bid history, and place your bid before the auction ends!"
+    />
     <title>Listing Details | Auction Hub</title>
     <script type="module" src="/src/app.js"></script>
     <link rel="stylesheet" href="/src/css/style.css" />
@@ -27,7 +31,6 @@
         class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary"
       >
         <div class="container mx-auto flex justify-between items-center">
-          <!-- Logo (Light & Dark Mode) with Link -->
           <div class="flex items-center">
             <a href="/" class="cursor-pointer">
               <img
@@ -124,7 +127,6 @@
         </div>
       </nav>
     </header>
-    <!-- Loader -->
     <div
       id="loader"
       class="fixed inset-0 flex justify-center items-center bg-white dark:bg-dark z-50"
@@ -135,13 +137,13 @@
         class="w-20 h-20 animate-spin"
       />
     </div>
-    <div>
+    <main class="container mx-auto px-4">
       <h1 class="text-3xl text-center m-10 dark:text-white">Place your Bid</h1>
 
       <div id="listing-details">
         <p class="text-center text-gray-500">Loading listing details...</p>
       </div>
-    </div>
+    </main>
 
     <section
       class="bg-primary text-white py-10 dark:bg-accent shadow-primary mt-10"
@@ -178,17 +180,24 @@
     <footer
       class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white"
     >
-      <!-- Social Icons -->
-      <div class="flex justify-center space-x-6 mt-4">
-        <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
-        <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
-        <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
-      </div>
-
+      <nav
+        aria-label="Social Media Links"
+        class="flex justify-center space-x-6 mt-4"
+      >
+        <a href="#" aria-label="Facebook"
+          ><i class="fab fa-facebook text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Instagram"
+          ><i class="fab fa-instagram text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Twitter"
+          ><i class="fab fa-twitter text-2xl"></i
+        ></a>
+      </nav>
       <div class="mt-4">
-        <a href="/" class="px-2 hover:text-gray-600">Home</a> |
-        <a href="/profile/" class="px-2 hover:text-gray-600">Profile</a> |
-        <a href="/" class="px-2 hover:text-gray-600">Subscribe</a>
+        <a href="/" class="px-2 hover:text-secondary">Home</a> |
+        <a href="/profile/" class="px-2 hover:text-secondary">Profile</a> |
+        <a href="/" class="px-2 hover:text-secondary">Subscribe</a>
       </div>
     </footer>
 
@@ -196,15 +205,16 @@
       <p>&copy; 2025 All rights reserved Auction Hub.</p>
     </div>
     <button
-  id="backToTop"
-  class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
-  aria-label="Back to Top"
->
-  <img
-    src="/images/back2top.png"
-    alt="Back to Top"
-    class="w-8 h-8 animate-spin-slow"
-  />
-</button>
+      id="backToTop"
+      role="button"
+      class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
+      aria-label="Back to Top"
+    >
+      <img
+        src="/images/back2top.png"
+        alt="Back to Top"
+        class="w-8 h-8 animate-spin-slow"
+      />
+    </button>
   </body>
 </html>

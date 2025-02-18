@@ -1,7 +1,7 @@
 import { updateProfile } from "../../api/profile/update.js";
 import { fetchProfile } from "../../api/profile/read.js";
 import { showAlert } from "../../utilities/alert.js";
-import { displayListings } from "../listing/display.js"; 
+import { displayListings } from "../listing/display.js";
 
 /**
  * Handles profile updates when the user submits the form.

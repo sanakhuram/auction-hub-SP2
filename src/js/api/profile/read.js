@@ -14,9 +14,7 @@ export async function fetchProfile(username) {
     window.location.href = "/auth/login/";
     return null;
   }
-
-  // Ensure bids are included in the response
-  const apiUrl = `${API_AUCTION_PROFILES}/${username}?_listings=true&_bids=true`; // <- Added `_bids=true`
+  const apiUrl = `${API_AUCTION_PROFILES}/${username}?_listings=true&_bids=true&_wins=true`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -43,5 +41,3 @@ export async function fetchProfile(username) {
     return null;
   }
 }
-
-

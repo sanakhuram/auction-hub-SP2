@@ -16,7 +16,6 @@ export async function loadSellerProfile() {
 
   const sellerData = profile.data;
 
-  // Set profile details
   document.getElementById("sellerName").textContent =
     sellerData.name || "Unknown Seller";
   document.getElementById("sellerEmail").textContent =
@@ -34,7 +33,6 @@ export async function loadSellerProfile() {
   document.getElementById("sellerWins").textContent =
     `Wins: ${sellerData._count?.wins || 0}`;
 
-  // Containers
   const listingsContainer = document.getElementById("sellerListings");
   const bidContainer = document.getElementById("sellerBids");
   const winsContainer = document.getElementById("sellerWinsContainer");
@@ -44,7 +42,6 @@ export async function loadSellerProfile() {
   let visibleListings = 4;
   let visibleBids = 4;
 
-  // Fetch all bids
   for (const listing of listings) {
     const bids = await fetchBids(listing.id);
     bids.forEach((bid) => {
@@ -58,7 +55,6 @@ export async function loadSellerProfile() {
     });
   }
 
-  // Function to render Listings
   function renderListings() {
     listingsContainer.innerHTML = "";
     const visibleItems = listings.slice(0, visibleListings);
@@ -87,7 +83,6 @@ export async function loadSellerProfile() {
     }
   }
 
-  // Function to render Bids
   function renderBids() {
     bidContainer.innerHTML = "";
     const visibleItems = allBids.slice(0, visibleBids);
@@ -118,7 +113,6 @@ export async function loadSellerProfile() {
     }
   }
 
-  // Render Wins (Unchanged)
   if (sellerData.wins && sellerData.wins.length) {
     winsContainer.innerHTML = "";
     sellerData.wins.forEach((win) => {
@@ -138,7 +132,6 @@ export async function loadSellerProfile() {
     winsContainer.innerHTML = `<p class="text-gray-500 text-center">No wins yet.</p>`;
   }
 
-  // Load More Buttons
   const loadMoreListingsButton = document.createElement("button");
   loadMoreListingsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
   loadMoreListingsButton.className =

@@ -1,4 +1,3 @@
 //src/js/router/views
 
-
-import "../../ui/profile/seller.js"; 
+import "../../ui/profile/seller.js";

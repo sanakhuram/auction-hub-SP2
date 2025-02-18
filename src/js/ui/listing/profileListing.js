@@ -1,7 +1,7 @@
 import { deleteListing } from "../../api/listing/delete.js";
 import { fetchProfile } from "../../api/profile/read.js";
 import { showAlert, showConfirmAlert } from "../../utilities/alert.js";
-import { getListingById } from "../../api/listing/read.js"; 
+import { getListingById } from "../../api/listing/read.js";
 
 export async function displayUserListings() {
   const listingsContainer = document.querySelector("#myListings");
@@ -25,10 +25,10 @@ export async function displayUserListings() {
       return;
     }
 
-      const fullListings = await Promise.all(
+    const fullListings = await Promise.all(
       userListings.map(async (listing) => {
         const fullListing = await getListingById(listing.id);
-        return fullListing?.data || listing; 
+        return fullListing?.data || listing;
       }),
     );
 
@@ -44,14 +44,13 @@ export async function displayUserListings() {
   }
 }
 
-
 /**
  * Creates a listing card HTML structure.
  * @param {Object} listing - Listing object from API.
  * @returns {string} - The generated listing card HTML.
  */
 function createListingCard(listing) {
-    const bidArray = listing.bids?.data || listing.bids || [];
+  const bidArray = listing.bids?.data || listing.bids || [];
   const highestBid =
     bidArray.length > 0
       ? Math.max(...bidArray.map((bid) => bid.amount))

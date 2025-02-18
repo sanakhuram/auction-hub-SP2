@@ -31,7 +31,7 @@ export async function getListings(categoryFilter = "", searchQuery = "") {
       created: listing.created,
       endsAt: listing.endsAt,
       bidCount: listing._count?.bids || 0,
-      bids: listing.bids || [], 
+      bids: listing.bids || [],
       startingPrice: listing.startingPrice || 0,
       seller: listing.seller?.name || "Unknown Seller",
     }));
@@ -40,7 +40,6 @@ export async function getListings(categoryFilter = "", searchQuery = "") {
     return [];
   }
 }
-
 
 /**
  * Fetches a single listing by its ID, including seller details.

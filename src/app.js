@@ -11,7 +11,7 @@ async function init() {
   await router(window.location.pathname);
   initializeApp();
   setupDarkModeToggle();
-  setupBackToTop(); 
+  setupBackToTop();
 }
 
 document.addEventListener("DOMContentLoaded", init);

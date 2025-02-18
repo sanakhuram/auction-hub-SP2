@@ -69,7 +69,7 @@ export async function displayListings(
       displayListings(categoryFilter, searchQuery, newPage);
     });
 
-    updateTimers(); 
+    updateTimers();
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
@@ -115,9 +115,6 @@ function renderListings(listings, colorClass) {
     .join("");
 }
 
-/**
- * Updates the countdown timers for each listing
- */
 function updateTimers() {
   setInterval(() => {
     document.querySelectorAll(".countdown-timer").forEach((timerElement) => {

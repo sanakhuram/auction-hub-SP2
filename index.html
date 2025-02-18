@@ -33,7 +33,6 @@
         class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary"
       >
         <div class="container mx-auto flex justify-between items-center">
-          <!-- Logo (Light & Dark Mode) with Link -->
           <div class="flex items-center">
             <a href="/" class="cursor-pointer">
               <img
@@ -161,7 +160,6 @@
               </div>
             </div>
 
-            <!-- Art -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="art"
@@ -182,8 +180,6 @@
                 </p>
               </div>
             </div>
-
-            <!-- Interior -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="interior"
@@ -203,7 +199,6 @@
               </div>
             </div>
 
-            <!-- Gaming -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="games"
@@ -225,7 +220,6 @@
               </div>
             </div>
 
-            <!-- Jewelry -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="jewelry"
@@ -247,7 +241,6 @@
               </div>
             </div>
 
-            <!-- Vintage Watches -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="watches"
@@ -269,7 +262,6 @@
               </div>
             </div>
 
-            <!-- Vintage Toys -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="toys"
@@ -291,7 +283,6 @@
               </div>
             </div>
 
-            <!-- Books & Literature -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="books"
@@ -313,7 +304,6 @@
               </div>
             </div>
 
-            <!-- Collectibles -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="collectibles"
@@ -335,7 +325,6 @@
               </div>
             </div>
 
-            <!-- Collectibles -->
             <div
               class="category-item w-full flex-shrink-0 relative cursor-pointer"
               data-tag="vintage"
@@ -358,7 +347,6 @@
             </div>
           </div>
 
-          <!-- Navigation Dots -->
           <div
             class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3"
           >
@@ -395,7 +383,6 @@
           </div>
         </div>
       </section>
-      <!-- Loader -->
       <div
         id="loader"
         class="fixed inset-0 flex justify-center items-center bg-white dark:bg-dark z-50"
@@ -486,33 +473,41 @@
     <footer
       class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white"
     >
-      <div class="flex justify-center space-x-6 mt-4">
-        <a href="#"><i class="fab fa-facebook text-2xl"></i></a>
-        <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
-        <a href="#"><i class="fab fa-twitter text-2xl"></i></a>
-      </div>
-
+      <nav
+        aria-label="Social Media Links"
+        class="flex justify-center space-x-6 mt-4"
+      >
+        <a href="#" aria-label="Facebook"
+          ><i class="fab fa-facebook text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Instagram"
+          ><i class="fab fa-instagram text-2xl"></i
+        ></a>
+        <a href="#" aria-label="Twitter"
+          ><i class="fab fa-twitter text-2xl"></i
+        ></a>
+      </nav>
       <div class="mt-4">
-        <a href="/" class="px-2 hover:text-gray-600">Home</a> |
-        <a href="/profile/" class="px-2 hover:text-gray-600">Profile</a> |
-        <a href="/" class="px-2 hover:text-gray-600">Subscribe</a>
+        <a href="/" class="px-2 hover:text-secondary">Home</a> |
+        <a href="/profile/" class="px-2 hover:text-secondary">Profile</a> |
+        <a href="/" class="px-2 hover:text-secondary">Subscribe</a>
       </div>
     </footer>
 
     <div class="text-center text-sm mt-5 mb-5 dark:text-white">
       <p>&copy; 2025 All rights reserved Auction Hub.</p>
     </div>
-
-<button
-  id="backToTop"
-  class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
-  aria-label="Back to Top"
->
-  <img
-    src="/images/back2top.png"
-    alt="Back to Top"
-    class="w-8 h-8 animate-spin-slow"
-  />
-</button>
+    <button
+      id="backToTop"
+      role="button"
+      class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
+      aria-label="Back to Top"
+    >
+      <img
+        src="/images/back2top.png"
+        alt="Back to Top"
+        class="w-8 h-8 animate-spin-slow"
+      />
+    </button>
   </body>
 </html>

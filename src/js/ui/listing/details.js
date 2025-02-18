@@ -160,7 +160,6 @@ export async function displaySingleListing() {
   }
 }
 
-
 /**
  * Extracts up to 3 valid images from media array.
  * @param {Array} media - Listing media array.
