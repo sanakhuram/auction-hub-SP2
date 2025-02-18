@@ -13,10 +13,14 @@ export function showAlert(message, type = "info", duration = 3000) {
     alertContainer.id = "alertContainer";
     alertContainer.classList.add(
       "fixed",
-      "top-4",
-      "right-4",
+      "bottom-4", 
+      "left-1/2", 
+      "transform",
+      "-translate-x-1/2", 
       "z-50",
       "space-y-2",
+      "w-full",
+      "max-w-sm",
     );
     document.body.appendChild(alertContainer);
   }
@@ -35,14 +39,15 @@ export function showAlert(message, type = "info", duration = 3000) {
     "opacity-0",
     "transition-opacity",
     "duration-300",
+    "w-full",
   );
 
   switch (type) {
     case "success":
-      alertDiv.classList.add("bg-primary", "border", "border-olive"); // Green & Olive border
+      alertDiv.classList.add("bg-primary", "border", "border-olive"); 
       break;
     case "error":
-      alertDiv.classList.add("bg-secondary", "border", "border-dark"); // Orange & Black border
+      alertDiv.classList.add("bg-secondary", "border", "border-dark"); 
       break;
     case "warning":
       alertDiv.classList.add(
@@ -50,10 +55,10 @@ export function showAlert(message, type = "info", duration = 3000) {
         "border",
         "border-yellow-700",
         "text-black",
-      ); // Light Orange
+      ); 
       break;
     default:
-      alertDiv.classList.add("bg-accent", "border", "border-muted"); // Lilac & Muted border
+      alertDiv.classList.add("bg-accent", "border", "border-muted"); 
   }
 
   alertDiv.setAttribute("role", "alert");
@@ -77,6 +82,7 @@ export function showAlert(message, type = "info", duration = 3000) {
   }, duration);
 }
 
+
 /**
  * Displays a confirmation alert with "Yes" and "Cancel" buttons.
  * Returns a Promise that resolves to `true` if confirmed, `false` if canceled.
@@ -93,10 +99,14 @@ export function showConfirmAlert(message) {
       alertContainer.id = "alertContainer";
       alertContainer.classList.add(
         "fixed",
-        "top-4",
-        "right-4",
+        "bottom-4", 
+        "left-1/2", 
+        "transform",
+        "-translate-x-1/2", 
         "z-50",
         "space-y-2",
+        "w-full",
+        "max-w-sm",
       );
       document.body.appendChild(alertContainer);
     }
@@ -119,6 +129,7 @@ export function showConfirmAlert(message) {
       "opacity-0",
       "transition-opacity",
       "duration-300",
+      "w-full",
     );
 
     confirmDiv.setAttribute("role", "dialog");
@@ -146,14 +157,10 @@ export function showConfirmAlert(message) {
     confirmYes.addEventListener("click", () => closeModal(true));
     confirmCancel.addEventListener("click", () => closeModal(false));
 
-    // Allow closing with Escape key
-    const handleKeydown = (event) => {
+    document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         closeModal(false);
-        document.removeEventListener("keydown", handleKeydown);
       }
-    };
-
-    document.addEventListener("keydown", handleKeydown);
+    });
   });
 }
