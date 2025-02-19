@@ -60,7 +60,8 @@ export async function displayListings(
       <h2 class="text-black text-center text-xl p-5 mt-10 mb-8 bg-olive w-full shadow-primary">
         All Listings
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 p-6 bg-secondary rounded-lg m-10 shadow-primary">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 max-w-6xl mx-auto bg-secondary rounded-lg shadow-primary">
+
         ${renderListings(paginatedItems, "bg-olive border-secondary")}
       </div>
     `;
@@ -87,9 +88,8 @@ function renderListings(listings, colorClass) {
           : listing.startingPrice || 0;
 
       return `
-      <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-xs mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
-        
-        <a href="/listing/?id=${listing.id}">
+      <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-sm mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
+      <a href="/listing/?id=${listing.id}">
           <img src="${getValidImage(listing.media)}"
             alt="${listing.media?.[0]?.alt || listing.title}"
             class="w-full h-40 object-cover rounded-md mt-2 cursor-pointer hover:opacity-80 transition-opacity"

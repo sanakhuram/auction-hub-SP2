@@ -44,6 +44,11 @@ export async function loadSellerProfile() {
 
   for (const listing of listings) {
     const bids = await fetchBids(listing.id);
+
+    listing.highestBid = bids.length
+      ? Math.max(...bids.map((bid) => bid.amount))
+      : 0;
+
     bids.forEach((bid) => {
       allBids.push({
         amount: bid.amount,
@@ -68,13 +73,11 @@ export async function loadSellerProfile() {
       listingElement.innerHTML = `
         <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}" alt="Listing Image" class="w-full h-40 object-cover rounded-lg shadow-soft">
         <h4 class="text-lg font-heading mt-2 text-dark">${listing.title}</h4>
-        <p class="text-gray-700">Total Bids: ${listing.bids?.length || 0}</p>
-        <p class="text-red-800 font-bold">Highest Bid: ${formatCurrency(listing.highestBid || 0)}</p>
+        <p class="text-red-800 font-bold">Highest Bid: ${formatCurrency(listing.highestBid)}</p>
       `;
 
       listingsContainer.appendChild(listingElement);
     });
-
     if (visibleListings < listings.length) {
       listingsContainer.appendChild(loadMoreListingsButton);
       loadMoreListingsButton.style.display = "block";
@@ -104,7 +107,6 @@ export async function loadSellerProfile() {
 
       bidContainer.appendChild(bidElement);
     });
-
     if (visibleBids < allBids.length) {
       bidContainer.appendChild(loadMoreBidsButton);
       loadMoreBidsButton.style.display = "block";
@@ -112,6 +114,7 @@ export async function loadSellerProfile() {
       loadMoreBidsButton.style.display = "none";
     }
   }
+
 
   if (sellerData.wins && sellerData.wins.length) {
     winsContainer.innerHTML = "";
@@ -146,13 +149,16 @@ export async function loadSellerProfile() {
   const loadMoreBidsButton = document.createElement("button");
   loadMoreBidsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
   loadMoreBidsButton.className =
-    "block mx-auto mt-4 text-2xl text-dark bg-transparent hover:text-white  transition cursor-pointer";
+    "block mx-auto mt-4 text-2xl text-dark bg-transparent hover:text-white transition cursor-pointer";
   loadMoreBidsButton.style.display = "none";
 
   loadMoreBidsButton.addEventListener("click", () => {
     visibleBids += 4;
     renderBids();
   });
+
+  listingsContainer.appendChild(loadMoreListingsButton);
+  bidContainer.appendChild(loadMoreBidsButton);
 
   renderListings();
   renderBids();

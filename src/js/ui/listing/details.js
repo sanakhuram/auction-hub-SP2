@@ -39,6 +39,19 @@ export async function displaySingleListing() {
       document.getElementById("listing-image").src = images[currentImageIndex];
     }
 
+    // Generate tags if available
+    const tagsHtml =
+      listing.tags && listing.tags.length
+        ? listing.tags
+            .map(
+              (tag) =>
+                `<span class="px-3 py-1 bg-primary text-white rounded-lg text-sm m-1 shadow-md">
+                  #${tag}
+                </span>`,
+            )
+            .join("")
+        : "<span class='text-gray-500'>No tags available</span>";
+
     listingContainer.innerHTML = `
       <h1 class="text-2xl text-center bg-accent w-full shadow-secondary p-4 mb-6 text-gray-800">
         ${listing.title}
@@ -57,6 +70,12 @@ export async function displaySingleListing() {
             ? `<button id="next-image" class="absolute right-0 bg-muted text-white px-3 py-2 rounded-r m-3">▶</button>`
             : ""
         }
+      </div>
+      
+      <div class="mt-4 p-3 text-center">
+        <div class="flex flex-wrap justify-center mt-2">
+          ${tagsHtml}
+        </div>
       </div>
 
       <div class="flex flex-col items-center mt-8 border p-3 rounded-lg shadow-accent bg-secondary">
@@ -159,6 +178,7 @@ export async function displaySingleListing() {
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";
   }
 }
+
 
 /**
  * Extracts up to 3 valid images from media array.
