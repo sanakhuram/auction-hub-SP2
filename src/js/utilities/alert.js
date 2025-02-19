@@ -44,10 +44,10 @@ export function showAlert(message, type = "info", duration = 3000) {
 
   switch (type) {
     case "success":
-      alertDiv.classList.add("bg-primary", "border", "border-olive");
+      alertDiv.classList.add("bg-red-400", "border", "border-olive");
       break;
     case "error":
-      alertDiv.classList.add("bg-secondary", "border", "border-dark");
+      alertDiv.classList.add("bg-red-600", "border", "border-dark");
       break;
     case "warning":
       alertDiv.classList.add(
