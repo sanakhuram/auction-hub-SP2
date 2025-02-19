@@ -84,14 +84,14 @@ export async function displaySingleListing() {
   </div>
 </div>
 
-  <div class="mt-6 p-6 ">
+  <div class=" p-6 ">
     <h2 class="text-lg text-center">Description</h2>
     <div class="flex flex-wrap justify-center text-center m-5">${tagsHtml}</div>
     <p class="text-dark text-center mb-4">${listing.description || "No description available."}</p>
   </div>
 
   <!-- Bid Info -->
-  <div class="mt-6 text-lg text-center text-white bg-btn-gradient rounded-md p-10 ">
+  <div class=" text-lg text-center text-white bg-btn-gradient rounded-md p-10 ">
   <h3 class="text-xl text-center mb-5 text-white">Bid Info</h3>
     <p class="text-green-700">Current Bid: ${formatCurrency(highestBid)}</p>
     <p>Starting Price: ${formatCurrency(listing.startingPrice || 1)}</p>
