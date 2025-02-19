@@ -115,7 +115,6 @@ export async function loadSellerProfile() {
     }
   }
 
-
   if (sellerData.wins && sellerData.wins.length) {
     winsContainer.innerHTML = "";
     sellerData.wins.forEach((win) => {

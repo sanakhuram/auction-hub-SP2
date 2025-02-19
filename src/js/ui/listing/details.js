@@ -80,18 +80,18 @@ export async function displaySingleListing() {
   </div>
 
   <!-- Bid Info -->
-  <div class="mt-6 text-lg text-center text-white ">
-  <h3 class="text-lg text-center mb-5 text-white">Bid Info</h3>
+  <div class="mt-6 text-lg text-center text-white bg-btn-gradient rounded-md p-10 ">
+  <h3 class="text-xl text-center mb-5 text-white">Bid Info</h3>
     <p class="text-green-700">Current Bid: ${formatCurrency(highestBid)}</p>
     <p>Starting Price: ${formatCurrency(listing.startingPrice || 1)}</p>
-    <p class=" px-3 py-1 rounded-lg text-white font-bold bg-btn-gradient shadow-sm ">Ends in: ${formatTimeLeft(listing.endsAt)}</p>
+    <p class=" px-3 py-1 rounded-lg text-white font-bold shadow-sm ">Ends in: ${formatTimeLeft(listing.endsAt)}</p>
   </div>
 
   <!-- Bid Now Section -->
   <h2 class="text-xl text-center m-5 dark:text-white">Bid Now</h2>
   <form id="bidForm" class="mt-3 text-center">
     <input type="number" id="bidAmount" min="1" required class="p-2 border rounded-lg w-1/2 shadow-accent focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="Enter bid amount" />
-    <button type="submit" class="text-white px-4 py-2 rounded-lg bg-btn-gradient hover:opacity-90 transition shadow-dark dark:shadow-orange-300 border border-white">Place Bid</button>
+    <button type="submit" class="text-white px-4 py-2 rounded-lg bg-btn-gradient hover:bg-btn-alt-gradient hover:text-black shadow-dark dark:shadow-orange-300 border border-white">Place Bid</button>
   </form>
   <p id="bidMessage" class="mt-3 text-center text-secondary hidden"></p>
 </div>
