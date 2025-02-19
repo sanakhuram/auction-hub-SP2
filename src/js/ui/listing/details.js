@@ -52,7 +52,8 @@ export async function displaySingleListing() {
       <div class="flex flex-col lg:flex-row gap-8 p-6 ">
         <!-- Left Side: Image and Thumbnails -->
         <div class="w-full lg:w-1/2 flex flex-col items-center">
-          <img id="listing-image" class="w-full max-w-lg object-cover rounded-md shadow-md custom-border" src="${images[0]}" />
+          <img id="listing-image" class="w-full max-w-lg object-cover rounded-md shadow-md custom-border" src="${images[0]}" onclick="return false;" />
+
           <div class="flex justify-center gap-3 mt-4">
             ${images
               .map(
@@ -63,13 +64,23 @@ export async function displaySingleListing() {
           </div>
         </div>
 
- <!-- Right Side: Seller Info -->
 <div class="w-full lg:w-1/2 bg-secondary p-6 rounded-lg shadow-lg">
 <div class="flex flex-col items-center text-center gap-4 p-4">
-  <img src="${listing.seller?.avatar?.url || "/images/default-avatar.png"}" class="w-14 h-14 rounded-full" />
-  <div>
-    <p class="font-semibold">${listing.seller?.name || "Unknown Seller"}</p>
-    <p class="text-sm text-dark">${listing.seller?.bio || "No bio available."}</p>
+  <a href="/profile/seller?seller=${listing.seller?.name}">
+          <img src="${
+            listing.seller?.avatar?.url || "/images/default-avatar.png"
+          }" 
+            alt="Seller Avatar"
+            class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
+          />
+        </a>
+        <div>
+          <p class="text-gray-700 font-semibold text-lg text-center p-5">
+            <a href="/profile/seller?seller=${listing.seller?.name}" 
+              class="text-black hover:underline">
+              ${listing.seller?.name || "Unknown Seller"}
+            </a>
+          </p>
   </div>
 </div>
 
@@ -102,17 +113,21 @@ export async function displaySingleListing() {
     <h2 class="text-xl font-bold mb-4">Bid History</h2>
     <p class="text-gray-500">Loading bid history...</p>
   </div>
-
-
     `;
-
     loadBidHistory(listingId);
-
-    document.querySelectorAll(".flex img").forEach((thumbnail) => {
-      thumbnail.addEventListener("click", (e) => {
-        updateImage(e.target.dataset.index);
-      });
+    
+document.querySelectorAll(".flex img").forEach((thumbnail) => {
+  if (!thumbnail.classList.contains("no-click")) {
+    thumbnail.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const index = e.target.dataset.index;
+      if (index !== undefined) {
+        updateImage(index);
+      }
     });
+  }
+});
 
     document
       .getElementById("bidForm")
