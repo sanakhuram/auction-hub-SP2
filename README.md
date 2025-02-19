@@ -122,7 +122,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 📧 **Developer**: *Sana Khuram*  
 🔗 **GitHub**: [sanakhuram](https://github.com/sanakhuram)
-🔗 **Gmail**: [sanakhuram][sana.khuram.baig@gmail.om]
+🔗 **Gmail**: [sanakhuram](sana.khuram.baig@gmail.com)
 💡 **Happy Bidding & Selling!** 🚀💰
 
 </div>
