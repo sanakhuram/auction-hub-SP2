@@ -17,11 +17,6 @@
 📌 **Live Demo**: [Auction Hub on Netlify](https://auction-hub.netlify.app/)  
 📌 **GitHub Repository**: [Auction Hub on GitHub](https://github.com/sanakhuram/auction-hub-SP2)  
 
-<p align="center">
-  <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1" style="background-color: #1E88E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Figma Design</a>
-  <a href="https://github.com/users/sanakhuram/projects/5" style="background-color: #FFCC00; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 10px;">Planning Board</a>
-</p>
-
 ---
 
 ## 📌 Project Overview
