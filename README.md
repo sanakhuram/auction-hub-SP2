@@ -1,3 +1,4 @@
+<div style="background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
 ## 🎁 Auction Hub - Semester 2 Project Exam
 
 <p align="center">
