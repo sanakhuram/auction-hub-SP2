@@ -1,4 +1,5 @@
 ## 🛍️ Auction Hub - Semester 2 Project Exam
+<img width="315" alt="image" src="https://github.com/user-attachments/assets/7c58b6ff-9a61-42b3-82ca-b31d680c8db4" />
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
 
