@@ -1,4 +1,4 @@
-<div style="background-color: #F0E2C7; padding: 20px; border-radius: 10px;">
+<div style="background-color: #F0E2C7; padding: 20px; border-radius: 10px; text-align: center;">
 
 ## 🎁 Auction Hub - Semester 2 Project Exam
 
@@ -8,8 +8,17 @@
 </p>
 
 <p align="center">
-  <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1" style="background-color: #1E88E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Figma Design</a>
-  <a href="https://github.com/users/sanakhuram/projects/5" style="background-color: #FFCC00; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 10px;">Planning Board</a>
+  <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1" 
+     style="background-color: #1E88E5; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">Figma Design</a>
+
+  <a href="https://github.com/users/sanakhuram/projects/5" 
+     style="background-color: #FFCC00; color: black; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">Planning Board</a>
+
+  <a href="https://auction-hub.netlify.app/" 
+     style="background-color: #4CAF50; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">Live Demo</a>
+
+  <a href="https://github.com/sanakhuram/auction-hub-SP2" 
+     style="background-color: #333; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">GitHub Repository</a>
 </p>
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
