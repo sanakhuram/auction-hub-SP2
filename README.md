@@ -7,19 +7,24 @@
   <img src="https://github.com/user-attachments/assets/6b4c635a-2d1e-4ec4-ba05-13610ec7dd35" width="300" />
 </p>
 
-[![Figma](https://img.shields.io/badge/Figma-Design-blue?style=for-the-badge&logo=figma)](https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1)
+<p align="center">
+  <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1">
+    <img src="https://img.shields.io/badge/Figma-Design-blue?style=for-the-badge&logo=figma" />
+  </a>
+  <a href="https://github.com/users/sanakhuram/projects/5">
+    <img src="https://img.shields.io/badge/Planning-Board-yellow?style=for-the-badge&logo=trello" />
+  </a>
+  <a href="https://auction-hub.netlify.app/">
+    <img src="https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=netlify" />
+  </a>
+  <a href="https://github.com/sanakhuram/auction-hub-SP2">
+    <img src="https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github" />
+  </a>
+</p>
 
-[![Planning Board](https://img.shields.io/badge/Planning-Board-yellow?style=for-the-badge&logo=trello)](https://github.com/users/sanakhuram/projects/5)
-
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=netlify)](https://auction-hub.netlify.app/)
-
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github)](https://github.com/sanakhuram/auction-hub-SP2)
 
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
-
-📌 **Live Demo**: [Auction Hub on Netlify](https://auction-hub.netlify.app/)  
-📌 **GitHub Repository**: [Auction Hub on GitHub](https://github.com/sanakhuram/auction-hub-SP2)  
 
 ---
 
