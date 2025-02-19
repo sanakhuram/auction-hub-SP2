@@ -120,9 +120,9 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## 💎 Contact
 
-📧 **Author**: *Sana Khuram*  
-🔗 **GitHub**: [sanakhuram](https://github.com/sanakhuram)  
-
+📧 **Developer**: *Sana Khuram*  
+🔗 **GitHub**: [sanakhuram](https://github.com/sanakhuram)
+🔗 **Gmail**: [sanakhuram][sana.khuram.baig@gmail.om]
 💡 **Happy Bidding & Selling!** 🚀💰
 
 </div>
