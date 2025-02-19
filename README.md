@@ -45,10 +45,9 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 ├── profile         # User profile handling
 ├── public          # Static assets (images, icons, etc.)
 ├── src             # Main source code
-│   ├── api        # API calls and services
-│   ├── ui         # UI components (buttons, forms, etc.)
-│   ├── pages      # Pages (Home, Login, Register, Listings, etc.)
-│   ├── app.js     # Main application logic and routing
+│   ├── css         # tailwind css
+│   ├── js          # UI API JS files
+│   ├── app.js      # Main application logic and routing
 ├── index.html      # Main entry HTML file
 ├── tailwind.config.js # Tailwind CSS configuration
 ├── vite.config.js  # Vite build configurations
