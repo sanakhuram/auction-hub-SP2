@@ -1,11 +1,13 @@
-## 🛍️ Auction Hub - Semester 2 Project Exam
-![image](https://github.com/user-attachments/assets/09182040-abd7-4ecf-8ad6-b6d0be882579)![image](https://github.com/user-attachments/assets/6b4c635a-2d1e-4ec4-ba05-13610ec7dd35)
+## 🎁 Auction Hub - Semester 2 Project Exam
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/09182040-abd7-4ecf-8ad6-b6d0be882579" width="300" />
+  <img src="https://github.com/user-attachments/assets/6b4c635a-2d1e-4ec4-ba05-13610ec7dd35" width="300" />
+</p>
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
 
 📌 **Live Demo**: [Auction Hub on Netlify](https://auction-hub.netlify.app/)  
-
 📌 **GitHub Repository**: [Auction Hub on GitHub](https://github.com/sanakhuram/auction-hub-SP2)  
 
 ---
@@ -82,10 +84,9 @@ npm install
 ```bash
 npm run dev
 ```
-➡ Open **`http://localhost:3000`** in your browser.
+💪 Open **`http://localhost:3000`** in your browser.
 
 ---
-
 
 ## 🌍 Deployment
 
@@ -116,11 +117,10 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ---
 
-## 📩 Contact
+## 💎 Contact
 
 📧 **Author**: *Sana Khuram*  
 🔗 **GitHub**: [sanakhuram](https://github.com/sanakhuram)  
 
-💡 **Happy Bidding & Selling!** 🚀💰  
-
+💡 **Happy Bidding & Selling!** 🚀💰
 
