@@ -72,15 +72,15 @@ function createListingCard(listing) {
       ).toLocaleDateString()}</p>
 
       <a href="/listing/edit/?id=${listing.id}" 
-         class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
+          class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
                 transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
-         ✏️ Edit
+          ✏️ Edit
       </a>
 
       <button data-id="${listing.id}" 
         class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
-               transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
-               focus:ring-4 focus:ring-red-300 focus:outline-none">
+                transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
+                focus:ring-4 focus:ring-red-300 focus:outline-none">
         🗑️ Delete
       </button>
     </div>

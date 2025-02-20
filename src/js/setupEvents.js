@@ -15,13 +15,9 @@ import { initializeSearch } from "./utilities/search.js";
 import { showAlert } from "./utilities/alert.js";
 import { loadSellerProfile } from "./ui/profile/seller.js";
 
-/**
- * Runs event listeners for different pages
- */
 document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
 
-  // ✅ Load Seller Profile Page if user is on `/profile/seller.html`
   if (currentPath.includes("/profile/seller")) {
     loadSellerProfile();
   }

@@ -50,7 +50,6 @@ export async function displaySingleListing() {
         ${listing.title}
       </h1>
       <div class="flex flex-col lg:flex-row gap-8 p-6 ">
-        <!-- Left Side: Image and Thumbnails -->
         <div class="w-full lg:w-1/2 flex flex-col items-center">
           <img id="listing-image" class="w-full max-w-lg object-cover rounded-md shadow-md custom-border" src="${images[0]}" onclick="return false;" />
 
@@ -74,6 +73,7 @@ export async function displaySingleListing() {
             class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
           />
         </a>
+          <p class="text-sm text-dark">${listing.seller?.bio || "No bio available."}</p>
         <div>
           <p class="text-gray-700 font-semibold text-lg text-center p-5">
             <a href="/profile/seller?seller=${listing.seller?.name}" 
@@ -90,7 +90,6 @@ export async function displaySingleListing() {
     <p class="text-dark text-center mb-4">${listing.description || "No description available."}</p>
   </div>
 
-  <!-- Bid Info -->
   <div class=" text-lg text-center text-white bg-btn-gradient rounded-md p-10 ">
   <h3 class="text-xl text-center mb-5 text-white">Bid Info</h3>
     <p class="text-green-700">Current Bid: ${formatCurrency(highestBid)}</p>
@@ -98,7 +97,6 @@ export async function displaySingleListing() {
     <p class=" px-3 py-1 rounded-lg text-white font-bold shadow-sm ">Ends in: ${formatTimeLeft(listing.endsAt)}</p>
   </div>
 
-  <!-- Bid Now Section -->
   <h2 class="text-xl text-center m-5 dark:text-white">Bid Now</h2>
   <form id="bidForm" class="mt-3 text-center">
     <input type="number" id="bidAmount" min="1" required class="p-2 border rounded-lg w-1/2 shadow-accent focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="Enter bid amount" />
@@ -107,7 +105,6 @@ export async function displaySingleListing() {
   <p id="bidMessage" class="mt-3 text-center text-secondary hidden"></p>
 </div>
 </div>
-<!-- Bid History Section (Remains Unchanged) -->
 <div class="mt-6">
   <div id="bid-history" class="mt-6 bg-primary p-6 rounded-lg shadow-md">
     <h2 class="text-xl font-bold mb-4">Bid History</h2>
@@ -195,9 +192,6 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-/**
- * Runs displaySingleListing only if #listing-details exists.
- */
 document.addEventListener("DOMContentLoaded", function () {
   const listingContainer = document.getElementById("listing-details");
 

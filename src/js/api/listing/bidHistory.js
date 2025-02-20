@@ -55,7 +55,6 @@ export async function loadBidHistory(listingId) {
         </div>
       </div>`;
 
-    // ✅ Add event listener for toggle button
     document
       .getElementById("toggleBidHistory")
       .addEventListener("click", () => {
