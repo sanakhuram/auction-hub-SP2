@@ -65,14 +65,13 @@ export async function displaySingleListing() {
 
 <div class="w-full lg:w-1/2 bg-secondary p-6 rounded-lg shadow-lg">
 <div class="flex flex-col items-center text-center gap-4 p-4">
-  <a href="/profile/seller?seller=${listing.seller?.name}">
-          <img src="${
-            listing.seller?.avatar?.url || "/images/default-avatar.png"
-          }" 
-            alt="Seller Avatar"
-            class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
-          />
-        </a>
+<a href="/profile/seller?seller=${encodeURIComponent(listing.seller?.name)}">
+  <img src="${listing.seller?.avatar?.url || "/images/default-avatar.png"}" 
+       alt="Seller Avatar"
+       class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
+  />
+</a>
+
           <p class="text-sm text-dark">${listing.seller?.bio || "No bio available."}</p>
         <div>
           <p class="text-gray-700 font-semibold text-lg text-center p-5">
@@ -115,9 +114,7 @@ export async function displaySingleListing() {
     
 document.querySelectorAll(".flex img").forEach((thumbnail) => {
   if (!thumbnail.classList.contains("no-click")) {
-    thumbnail.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    thumbnail.addEventListener("click", (e) => {      
       const index = e.target.dataset.index;
       if (index !== undefined) {
         updateImage(index);
