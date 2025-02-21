@@ -50,7 +50,7 @@ export async function displaySingleListing() {
         ${listing.title}
       </h1>
       <div class="flex flex-col lg:flex-row gap-8 p-6 ">
-        <div class="w-full lg:w-1/2 flex flex-col items-center">
+        <div class="w-full lg:w-1/2 grid place-items-center">
           <img id="listing-image" class="w-full max-w-lg object-cover rounded-md shadow-md custom-border" src="${images[0]}" onclick="return false;" />
 
           <div class="flex justify-center gap-3 mt-4">
@@ -67,8 +67,8 @@ export async function displaySingleListing() {
 <div class="flex flex-col items-center text-center gap-4 p-4">
 <a href="/profile/seller?seller=${encodeURIComponent(listing.seller?.name)}">
   <img src="${listing.seller?.avatar?.url || "/images/default-avatar.png"}" 
-       alt="Seller Avatar"
-       class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
+        alt="Seller Avatar"
+        class="w-16 h-16 rounded-full border-2 border-gray-300 hover:shadow-lg transition"
   />
 </a>
 
