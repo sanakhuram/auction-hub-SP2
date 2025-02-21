@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-1706&t=zckP4vAQApGubGxC-1">
-    <img src="https://img.shields.io/badge/Figma-Design-blue?style=for-the-badge&logo=figma" />
+    <img src="https://img.shields.io/badge/Figma-Design-red?style=for-the-badge&logo=figma" />
   </a>
   <a href="https://github.com/users/sanakhuram/projects/5">
     <img src="https://img.shields.io/badge/Planning-Board-yellow?style=for-the-badge&logo=trello" />
