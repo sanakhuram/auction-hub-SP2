@@ -157,3 +157,41 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .animate-spin-slow {
   animation: spin-slow 2s linear infinite;
 }
+
+#coin-container {
+  @apply relative flex flex-col items-center ml-3;
+}
+
+#coin-avatar {
+  @apply mt-1 w-4 h-4 rounded-full animate-spin animate-spin-slow;
+}
+
+#coin-credits {
+  @apply mt-1 text-xs font-bold text-white bg-opacity-80 px-2 py-1 rounded-md text-center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}

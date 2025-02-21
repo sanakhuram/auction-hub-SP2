@@ -121,3 +121,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", async function () {
+  const coinCredits = document.getElementById("coin-credits");
+  if (!coinCredits) return;
+
+  try {
+    const username = localStorage.getItem("username");
+    if (!username) return;
+
+    const profileData = await fetchProfile(username);
+    if (!profileData) throw new Error("No profile data received.");
+
+    const credits = profileData.credits || 0;
+
+    coinCredits.textContent = `${credits}`;
+  } catch (error) {
+    console.error("Failed to fetch profile data:", error);
+  }
+});
