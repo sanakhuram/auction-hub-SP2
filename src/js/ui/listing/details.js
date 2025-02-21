@@ -111,17 +111,17 @@ export async function displaySingleListing() {
   </div>
     `;
     loadBidHistory(listingId);
-    
-document.querySelectorAll(".flex img").forEach((thumbnail) => {
-  if (!thumbnail.classList.contains("no-click")) {
-    thumbnail.addEventListener("click", (e) => {      
-      const index = e.target.dataset.index;
-      if (index !== undefined) {
-        updateImage(index);
+
+    document.querySelectorAll(".flex img").forEach((thumbnail) => {
+      if (!thumbnail.classList.contains("no-click")) {
+        thumbnail.addEventListener("click", (e) => {
+          const index = e.target.dataset.index;
+          if (index !== undefined) {
+            updateImage(index);
+          }
+        });
       }
     });
-  }
-});
 
     document
       .getElementById("bidForm")

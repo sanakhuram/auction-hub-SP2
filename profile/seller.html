@@ -25,12 +25,12 @@
       rel="stylesheet"
     />
   </head>
-  <body class="bg-background text-gray-900 font-body dark:bg-dark">
+  <body class="bg-background font-body text-gray-900 dark:bg-dark">
     <header>
       <nav
-        class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50 dark:bg-black shadow-secondary"
+        class="sticky top-0 z-50 bg-primary p-4 text-white shadow-lg shadow-secondary dark:bg-black"
       >
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="container mx-auto flex items-center justify-between">
           <div class="flex items-center">
             <a href="/" class="cursor-pointer">
               <img
@@ -43,22 +43,22 @@
                 id="logo-dark"
                 src="/images/logodark.png"
                 alt="Auction Hub Logo"
-                class="w-16 hidden"
+                class="hidden w-16"
               />
             </a>
           </div>
 
-          <ul class="hidden md:flex space-x-6 text-lg mx-auto items-center">
+          <ul class="mx-auto hidden items-center space-x-6 text-lg md:flex">
             <button
               id="theme-toggle-desktop"
-              class="text-white text-xl hover:text-secondary transition"
+              class="text-xl text-white transition hover:text-secondary"
             >
               <i id="theme-icon-desktop" class="fas fa-moon"></i>
             </button>
             <li>
               <a
                 href="/"
-                class="nav-link hover:text-secondary transition"
+                class="nav-link transition hover:text-secondary"
                 data-nav="home"
                 >Home</a
               >
@@ -66,7 +66,7 @@
             <li>
               <a
                 href="/profile/"
-                class="nav-link hover:text-secondary transition"
+                class="nav-link transition hover:text-secondary"
                 data-nav="profile"
                 >My Profile</a
               >
@@ -75,7 +75,7 @@
               <a
                 href="/auth/login/"
                 id="loginLink"
-                class="nav-link hover:text-secondary transition"
+                class="nav-link transition hover:text-secondary"
                 data-nav="login"
                 >Login</a
               >
@@ -83,13 +83,13 @@
             <li>
               <button
                 id="logoutBtn"
-                class="bg-btn-gradient text-white px-4 py-2 rounded-lg hover:brightness-110 transition hidden border border-white"
+                class="hidden rounded-lg border border-white bg-btn-gradient px-4 py-2 text-white transition hover:brightness-110"
               >
                 Logout
               </button>
             </li>
           </ul>
-          <div class="md:hidden flex space-x-4 items-center">
+          <div class="flex items-center space-x-4 md:hidden">
             <a href="/" class="nav-link text-white"
               ><i class="fas fa-home text-xl" data-nav="home"></i
             ></a>
@@ -99,29 +99,29 @@
             <a href="/auth/login/" class="nav-link text-white" id="mobile-login"
               ><i class="fas fa-sign-in-alt text-xl" data-nav="login"></i
             ></a>
-            <a href="/auth/login/" class="text-white hidden" id="mobile-logout"
+            <a href="/auth/login/" class="hidden text-white" id="mobile-logout"
               ><i class="fas fa-sign-out-alt text-xl"></i
             ></a>
             <button
               id="theme-toggle-mobile"
-              class="text-white text-xl hover:text-secondary transition"
+              class="text-xl text-white transition hover:text-secondary"
             >
               <i id="theme-icon-mobile" class="fas fa-moon"></i>
             </button>
           </div>
 
           <div class="flex items-center gap-0.5">
-          <div id="coin-container" class="h-12 w-8 rounded-md items-center ">
-          <img id="coin-avatar" src="/images/coin-avatar.png" alt="Coin" />
-          <span id="coin-credits">Loading...</span>
-          </div>
-          
+            <div id="coin-container" class="h-12 w-8 items-center rounded-md">
+              <img id="coin-avatar" src="/images/coin-avatar.png" alt="Coin" />
+              <span id="coin-credits">Loading...</span>
+            </div>
+
             <a href="/profile/">
               <img
                 id="user-avatar-desktop"
                 src="/images/default-avatar.png"
                 alt="User Avatar"
-                class="h-12 w-12 rounded-full border-2 border-secondary hover:border-white transition"
+                class="h-12 w-12 rounded-full border-2 border-secondary transition hover:border-white"
               />
             </a>
           </div>
@@ -131,46 +131,46 @@
 
     <div
       id="loader"
-      class="fixed inset-0 flex justify-center items-center bg-white dark:bg-dark z-50"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-dark"
     >
       <img
         src="/images/loader.png"
         alt="Loading..."
-        class="w-20 h-20 animate-spin"
+        class="h-20 w-20 animate-spin"
       />
     </div>
     <main class="container mx-auto p-8">
       <div
         id="seller-profile-container"
-        class="relative bg-background dark:bg-dark shadow-secondary rounded-2xl p-8"
+        class="relative rounded-2xl bg-background p-8 shadow-secondary dark:bg-dark"
       >
         <div class="relative">
           <img
             id="sellerBanner"
-            class="w-full h-56 object-cover rounded-2xl shadow-primary"
+            class="h-56 w-full rounded-2xl object-cover shadow-primary"
             src="/images/banner.png"
             alt="Seller Banner"
           />
 
-          <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-14">
+          <div class="absolute -bottom-14 left-1/2 -translate-x-1/2 transform">
             <img
               id="sellerAvatar"
-              class="w-28 h-28 rounded-full border-4 border-light shadow-soft bg-accent"
+              class="h-28 w-28 rounded-full border-4 border-light bg-accent shadow-soft"
               src="/images/placeholder.jpg"
               alt="Seller Avatar"
             />
           </div>
         </div>
 
-        <div class="text-center mt-20">
+        <div class="mt-20 text-center">
           <h1 id="sellerName" class="text-3xl text-dark dark:text-light"></h1>
           <p id="sellerEmail" class="text-lg text-gray-700 dark:text-light"></p>
           <p id="sellerBio" class="mt-2 text-gray-700 dark:text-grayish"></p>
         </div>
 
-        <div class="mt-10 bg-accent shadow-accent p-6 rounded-xl text-center">
+        <div class="mt-10 rounded-xl bg-accent p-6 text-center shadow-accent">
           <h2 class="text-2xl text-dark dark:text-light">Seller Stats</h2>
-          <div class="grid grid-cols-3 gap-6 mt-5">
+          <div class="mt-5 grid grid-cols-3 gap-6">
             <p id="sellerCredits" class="text-xl font-semibold text-light"></p>
             <p
               id="sellerTotalListings"
@@ -181,65 +181,65 @@
         </div>
       </div>
     </main>
-    <section class="container mx-auto p-6 space-y-10">
+    <section class="container mx-auto space-y-10 p-6">
       <div
-        class="bg-olive p-6 rounded-xl shadow-primary border border-gray-300 dark:border-gray-700"
+        class="rounded-xl border border-gray-300 bg-olive p-6 shadow-primary dark:border-gray-700"
       >
-        <h2 class="text-3xl text-center text-white">Listings</h2>
+        <h2 class="text-center text-3xl text-white">Listings</h2>
         <div
           id="sellerListings"
-          class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-          <p class="text-gray-200 text-center">Loading listings...</p>
+          <p class="text-center text-gray-200">Loading listings...</p>
         </div>
       </div>
 
       <div
-        class="bg-accent p-6 rounded-xl shadow-secondary border border-gray-300 dark:border-gray-700"
+        class="rounded-xl border border-gray-300 bg-accent p-6 shadow-secondary dark:border-gray-700"
       >
-        <h2 class="text-3xl text-center text-white dark:text-white">
+        <h2 class="text-center text-3xl text-white dark:text-white">
           Bid History
         </h2>
         <div
           id="sellerBids"
-          class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-          <p class="text-gray-600 text-center dark:text-gray-300">
+          <p class="text-center text-gray-600 dark:text-gray-300">
             Loading bids...
           </p>
         </div>
       </div>
 
       <div
-        class="bg-sepia p-6 rounded-xl shadow-accent border border-gray-300 dark:border-gray-700"
+        class="rounded-xl border border-gray-300 bg-sepia p-6 shadow-accent dark:border-gray-700"
       >
-        <h2 class="text-3xl text-center text-white">Wins</h2>
+        <h2 class="text-center text-3xl text-white">Wins</h2>
         <div
           id="sellerWinsContainer"
-          class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-          <p class="text-gray-200 text-center">Loading wins...</p>
+          <p class="text-center text-gray-200">Loading wins...</p>
         </div>
       </div>
     </section>
 
-    <section class="bg-primary text-white py-10 dark:bg-accent mt-12">
+    <section class="mt-12 bg-primary py-10 text-white dark:bg-accent">
       <div class="container mx-auto px-4 text-center">
         <h3 class="text-2xl md:text-3xl">SUBSCRIBE</h3>
 
         <div
-          class="mt-6 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4"
+          class="mt-6 flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
           <input
             id="email-input"
             type="email"
             placeholder="Your email"
-            class="p-3 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 rounded-lg border text-accent bg-white focus:outline-none focus:ring-2 focus:ring-secondary transition"
+            class="w-full rounded-lg border bg-white p-3 text-accent transition focus:outline-none focus:ring-2 focus:ring-secondary sm:w-2/3 md:w-1/2 lg:w-1/3"
           />
 
           <button
             id="subscribe-btn"
-            class="px-6 py-3 border border-white text-white rounded-lg hover:bg-white hover:text-primary transition shadow-dark font-bold"
+            class="rounded-lg border border-white px-6 py-3 font-bold text-white shadow-dark transition hover:bg-white hover:text-primary"
           >
             Submit
           </button>
@@ -247,11 +247,11 @@
       </div>
     </section>
     <footer
-      class="bg-background text-gray-900 text-center p-6 dark:bg-dark dark:text-white"
+      class="bg-background p-6 text-center text-gray-900 dark:bg-dark dark:text-white"
     >
       <nav
         aria-label="Social Media Links"
-        class="flex justify-center space-x-6 mt-4"
+        class="mt-4 flex justify-center space-x-6"
       >
         <a href="#" aria-label="Facebook"
           ><i class="fab fa-facebook text-2xl"></i
@@ -270,19 +270,19 @@
       </div>
     </footer>
 
-    <div class="text-center text-sm mt-5 mb-5 dark:text-white">
+    <div class="mb-5 mt-5 text-center text-sm dark:text-white">
       <p>&copy; 2025 All rights reserved Auction Hub.</p>
     </div>
     <button
       id="backToTop"
       role="button"
-      class="fixed bottom-5 right-5 p-3 bg-transparent hover:opacity-80 transition-opacity hidden"
+      class="fixed bottom-5 right-5 hidden bg-transparent p-3 transition-opacity hover:opacity-80"
       aria-label="Back to Top"
     >
       <img
         src="/images/back2top.png"
         alt="Back to Top"
-        class="w-8 h-8 animate-spin-slow"
+        class="animate-spin-slow h-8 w-8"
       />
     </button>
   </body>

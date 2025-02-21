@@ -32,7 +32,7 @@
 
 /* Logout Button Hover Effect */
 #logoutBtn:hover {
-  @apply scale-110 brightness-125 shadow-lg;
+  @apply scale-110 shadow-lg brightness-125;
   background: linear-gradient(90deg, #d56651, #a9ac81);
   transition:
     background 0.4s ease-in-out,
@@ -47,7 +47,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-muted rounded-lg;
+    @apply rounded-lg bg-muted;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -63,7 +63,7 @@
 @layer components {
   /* Reusable Button Style */
   .btn-animated {
-    @apply px-6 py-3 text-white font-bold rounded-lg transition-all duration-500 ease-in-out transform hover:scale-110;
+    @apply transform rounded-lg px-6 py-3 font-bold text-white transition-all duration-500 ease-in-out hover:scale-110;
     background-size: 200% auto;
     animation: gradientAnimation 6s linear infinite;
   }
@@ -110,7 +110,7 @@
   }
 }
 .active-nav {
-  @apply text-secondary font-bold border-b-2 border-secondary;
+  @apply border-b-2 border-secondary font-bold text-secondary;
 }
 
 input[type="datetime-local"] {
@@ -159,15 +159,15 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 #coin-container {
-  @apply relative flex flex-col items-center ml-3;
+  @apply relative ml-3 flex flex-col items-center;
 }
 
 #coin-avatar {
-  @apply mt-1 w-4 h-4 rounded-full animate-spin animate-spin-slow;
+  @apply animate-spin-slow mt-1 h-4 w-4 animate-spin rounded-full;
 }
 
 #coin-credits {
-  @apply mt-1 text-xs font-bold text-white bg-opacity-80 px-2 py-1 rounded-md text-center;
+  @apply mt-1 rounded-md bg-opacity-80 px-2 py-1 text-center text-xs font-bold text-white;
 }
 
 @keyframes spin {
