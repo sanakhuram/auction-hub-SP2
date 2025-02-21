@@ -49,6 +49,10 @@ export async function loadSellerProfile() {
       ? Math.max(...bids.map((bid) => bid.amount))
       : 0;
 
+    listing.highestBidder = bids.length
+      ? bids.find((bid) => bid.amount === listing.highestBid)?.bidder?.name
+      : null;
+
     bids.forEach((bid) => {
       allBids.push({
         amount: bid.amount,
@@ -56,34 +60,13 @@ export async function loadSellerProfile() {
         bidderAvatar: bid.bidder?.avatar?.url || "/images/default-avatar.png",
         listingTitle: listing.title,
         listingImage: listing.media?.[0]?.url || "/images/placeholder.jpg",
+        highestBidder: listing.highestBidder, // Track highest bidder
       });
     });
   }
 
   function renderListings() {
-    listingsContainer.innerHTML = "";
-    const visibleItems = listings.slice(0, visibleListings);
-
-    visibleItems.forEach((listing) => {
-      const listingElement = document.createElement("a");
-      listingElement.href = `/listing/?id=${listing.id}`;
-      listingElement.className =
-        "block border p-4 rounded-lg shadow-dark bg-sepia hover:shadow-xl transition transform hover:scale-105";
-
-      listingElement.innerHTML = `
-        <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}" alt="Listing Image" class="w-full h-40 object-cover rounded-lg shadow-soft">
-        <h4 class="text-lg font-heading mt-2 text-dark">${listing.title}</h4>
-        <p class="text-red-800 font-bold">Highest Bid: ${formatCurrency(listing.highestBid)}</p>
-      `;
-
-      listingsContainer.appendChild(listingElement);
-    });
-    if (visibleListings < listings.length) {
-      listingsContainer.appendChild(loadMoreListingsButton);
-      loadMoreListingsButton.style.display = "block";
-    } else {
-      loadMoreListingsButton.style.display = "none";
-    }
+    listingsContainer.innerHTML = listings.map(createListingCard).join("");
   }
 
   function renderBids() {
@@ -91,11 +74,17 @@ export async function loadSellerProfile() {
     const visibleItems = allBids.slice(0, visibleBids);
 
     visibleItems.forEach((bid) => {
+      const isWinning = bid.highestBidder === sellerData.name;
+      const statusLabel = isWinning
+        ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">Winning</span>`
+        : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">Losing</span>`;
+
       const bidElement = document.createElement("div");
       bidElement.className =
-        "border p-4 rounded-lg shadow-dark bg-muted hover:shadow-dark transition transform hover:scale-105 text-center";
+        "relative border p-4 rounded-lg shadow-dark bg-muted hover:shadow-dark transition transform hover:scale-105 text-center";
 
       bidElement.innerHTML = `
+        ${statusLabel}
         <img src="${bid.listingImage}" alt="Listing Image" class="w-full h-40 object-cover rounded-lg shadow-soft">
         <h4 class="text-lg font-heading text-dark">${bid.listingTitle}</h4>
         <div class="flex items-center justify-center gap-3 mt-2">
@@ -107,6 +96,7 @@ export async function loadSellerProfile() {
 
       bidContainer.appendChild(bidElement);
     });
+
     if (visibleBids < allBids.length) {
       bidContainer.appendChild(loadMoreBidsButton);
       loadMoreBidsButton.style.display = "block";
@@ -116,34 +106,10 @@ export async function loadSellerProfile() {
   }
 
   if (sellerData.wins && sellerData.wins.length) {
-    winsContainer.innerHTML = "";
-    sellerData.wins.forEach((win) => {
-      const winElement = document.createElement("div");
-      winElement.className =
-        "border p-4 rounded-lg shadow-dark bg-olive hover:shadow-xl transition transform hover:scale-105 text-center";
-
-      winElement.innerHTML = `
-        <img src="${win.media?.[0]?.url || "/images/placeholder.jpg"}" alt="Win Image" class="w-full h-40 object-cover rounded-lg shadow-soft">
-        <h4 class="text-lg font-heading text-dark">${win.title}</h4>
-        <p class="text-red-800 font-bold">Final Price: ${formatCurrency(win.finalBid || 0)}</p>
-      `;
-
-      winsContainer.appendChild(winElement);
-    });
+    winsContainer.innerHTML = sellerData.wins.map(createListingCard).join("");
   } else {
     winsContainer.innerHTML = `<p class="text-gray-500 text-center">No wins yet.</p>`;
   }
-
-  const loadMoreListingsButton = document.createElement("button");
-  loadMoreListingsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
-  loadMoreListingsButton.className =
-    "block mx-auto mt-4 text-2xl text-dark bg-transparent hover:text-white transition cursor-pointer";
-  loadMoreListingsButton.style.display = "none";
-
-  loadMoreListingsButton.addEventListener("click", () => {
-    visibleListings += 4;
-    renderListings();
-  });
 
   const loadMoreBidsButton = document.createElement("button");
   loadMoreBidsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
@@ -156,7 +122,6 @@ export async function loadSellerProfile() {
     renderBids();
   });
 
-  listingsContainer.appendChild(loadMoreListingsButton);
   bidContainer.appendChild(loadMoreBidsButton);
 
   renderListings();
@@ -164,3 +129,30 @@ export async function loadSellerProfile() {
 }
 
 document.addEventListener("DOMContentLoaded", loadSellerProfile);
+
+/**
+ * Creates a listing card with transparent labels for winning/losing.
+ * @param {Object} listing - Listing object from API.
+ * @returns {string} - The generated listing card HTML.
+ */
+function createListingCard(listing) {
+  const isWinning = listing.highestBidder === localStorage.getItem("username");
+  const statusLabel = isWinning
+    ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">Winning</span>`
+    : listing.highestBidder
+      ? `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">Losing</span>`
+      : "";
+
+  return `
+    <div class="relative p-4 border rounded-lg shadow-lg bg-sepia max-w-[1400px] mx-auto w-full shadow-dark">
+      ${statusLabel}
+      <a href="/listing/?id=${listing.id}" class="block">
+        <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"
+          alt="${listing.title}"
+          class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105" />
+      </a>
+      <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
+      <p class="text-gray-700">Ends on: ${new Date(listing.endsAt).toLocaleDateString()}</p>
+    </div>
+  `;
+}

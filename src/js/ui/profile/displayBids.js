@@ -26,18 +26,52 @@ export async function displayUserBids() {
           ${userBids
             .map((bid) => {
               const bidUSD = formatCurrency(bid.amount);
+              const listing = bid.listing;
+
+              if (!listing) return ""; // Skip if listing data is missing
+
+              const { auctionEnded, highestBid, highestBidder, userWon } = bid;
+
+              const username = localStorage.getItem("username")?.toLowerCase();
+              let isWinning =
+                highestBidder && highestBidder.toLowerCase() === username;
+
+              // ✅ Debugging logs
+              console.log(`
+                📌 Listing: ${listing.title}
+                💰 Your Bid: ${bid.amount}
+                🏆 Highest Bid: ${highestBid}
+                👤 Highest Bidder: ${highestBidder}
+                👤 Your Username: ${username}
+                ✅ Winning? ${isWinning}
+              `);
+
+              let statusLabel = "";
+              if (auctionEnded) {
+                statusLabel = userWon
+                  ? `<span class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded opacity-80 text-xs">🏆 Won</span>`
+                  : `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Lost</span>`;
+              } else {
+                statusLabel = isWinning
+                  ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">✔ Winning</span>`
+                  : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">🚨 Losing</span>`;
+              }
+
               return `
-                  <div class="p-4 border rounded-lg shadow-md bg-muted text-white mb-5 w-72 flex-shrink-0 shadow-dark">
-                    <a href="/listing/?id=${bid.listing?.id || bid.id}" class="block">
-                      <img src="${bid.listing?.media?.[0]?.url || "/images/placeholder.jpg"}"
-                        alt="${bid.listing?.title || "Unknown Item"}"
-                        class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105" />
-                    </a>
-                    <h3 class="text-lg mt-2">${bid.listing?.title || "Unknown Item"}</h3>
-                    <p class="text-gray-800">Bid Amount: <strong>${bidUSD}</strong></p>
-                    <p class="text-gray-800">Placed On: ${new Date(bid.created).toLocaleDateString()}</p>
-                  </div>
-                `;
+                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 w-72 flex-shrink-0 shadow-dark">
+                  ${statusLabel}
+                  <a href="/listing/?id=${listing.id}" class="block">
+                    <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"
+                      alt="${listing.title || "Unknown Item"}"
+                      class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105" />
+                  </a>
+                  <h3 class="text-lg mt-2">${listing.title || "Unknown Item"}</h3>
+                  <p class="text-gray-800">Your Bid: <strong>${bidUSD}</strong></p>
+                  <p class="text-gray-800">
+                    Highest Bid: ${highestBid && !isNaN(highestBid) && highestBid > 0 ? formatCurrency(highestBid) : "No bids yet"}
+                  </p>
+                </div>
+              `;
             })
             .join("")}
         </div>
@@ -53,13 +87,19 @@ export async function displayUserBids() {
     initializeBidSlider();
   } catch (error) {
     bidsContainer.innerHTML = `<p class="text-red-500 text-center">Error loading your bids.</p>`;
+    console.error("❌ Error fetching user bids:", error);
   }
 }
 
+/**
+ * Initializes the bid slider functionality.
+ */
 function initializeBidSlider() {
   const sliderTrack = document.querySelector("#bidsSliderTrack");
   const prevBtn = document.querySelector("#prevBid");
   const nextBtn = document.querySelector("#nextBid");
+
+  if (!sliderTrack || !prevBtn || !nextBtn) return;
 
   let currentIndex = 0;
   const slideWidth = 288;
