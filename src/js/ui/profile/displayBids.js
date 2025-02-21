@@ -1,5 +1,14 @@
 import { fetchUserBids } from "../../api/profile/getBids.js";
 
+/**
+ * Fetches and displays user bids in the UI.
+ * This function dynamically updates the bid slider with the user's bid history.
+ *
+ * @async
+ * @function displayUserBids
+ * @returns {Promise<void>}
+ */
+
 export async function displayUserBids() {
   const bidsContainer = document.querySelector("#myBidsSlider");
   if (!bidsContainer) return;
@@ -28,34 +37,20 @@ export async function displayUserBids() {
               const bidUSD = formatCurrency(bid.amount);
               const listing = bid.listing;
 
-              if (!listing) return ""; // Skip if listing data is missing
+              if (!listing) return "";
 
               const { auctionEnded, highestBid, highestBidder, userWon } = bid;
-
               const username = localStorage.getItem("username")?.toLowerCase();
-              let isWinning =
+              const isWinning =
                 highestBidder && highestBidder.toLowerCase() === username;
 
-              // ✅ Debugging logs
-              console.log(`
-                📌 Listing: ${listing.title}
-                💰 Your Bid: ${bid.amount}
-                🏆 Highest Bid: ${highestBid}
-                👤 Highest Bidder: ${highestBidder}
-                👤 Your Username: ${username}
-                ✅ Winning? ${isWinning}
-              `);
-
-              let statusLabel = "";
-              if (auctionEnded) {
-                statusLabel = userWon
+              let statusLabel = auctionEnded
+                ? userWon
                   ? `<span class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded opacity-80 text-xs">🏆 Won</span>`
-                  : `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Lost</span>`;
-              } else {
-                statusLabel = isWinning
+                  : `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Lost</span>`
+                : isWinning
                   ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">✔ Winning</span>`
                   : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">🚨 Losing</span>`;
-              }
 
               return `
                 <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 w-72 flex-shrink-0 shadow-dark">
@@ -87,12 +82,13 @@ export async function displayUserBids() {
     initializeBidSlider();
   } catch (error) {
     bidsContainer.innerHTML = `<p class="text-red-500 text-center">Error loading your bids.</p>`;
-    console.error("❌ Error fetching user bids:", error);
+    console.error("Error fetching user bids:", error);
   }
 }
-
 /**
- * Initializes the bid slider functionality.
+ * Initializes the bid slider functionality for navigating between bid cards.
+ *
+ * @function initializeBidSlider
  */
 function initializeBidSlider() {
   const sliderTrack = document.querySelector("#bidsSliderTrack");
@@ -115,11 +111,11 @@ function initializeBidSlider() {
     sliderTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
   });
 }
-
 /**
- * Formats a number into USD currency format.
- * @param {number} amount - The amount to format
- * @returns {string} - Formatted currency string
+ * Formats a given number into a USD currency string.
+ *
+ * @param {number} amount - The numerical value to be formatted as currency.
+ * @returns {string} - The formatted currency string (e.g., "$1,234.56").
  */
 function formatCurrency(amount) {
   return new Intl.NumberFormat("en-US", {
