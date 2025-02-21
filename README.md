@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/badge/Live-Demo-teal?style=for-the-badge&logo=netlify" />
   </a>
   <a href="https://github.com/sanakhuram/auction-hub-SP2">
-    <img src="https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github" />
+    <img src="https://img.shields.io/badge/GitHub-Repo-orange?style=for-the-badge&logo=github" />
   </a>
 </p>
 
