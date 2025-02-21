@@ -66,7 +66,19 @@ export async function loadSellerProfile() {
   }
 
   function renderListings() {
-    listingsContainer.innerHTML = listings.map(createListingCard).join("");
+    listingsContainer.innerHTML = "";
+    const visibleItems = listings.slice(0, visibleListings);
+
+    visibleItems.forEach((listing) => {
+      listingsContainer.innerHTML += createListingCard(listing);
+    });
+
+    if (visibleListings < listings.length) {
+      listingsContainer.appendChild(loadMoreListingsButton);
+      loadMoreListingsButton.style.display = "block";
+    } else {
+      loadMoreListingsButton.style.display = "none";
+    }
   }
 
   function renderBids() {
@@ -111,6 +123,17 @@ export async function loadSellerProfile() {
     winsContainer.innerHTML = `<p class="text-gray-500 text-center">No wins yet.</p>`;
   }
 
+  const loadMoreListingsButton = document.createElement("button");
+  loadMoreListingsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
+  loadMoreListingsButton.className =
+    "block mx-auto mt-4 text-2xl text-dark bg-transparent hover:text-white transition cursor-pointer";
+  loadMoreListingsButton.style.display = "none";
+
+  loadMoreListingsButton.addEventListener("click", () => {
+    visibleListings += 4;
+    renderListings();
+  });
+
   const loadMoreBidsButton = document.createElement("button");
   loadMoreBidsButton.innerHTML = `<i class="fas fa-chevron-down"></i>`;
   loadMoreBidsButton.className =
@@ -123,6 +146,7 @@ export async function loadSellerProfile() {
   });
 
   bidContainer.appendChild(loadMoreBidsButton);
+  listingsContainer.appendChild(loadMoreListingsButton);
 
   renderListings();
   renderBids();
@@ -144,7 +168,7 @@ function createListingCard(listing) {
       : "";
 
   return `
-    <div class="relative p-4 border rounded-lg shadow-lg bg-sepia max-w-[1400px] mx-auto w-full shadow-dark">
+    <div class="relative p-4 border rounded-lg shadow-lg bg-olive max-w-[1400px] mx-auto w-full shadow-dark">
       ${statusLabel}
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"
