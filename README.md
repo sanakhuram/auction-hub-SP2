@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/badge/Planning-Board-yellow?style=for-the-badge&logo=trello" />
   </a>
   <a href="https://auction-hub.netlify.app/">
-    <img src="https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=netlify" />
+    <img src="https://img.shields.io/badge/Live-Demo-teal?style=for-the-badge&logo=netlify" />
   </a>
   <a href="https://github.com/sanakhuram/auction-hub-SP2">
     <img src="https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github" />
