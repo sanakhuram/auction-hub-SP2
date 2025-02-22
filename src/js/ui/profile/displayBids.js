@@ -1,14 +1,12 @@
 import { fetchUserBids } from "../../api/profile/getBids.js";
 
 /**
- * Fetches and displays user bids in the UI.
- * This function dynamically updates the bid slider with the user's bid history.
+ * Fetches and displays user bids in the UI without slider functionality.
  *
  * @async
  * @function displayUserBids
  * @returns {Promise<void>}
  */
-
 export async function displayUserBids() {
   const bidsContainer = document.querySelector("#myBidsSlider");
   if (!bidsContainer) return;
@@ -29,9 +27,10 @@ export async function displayUserBids() {
       return;
     }
 
+    // Display bids in a grid layout wrapped in a container of max width 1200px
     bidsContainer.innerHTML = `
-      <div class="relative w-full overflow-hidden">
-        <div id="bidsSliderTrack" class="flex space-x-4 transition-transform">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           ${userBids
             .map((bid) => {
               const bidUSD = formatCurrency(bid.amount);
@@ -40,9 +39,8 @@ export async function displayUserBids() {
               if (!listing) return "";
 
               const { auctionEnded, highestBid, highestBidder, userWon } = bid;
-              const username = localStorage.getItem("username")?.toLowerCase();
-              const isWinning =
-                highestBidder && highestBidder.toLowerCase() === username;
+              const usernameLower = localStorage.getItem("username")?.toLowerCase();
+              const isWinning = highestBidder && highestBidder.toLowerCase() === usernameLower;
 
               let statusLabel = auctionEnded
                 ? userWon
@@ -53,7 +51,7 @@ export async function displayUserBids() {
                   : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">🚨 Losing</span>`;
 
               return `
-                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 w-72 flex-shrink-0 shadow-dark">
+                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5">
                   ${statusLabel}
                   <a href="/listing/?id=${listing.id}" class="block">
                     <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"
@@ -70,47 +68,14 @@ export async function displayUserBids() {
             })
             .join("")}
         </div>
-        <button id="prevBid" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full">
-          &lt;
-        </button>
-        <button id="nextBid" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full">
-          &gt;
-        </button>
       </div>
     `;
-
-    initializeBidSlider();
   } catch (error) {
     bidsContainer.innerHTML = `<p class="text-red-500 text-center">Error loading your bids.</p>`;
     console.error("Error fetching user bids:", error);
   }
 }
-/**
- * Initializes the bid slider functionality for navigating between bid cards.
- *
- * @function initializeBidSlider
- */
-function initializeBidSlider() {
-  const sliderTrack = document.querySelector("#bidsSliderTrack");
-  const prevBtn = document.querySelector("#prevBid");
-  const nextBtn = document.querySelector("#nextBid");
 
-  if (!sliderTrack || !prevBtn || !nextBtn) return;
-
-  let currentIndex = 0;
-  const slideWidth = 288;
-
-  prevBtn.addEventListener("click", () => {
-    currentIndex = Math.max(currentIndex - 1, 0);
-    sliderTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  });
-
-  nextBtn.addEventListener("click", () => {
-    const maxIndex = sliderTrack.children.length - 1;
-    currentIndex = Math.min(currentIndex + 1, maxIndex);
-    sliderTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  });
-}
 /**
  * Formats a given number into a USD currency string.
  *

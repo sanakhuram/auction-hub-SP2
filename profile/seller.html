@@ -182,50 +182,45 @@
       </div>
     </main>
     <section class="container mx-auto space-y-10 p-6">
-      <div
-        class="rounded-xl border border-gray-300 bg-olive p-6 shadow-primary dark:border-gray-700"
-      >
-        <h2 class="text-center text-3xl text-white">Listings</h2>
-        <div
-          id="sellerListings"
-          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <p class="text-center text-gray-200">Loading listings...</p>
+      <!-- Tab Navigation -->
+      <div class="tabs-container flex justify-center space-x-4 my-4">
+        <button id="sellerTabListings" class="tab-btn px-4 py-2 bg-olive text-white rounded-md">Listings</button>
+        <button id="sellerTabBids" class="tab-btn px-4 py-2 bg-accent text-white rounded-md">Bid History</button>
+        <button id="sellerTabWins" class="tab-btn px-4 py-2 bg-sepia text-white rounded-md">Wins</button>
+      </div>
+    
+      <!-- Sections -->
+      <div id="sellerListingsSection" class="section-content">
+        <div class="rounded-xl border border-gray-300 bg-olive p-6 shadow-primary dark:border-gray-700">
+          <h2 class="text-center text-3xl text-white">Listings</h2>
+          <div id="sellerListings" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <p class="text-center text-gray-200">Loading listings...</p>
+          </div>
         </div>
       </div>
-
-      <div
-        class="rounded-xl border border-gray-300 bg-accent p-6 shadow-secondary dark:border-gray-700"
-      >
-        <h2 class="text-center text-3xl text-white dark:text-white">
-          Bid History
-        </h2>
-        <div
-          id="sellerBids"
-          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <p class="text-center text-gray-600 dark:text-gray-300">
-            Loading bids...
-          </p>
+    
+      <div id="sellerBidsSection" class="section-content hidden">
+        <div class="rounded-xl border border-gray-300 bg-accent p-6 shadow-secondary dark:border-gray-700">
+          <h2 class="text-center text-3xl text-white dark:text-white">Bid History</h2>
+          <div id="sellerBids" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <p class="text-center text-gray-600 dark:text-gray-300">Loading bids...</p>
+          </div>
         </div>
       </div>
-
-      <div
-        class="rounded-xl border border-gray-300 bg-sepia p-6 shadow-accent dark:border-gray-700"
-      >
-        <h2 class="text-center text-3xl text-white">Wins</h2>
-        <div
-          id="sellerWinsContainer"
-          class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <p class="text-center text-gray-200">Loading wins...</p>
+    
+      <div id="sellerWinsSection" class="section-content hidden">
+        <div class="rounded-xl border border-gray-300 bg-sepia p-6 shadow-accent dark:border-gray-700">
+          <h2 class="text-center text-3xl text-white">Wins</h2>
+          <div id="sellerWinsContainer" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <p class="text-center text-gray-200">Loading wins...</p>
+          </div>
         </div>
       </div>
     </section>
-
+    
     <section class="mt-12 bg-primary py-10 text-white dark:bg-accent">
       <div class="container mx-auto px-4 text-center">
-        <h3 class="text-2xl md:text-3xl">SUBSCRIBE</h3>
+        <h3 class="text-2xl md:text-3xl font-body">SUBSCRIBE</h3>
 
         <div
           class="mt-6 flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
