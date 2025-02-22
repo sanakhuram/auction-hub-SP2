@@ -11,6 +11,9 @@ export async function onUpdateProfile(event) {
   if (event) event.preventDefault();
 
   const username = localStorage.getItem("username");
+  document.getElementById("profileWins").textContent =
+  `Wins: ${latestProfile._count?.wins || 0}`;
+
   if (!username) {
     showAlert("No username found. Redirecting to login...", "error");
     setTimeout(() => (window.location.href = "/auth/login/"), 2000);

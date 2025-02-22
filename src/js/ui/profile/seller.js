@@ -180,3 +180,34 @@ function createListingCard(listing) {
     </div>
   `;
 }
+document.addEventListener("DOMContentLoaded", () => {
+  // Check if the seller tab elements exist
+  const sellerTabListings = document.getElementById("sellerTabListings");
+  const sellerTabBids = document.getElementById("sellerTabBids");
+  const sellerTabWins = document.getElementById("sellerTabWins");
+
+  // If these elements exist, we're on the seller page so attach event listeners
+  if (sellerTabListings && sellerTabBids && sellerTabWins) {
+    sellerTabListings.addEventListener("click", () => {
+      hideAllSellerSections();
+      document.getElementById("sellerListingsSection").classList.remove("hidden");
+    });
+
+    sellerTabBids.addEventListener("click", () => {
+      hideAllSellerSections();
+      document.getElementById("sellerBidsSection").classList.remove("hidden");
+    });
+
+    sellerTabWins.addEventListener("click", () => {
+      hideAllSellerSections();
+      document.getElementById("sellerWinsSection").classList.remove("hidden");
+    });
+  }
+});
+
+// Helper function to hide all seller sections
+function hideAllSellerSections() {
+  document.querySelectorAll('.section-content').forEach(section => {
+    section.classList.add('hidden');
+  });
+}

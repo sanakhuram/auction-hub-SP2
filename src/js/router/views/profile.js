@@ -3,7 +3,7 @@ import { fetchProfile } from "../../api/profile/read";
 import { onUpdateProfile } from "../../ui/profile/update.js";
 import { displayUserListings } from "../../ui/listing/profileListing.js";
 import { displayUserBids } from "../../ui/profile/displayBids.js";
-
+import { displayUserWins } from "../../ui/profile/displayWins.js";
 authGuard();
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
+  
     const profileData = await fetchProfile(username);
     if (!profileData) throw new Error("Profile data is empty!");
 
@@ -32,8 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       `Credits: ${profileData.credits || 0}`;
     document.getElementById("profileListings").textContent =
       `Listings: ${profileData._count?.listings || 0}`;
-    document.getElementById("profileWins").textContent =
-      `Wins: ${profileData._count?.wins || 0}`;
+
+      
 
     document.getElementById("bioInput").value = profileData.bio || "";
     document.getElementById("avatarInput").value =
@@ -51,3 +52,29 @@ document
   ?.addEventListener("submit", onUpdateProfile);
 displayUserListings();
 displayUserBids();
+displayUserWins();
+
+// Helper function to hide all sections
+function hideAllSections() {
+  document.querySelectorAll('.section-content').forEach(section => {
+    section.classList.add('hidden');
+  });
+}
+
+// Event listener for Listings tab
+document.getElementById('tabListings').addEventListener('click', () => {
+  hideAllSections();
+  document.getElementById('listingsSection').classList.remove('hidden');
+});
+
+// Event listener for Bids tab
+document.getElementById('tabBids').addEventListener('click', () => {
+  hideAllSections();
+  document.getElementById('bidsSection').classList.remove('hidden');
+});
+
+// Event listener for Wins tab
+document.getElementById('tabWins').addEventListener('click', () => {
+  hideAllSections();
+  document.getElementById('winsSection').classList.remove('hidden');
+});

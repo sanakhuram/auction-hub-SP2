@@ -18,7 +18,7 @@ export async function displayUserListings() {
     }
 
     const profileData = await fetchProfile(username);
-    const userListings = profileData?.listings || [];
+    let userListings = profileData?.listings || [];
 
     if (userListings.length === 0) {
       listingsContainer.innerHTML = `<p class="text-gray-500 text-center">You have no active listings.</p>`;
@@ -29,20 +29,39 @@ export async function displayUserListings() {
       userListings.map(async (listing) => {
         const fullListing = await getListingById(listing.id);
         return fullListing?.data || listing;
-      }),
+      })
     );
 
-    listingsContainer.innerHTML = fullListings
-      .map((listing) => createListingCard(listing))
-      .join("");
+    // Store all listings globally if needed
+    window.allUserListings = fullListings;
 
-    attachDeleteEventListeners();
+    renderListings(); // Render all listings in a grid layout
+
   } catch (error) {
     listingsContainer.innerHTML =
-      '<p class="text-red-500 font-semibold text-lg ">Error loading your listings.</p>';
+      '<p class="text-red-500 font-semibold text-lg">Error loading your listings.</p>';
     console.error("❌ Error fetching listings:", error);
   }
 }
+
+/**
+ * Renders listings in a grid layout.
+ */
+function renderListings() {
+  const listingsContainer = document.querySelector("#myListings");
+  listingsContainer.innerHTML = `
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        ${window.allUserListings
+          .map((listing) => createListingCard(listing))
+          .join("")}
+      </div>
+    </div>
+  `;
+
+  attachDeleteEventListeners();
+}
+
 
 /**
  * Creates a listing card HTML structure.
@@ -57,7 +76,7 @@ function createListingCard(listing) {
       : listing.startingPrice || 0;
 
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative max-w-[1400px] mx-auto w-full shadow-dark">
+    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark">
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
@@ -65,18 +84,13 @@ function createListingCard(listing) {
           onerror="this.src='/images/placeholder.jpg';" />
       </a>
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
-      
       <p class="text-gray-700">Current Bid: <strong>${formatCurrency(highestBid)}</strong></p>
-      <p class="text-gray-700">Ends on: ${new Date(
-        listing.endsAt,
-      ).toLocaleDateString()}</p>
-
+      <p class="text-gray-700">Ends on: ${new Date(listing.endsAt).toLocaleDateString()}</p>
       <a href="/listing/edit/?id=${listing.id}" 
           class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
                 transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
           ✏️ Edit
       </a>
-
       <button data-id="${listing.id}" 
         class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
                 transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
@@ -100,7 +114,7 @@ function formatCurrency(amount) {
  */
 async function deleteListingHandler(listingId) {
   const confirmDelete = await showConfirmAlert(
-    "Are you sure you want to delete this listing?",
+    "Are you sure you want to delete this listing?"
   );
   if (!confirmDelete) return;
 
