@@ -5,7 +5,7 @@
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ff8ae8e9-29cc-4f4b-a15e-93993e387d25" width="300" />
+  <img src="https://github.com/user-attachments/assets/f2fd432a-7965-4ff0-adfe-d269980d2ebb" width="300" />
   <img src="https://github.com/user-attachments/assets/e5687079-bb0b-4f79-8e16-09812f732136" width="300" />
 </p>
 
