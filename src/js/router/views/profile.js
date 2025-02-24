@@ -54,26 +54,22 @@ displayUserListings();
 displayUserBids();
 displayUserWins();
 
-// Helper function to hide all sections
 function hideAllSections() {
   document.querySelectorAll('.section-content').forEach(section => {
     section.classList.add('hidden');
   });
 }
 
-// Event listener for Listings tab
 document.getElementById('tabListings').addEventListener('click', () => {
   hideAllSections();
   document.getElementById('listingsSection').classList.remove('hidden');
 });
 
-// Event listener for Bids tab
 document.getElementById('tabBids').addEventListener('click', () => {
   hideAllSections();
   document.getElementById('bidsSection').classList.remove('hidden');
 });
 
-// Event listener for Wins tab
 document.getElementById('tabWins').addEventListener('click', () => {
   hideAllSections();
   document.getElementById('winsSection').classList.remove('hidden');

@@ -62,7 +62,6 @@ function renderListings() {
   attachDeleteEventListeners();
 }
 
-
 /**
  * Creates a listing card HTML structure.
  * @param {Object} listing - Listing object from API.

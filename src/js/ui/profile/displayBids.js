@@ -27,7 +27,6 @@ export async function displayUserBids() {
       return;
     }
 
-    // Display bids in a grid layout wrapped in a container of max width 1200px
     bidsContainer.innerHTML = `
       <div class="max-w-[1200px] mx-auto">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
