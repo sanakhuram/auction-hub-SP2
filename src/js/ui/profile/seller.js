@@ -1,6 +1,11 @@
 import { getSellerProfile } from "../../api/profile/fetchProfile.js";
 import { fetchBids, formatCurrency } from "../../api/listing/bid.js";
-
+/**
+ * Loads and displays the seller's profile information, including their listings, bids, and wins.
+ * Fetches seller data from the API and dynamically updates the UI.
+ *
+ * @returns {Promise<void>} - A promise that resolves once the seller profile is loaded and rendered.
+ */
 export async function loadSellerProfile() {
   const urlParams = new URLSearchParams(window.location.search);
   const sellerUsername = urlParams.get("seller");
@@ -161,11 +166,19 @@ document.addEventListener("DOMContentLoaded", loadSellerProfile);
  */
 function createListingCard(listing) {
   const isWinning = listing.highestBidder === localStorage.getItem("username");
-  const statusLabel = isWinning
-    ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">Winning</span>`
-    : listing.highestBidder
-      ? `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">Losing</span>`
-      : "";
+  const now = new Date();
+  const endsAt = new Date(listing.endsAt);
+  const isExpired = endsAt < now; 
+
+  let statusLabel = "";
+
+  if (isExpired) {
+    statusLabel = `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">Expired</span>`;
+  } else if (isWinning) {
+    statusLabel = `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">Winning</span>`;
+  } else if (listing.highestBidder) {
+    statusLabel = `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">Losing</span>`;
+  }
 
   return `
     <div class="relative p-4 border rounded-lg shadow-lg bg-olive max-w-[1400px] mx-auto w-full shadow-dark">
@@ -176,17 +189,17 @@ function createListingCard(listing) {
           class="w-full h-40 object-cover rounded-md cursor-pointer transition-transform hover:scale-105" />
       </a>
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
-      <p class="text-gray-700">Ends on: ${new Date(listing.endsAt).toLocaleDateString()}</p>
+      <p class="text-gray-700">Ends on: ${endsAt.toLocaleDateString()}</p>
     </div>
   `;
 }
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Check if the seller tab elements exist
+
   const sellerTabListings = document.getElementById("sellerTabListings");
   const sellerTabBids = document.getElementById("sellerTabBids");
   const sellerTabWins = document.getElementById("sellerTabWins");
 
-  // If these elements exist, we're on the seller page so attach event listeners
   if (sellerTabListings && sellerTabBids && sellerTabWins) {
     sellerTabListings.addEventListener("click", () => {
       hideAllSellerSections();
@@ -205,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Helper function to hide all seller sections
 function hideAllSellerSections() {
   document.querySelectorAll('.section-content').forEach(section => {
     section.classList.add('hidden');

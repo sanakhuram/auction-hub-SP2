@@ -32,11 +32,8 @@ export async function displayUserListings() {
       })
     );
 
-    // Store all listings globally if needed
     window.allUserListings = fullListings;
-
-    renderListings(); // Render all listings in a grid layout
-
+    renderListings();
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading your listings.</p>';
@@ -44,21 +41,15 @@ export async function displayUserListings() {
   }
 }
 
-/**
- * Renders listings in a grid layout.
- */
 function renderListings() {
   const listingsContainer = document.querySelector("#myListings");
   listingsContainer.innerHTML = `
     <div class="max-w-[1200px] mx-auto">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        ${window.allUserListings
-          .map((listing) => createListingCard(listing))
-          .join("")}
+        ${window.allUserListings.map((listing) => createListingCard(listing)).join("")}
       </div>
     </div>
   `;
-
   attachDeleteEventListeners();
 }
 
@@ -69,13 +60,12 @@ function renderListings() {
  */
 function createListingCard(listing) {
   const bidArray = listing.bids?.data || listing.bids || [];
-  const highestBid =
-    bidArray.length > 0
-      ? Math.max(...bidArray.map((bid) => bid.amount))
-      : listing.startingPrice || 0;
+  const highestBid = bidArray.length > 0 ? Math.max(...bidArray.map((bid) => bid.amount)) : listing.startingPrice || 0;
+  const isExpired = new Date(listing.endsAt) <= new Date();
 
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark">
+    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark ${isExpired ? 'opacity-50' : ''}">
+      ${isExpired ? '<span class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Expired</span>' : ''}
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
@@ -85,21 +75,21 @@ function createListingCard(listing) {
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
       <p class="text-gray-700">Current Bid: <strong>${formatCurrency(highestBid)}</strong></p>
       <p class="text-gray-700">Ends on: ${new Date(listing.endsAt).toLocaleDateString()}</p>
+      ${isExpired ? '' : `
       <a href="/listing/edit/?id=${listing.id}" 
-          class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
-                transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
-          ✏️ Edit
+        class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
+              transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
+        ✏️ Edit
       </a>
       <button data-id="${listing.id}" 
         class="delete-listing bg-red-500 text-white px-4 py-2 mt-3 rounded-lg transition-all duration-300 ease-in-out 
-                transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
-                focus:ring-4 focus:ring-red-300 focus:outline-none">
+              transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
+              focus:ring-4 focus:ring-red-300 focus:outline-none">
         🗑️ Delete
-      </button>
+      </button>`}
     </div>
   `;
 }
-
 function formatCurrency(amount) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

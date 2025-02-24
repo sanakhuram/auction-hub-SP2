@@ -1,11 +1,11 @@
 import { fetchUserBids } from "../../api/profile/getBids.js";
-
 /**
- * Fetches and displays user bids in the UI without slider functionality.
+ * Fetches and displays the user's bids in a slider format.
+ * If the user is not logged in, displays a login prompt.
+ * If the user has no bids, displays a message indicating no bids.
+ * If bids exist, renders them with labels indicating whether they are winning, losing, or expired.
  *
- * @async
- * @function displayUserBids
- * @returns {Promise<void>}
+ * @returns {Promise<void>} - A promise that resolves once the user's bids are fetched and displayed.
  */
 export async function displayUserBids() {
   const bidsContainer = document.querySelector("#myBidsSlider");
@@ -37,20 +37,19 @@ export async function displayUserBids() {
 
               if (!listing) return "";
 
-              const { auctionEnded, highestBid, highestBidder, userWon } = bid;
+              const auctionEnded = new Date(listing.endsAt) <= new Date();
+              const highestBidder = bid.highestBidder;
               const usernameLower = localStorage.getItem("username")?.toLowerCase();
               const isWinning = highestBidder && highestBidder.toLowerCase() === usernameLower;
 
               let statusLabel = auctionEnded
-                ? userWon
-                  ? `<span class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded opacity-80 text-xs">🏆 Won</span>`
-                  : `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Lost</span>`
+                ? `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Expired</span>`
                 : isWinning
                   ? `<span class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded opacity-80 text-xs">✔ Winning</span>`
                   : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">🚨 Losing</span>`;
 
               return `
-                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5">
+                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 ${auctionEnded ? 'opacity-50' : ''}">
                   ${statusLabel}
                   <a href="/listing/?id=${listing.id}" class="block">
                     <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"
@@ -59,9 +58,6 @@ export async function displayUserBids() {
                   </a>
                   <h3 class="text-lg mt-2">${listing.title || "Unknown Item"}</h3>
                   <p class="text-gray-800">Your Bid: <strong>${bidUSD}</strong></p>
-                  <p class="text-gray-800">
-                    Highest Bid: ${highestBid && !isNaN(highestBid) && highestBid > 0 ? formatCurrency(highestBid) : "No bids yet"}
-                  </p>
                 </div>
               `;
             })
@@ -74,11 +70,10 @@ export async function displayUserBids() {
     console.error("Error fetching user bids:", error);
   }
 }
-
 /**
- * Formats a given number into a USD currency string.
+ * Formats a number as a currency string in USD.
  *
- * @param {number} amount - The numerical value to be formatted as currency.
+ * @param {number} amount - The amount to format.
  * @returns {string} - The formatted currency string (e.g., "$1,234.56").
  */
 function formatCurrency(amount) {
