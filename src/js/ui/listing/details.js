@@ -124,25 +124,39 @@ export async function displaySingleListing() {
     });
 
     document
-      .getElementById("bidForm")
-      .addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const bidAmount = parseFloat(
-          document.getElementById("bidAmount").value,
+    .getElementById("bidForm")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault();
+  
+      const token = localStorage.getItem("token");
+      if (!token) {
+        showAlert(
+          "You need to sign in to place a bid", 
+          "warning", 
+          5000, 
+          "Ok", 
+          () => window.location.href = "/auth/login/"
         );
-        if (!bidAmount || bidAmount <= 0) {
-          showAlert("Please enter a valid bid amount.", "error");
-          return;
-        }
-        const bidResponse = await placeBid(listingId, bidAmount);
-        if (bidResponse) {
-          showAlert(
-            `Bid placed successfully! Your bid: ${formatCurrency(bidAmount)}`,
-            "success",
-          );
-          setTimeout(() => location.reload(), 2000);
-        }
-      });
+        return;
+      }
+  
+      const bidAmount = parseFloat(document.getElementById("bidAmount").value);
+      if (!bidAmount || bidAmount <= 0) {
+        showAlert("Please enter a valid bid amount.", "error");
+        return;
+      }
+  
+      const bidResponse = await placeBid(listingId, bidAmount);
+      if (bidResponse) {
+        showAlert(
+          `Bid placed successfully! Your bid: ${formatCurrency(bidAmount)}`,
+          "success"
+        );
+        setTimeout(() => location.reload(), 2000);
+      }
+    });
+  
+  
   } catch (error) {
     listingContainer.innerHTML =
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";

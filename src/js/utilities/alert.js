@@ -1,11 +1,19 @@
 /**
- * Displays an alert message with customizable styles.
+ * Displays an alert message with customizable styles and an optional action button.
  *
  * @param {string} message - The message to display.
  * @param {string} type - The type of alert ('success', 'error', 'warning', 'info').
  * @param {number} duration - How long the alert should be visible (default: 3000ms).
+ * @param {string} buttonText - The text for the optional button (optional).
+ * @param {function} buttonAction - The function to execute when the button is clicked (optional).
  */
-export function showAlert(message, type = "info", duration = 3000) {
+export function showAlert(
+  message,
+  type = "info",
+  duration = 3000,
+  buttonText = null,
+  buttonAction = null
+) {
   let alertContainer = document.getElementById("alertContainer");
 
   if (!alertContainer) {
@@ -20,7 +28,7 @@ export function showAlert(message, type = "info", duration = 3000) {
       "z-50",
       "space-y-2",
       "w-full",
-      "max-w-sm",
+      "max-w-sm"
     );
     document.body.appendChild(alertContainer);
   }
@@ -28,7 +36,7 @@ export function showAlert(message, type = "info", duration = 3000) {
   const alertDiv = document.createElement("div");
   alertDiv.classList.add(
     "px-4",
-    "py-2",
+    "py-3",
     "rounded-lg",
     "shadow-md",
     "text-white",
@@ -39,7 +47,7 @@ export function showAlert(message, type = "info", duration = 3000) {
     "opacity-0",
     "transition-opacity",
     "duration-300",
-    "w-full",
+    "w-full"
   );
 
   switch (type) {
@@ -54,7 +62,7 @@ export function showAlert(message, type = "info", duration = 3000) {
         "bg-sepia",
         "border",
         "border-yellow-700",
-        "text-black",
+        "text-black"
       );
       break;
     default:
@@ -62,19 +70,37 @@ export function showAlert(message, type = "info", duration = 3000) {
   }
 
   alertDiv.setAttribute("role", "alert");
-  alertDiv.innerHTML = `
-    <span class="font-semibold">${message}</span>
+
+  let alertContent = `<span class="font-semibold">${message}</span>`;
+
+  if (buttonText && buttonAction) {
+    alertContent += `
+      <button id="alertActionButton" class="bg-btn-gradient text-white font-light px-3 py-1 rounded-lg hover:brightness-110 transition">
+        ${buttonText}
+      </button>
+    `;
+  }
+
+  alertContent += `
     <button class="text-xl font-bold hover:opacity-75 focus:outline-none">&times;</button>
   `;
 
-  const closeButton = alertDiv.querySelector("button");
-  closeButton.addEventListener("click", () => alertDiv.remove());
-
+  alertDiv.innerHTML = alertContent;
   alertContainer.appendChild(alertDiv);
 
   setTimeout(() => {
     alertDiv.classList.add("opacity-100");
   }, 100);
+
+  const closeButton = alertDiv.querySelector("button:last-child");
+  closeButton.addEventListener("click", () => alertDiv.remove());
+
+  if (buttonText && buttonAction) {
+    document.getElementById("alertActionButton").addEventListener("click", () => {
+      alertDiv.remove();
+      buttonAction();
+    });
+  }
 
   setTimeout(() => {
     alertDiv.classList.remove("opacity-100");
@@ -105,7 +131,7 @@ export function showConfirmAlert(message) {
         "z-50",
         "space-y-2",
         "w-full",
-        "max-w-sm",
+        "max-w-sm"
       );
       document.body.appendChild(alertContainer);
     }
@@ -128,7 +154,7 @@ export function showConfirmAlert(message) {
       "opacity-0",
       "transition-opacity",
       "duration-300",
-      "w-full",
+      "w-full"
     );
 
     confirmDiv.setAttribute("role", "dialog");
