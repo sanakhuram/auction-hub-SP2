@@ -1,6 +1,7 @@
 <div style="background-color: #F0E2C7; padding: 20px; border-radius: 10px; text-align: center;">
 
-## 🎁 Auction Hub - Semester 2 Project Exam
+## ![532644_acquisitions_auction_finance_gavel_hammer_icon](https://github.com/user-attachments/assets/f90be6fb-15bd-4ff2-87bd-43b923d3c115) Auction Hub - Semester 2 Project Exam
+
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
 
