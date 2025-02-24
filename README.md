@@ -79,6 +79,29 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 ✅ **Dark Mode**: Tailwind-powered theme switching for better UX.
 
 ---
+## 📖 How to Use the App
+1. **Sign Up/Login**  
+   - Click "Register" and sign up using your `stud.noroff.no` email.
+   - Login to start bidding or selling.
+
+2. **Create a Listing**  
+   - Click "Create Listing" and enter a title, description, images, and set a deadline.
+
+3. **Place a Bid**  
+   - Go to any listing and enter a bid amount to compete for the item.
+
+4. **Manage Profile**  
+   - View total credits, update your avatar, and track your bids.
+
+5. **Guest Access**  
+   - Non-registered users can browse listings but **cannot bid**.
+
+---
+
+## 📡 API Reference
+This project uses the [Noroff Auction API](<API_DOCUMENTATION_LINK>) for managing auctions.
+
+--- 
 
 ## 🚀 Installation Guide
 
