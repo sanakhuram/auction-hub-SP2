@@ -28,7 +28,7 @@
 
 ## 📌 Project Overview
 
-This project was built as part of the **Semester 2 Project Exam** for web development. The goal was to develop a fully functional auction platform where **registered users can create listings, place bids, and track bid history** while non-registered users can only browse listings.
+This project was built as part of the **Semester 2 Project Exam** for web development. The goal was to develop a fully functional auction platform where **registered users can create , Edit, Delete Listing , place bids, and track bid history** while non-registered users can only browse listings.
 
 ---
 
