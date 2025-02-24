@@ -151,17 +151,14 @@ The application is deployed on **Netlify** and can be accessed at:
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+## **📜 License**
+This project is **open-source** and licensed under the **MIT License**.
 
 ---
 
 ## 💎 Contact
 
 📧 **Developer**: _Sana Khuram_
-
-🔗 **GitHub**: [sanakhuram](https://github.com/sanakhuram)
 
 🔗 **Gmail**: [sanakhuram](sana.khuram.baig@gmail.com)
 
