@@ -6,7 +6,7 @@ import { loadBidHistory } from "../../api/listing/bidHistory.js";
 /**
  * Fetches and displays a single listing based on the ID from the URL parameters.
  * It retrieves listing details, loads bid history, and allows users to place a bid.
- * 
+ *
  * @returns {Promise<void>} Resolves when the listing details are displayed.
  */
 
@@ -31,12 +31,14 @@ export async function displaySingleListing() {
       return;
     }
 
+    /* eslint-disable no-unused-vars */
     const listing = listingResponse.data;
     const highestBid = listing.bids?.length
       ? Math.max(...listing.bids.map((bid) => bid.amount))
       : 0;
     const images = getValidImages(listing.media);
     let currentImageIndex = 0;
+    /* eslint-enable no-unused-vars */
 
     function updateImage(index) {
       document.getElementById("listing-image").src = images[index];
@@ -119,11 +121,11 @@ export async function displaySingleListing() {
     `;
     loadBidHistory(listingId);
 
-/**
- * Handles click events on thumbnail images to update the main displayed image.
- * 
- * @param {Event} e - The event object from the click event.
- */
+    /**
+     * Handles click events on thumbnail images to update the main displayed image.
+     *
+     * @param {Event} e - The event object from the click event.
+     */
 
     document.querySelectorAll(".flex img").forEach((thumbnail) => {
       if (!thumbnail.classList.contains("no-click")) {
@@ -137,49 +139,50 @@ export async function displaySingleListing() {
     });
 
     /**
- * Handles bid form submission.
- * - Checks if the user is logged in.
- * - Validates bid amount.
- * - Submits the bid and refreshes the listing if successful.
- *
- * @param {Event} event - The form submit event.
- */
+     * Handles bid form submission.
+     * - Checks if the user is logged in.
+     * - Validates bid amount.
+     * - Submits the bid and refreshes the listing if successful.
+     *
+     * @param {Event} event - The form submit event.
+     */
 
     document
-    .getElementById("bidForm")
-    .addEventListener("submit", async (event) => {
-      event.preventDefault();
-  
-      const token = localStorage.getItem("token");
-      if (!token) {
-        showAlert(
-          "You need to sign in to place a bid", 
-          "warning", 
-          5000, 
-          "Ok", 
-          () => window.location.href = "/auth/login/"
+      .getElementById("bidForm")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+          showAlert(
+            "You need to sign in to place a bid",
+            "warning",
+            5000,
+            "Ok",
+            () => (window.location.href = "/auth/login/"),
+          );
+          return;
+        }
+
+        const bidAmount = parseFloat(
+          document.getElementById("bidAmount").value,
         );
-        return;
-      }
-  
-      const bidAmount = parseFloat(document.getElementById("bidAmount").value);
-      if (!bidAmount || bidAmount <= 0) {
-        showAlert("Please enter a valid bid amount.", "error");
-        return;
-      }
-  
-      const bidResponse = await placeBid(listingId, bidAmount);
-      if (bidResponse) {
-        showAlert(
-          `Bid placed successfully! Your bid: ${formatCurrency(bidAmount)}`,
-          "success"
-        );
-        setTimeout(() => location.reload(), 2000);
-      }
-    });
-  
-  
+        if (!bidAmount || bidAmount <= 0) {
+          showAlert("Please enter a valid bid amount.", "error");
+          return;
+        }
+
+        const bidResponse = await placeBid(listingId, bidAmount);
+        if (bidResponse) {
+          showAlert(
+            `Bid placed successfully! Your bid: ${formatCurrency(bidAmount)}`,
+            "success",
+          );
+          setTimeout(() => location.reload(), 2000);
+        }
+      });
   } catch (error) {
+    console.error("Error loading listing details:", error);
     listingContainer.innerHTML =
       "<p class='text-red-500 text-center'>Error loading listing details.</p>";
   }

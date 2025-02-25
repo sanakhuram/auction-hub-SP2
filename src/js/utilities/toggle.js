@@ -17,12 +17,12 @@ export function setupDarkModeToggle() {
   const logoDark = document.getElementById("logo-dark");
   const themeImage = document.getElementById("theme-image");
 
-    /**
+  /**
    * Updates the visibility of UI elements based on the active theme.
-   * 
+   *
    * @param {boolean} isDarkMode - `true` if dark mode is enabled, otherwise `false`.
    */
-  
+
   function updateThemeElements(isDarkMode) {
     if (logoLight && logoDark) {
       logoLight.classList.toggle("hidden", isDarkMode);

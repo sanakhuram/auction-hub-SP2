@@ -53,7 +53,7 @@ export async function onRegister(event) {
   }
 
   try {
-    const data = await register({ name, email, password });
+    const data = await register({ name, email, password }); // eslint-disable-line no-unused-vars
     showAlert(
       "Registration successful! Redirecting to the login page...",
       "success",

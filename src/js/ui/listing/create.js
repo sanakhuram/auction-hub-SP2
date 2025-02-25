@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       updateImage();
     });
   } catch (error) {
+    console.error("Failed to load listing:", error);
     listingDetailsContainer.innerHTML =
       "<p class='text-red-500'>Failed to load listing.</p>";
   }
@@ -95,7 +96,7 @@ export async function onCreateListing(event) {
     "jewelry",
     "books",
     "collectibles",
-    "cars",
+    "car",
     "toys",
     "fashion",
     "sports",
@@ -105,7 +106,6 @@ export async function onCreateListing(event) {
   let tags = Array.from(tagElements)
     .map((tag) => tag.value.toLowerCase())
     .filter((tag) => allowedTags.includes(tag));
-    
 
   if (tags.length === 0) tags = undefined;
   if (!title || !endsAt) {

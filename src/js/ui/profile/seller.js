@@ -75,12 +75,12 @@ export async function loadSellerProfile() {
   }
 
   /**
- * Renders the seller's auction listings.
- * 
- * @param {Array} listings - The array of seller's listings.
- * @param {HTMLElement} container - The HTML container for listings.
- * @param {number} visibleListings - The number of listings to display initially.
- */
+   * Renders the seller's auction listings.
+   *
+   * @param {Array} listings - The array of seller's listings.
+   * @param {HTMLElement} container - The HTML container for listings.
+   * @param {number} visibleListings - The number of listings to display initially.
+   */
 
   function renderListings() {
     listingsContainer.innerHTML = "";
@@ -99,13 +99,13 @@ export async function loadSellerProfile() {
   }
 
   /**
- * Renders the seller's bids.
- * 
- * @param {Array} bids - The array of bids placed by the seller.
- * @param {HTMLElement} container - The HTML container for bids.
- * @param {number} visibleBids - The number of bids to display initially.
- * @param {string} sellerName - The seller's name to check for winning bids.
- */
+   * Renders the seller's bids.
+   *
+   * @param {Array} bids - The array of bids placed by the seller.
+   * @param {HTMLElement} container - The HTML container for bids.
+   * @param {number} visibleBids - The number of bids to display initially.
+   * @param {string} sellerName - The seller's name to check for winning bids.
+   */
 
   function renderBids() {
     bidContainer.innerHTML = "";
@@ -182,17 +182,17 @@ document.addEventListener("DOMContentLoaded", loadSellerProfile);
 
 /**
  * Creates a bid card with labels for winning or losing.
- * 
+ *
  * @param {Object} bid - The bid object.
  * @param {boolean} isWinning - Whether the bid is currently winning.
  * @returns {string} - The generated HTML for the bid card.
- */ 
+ */
 
 function createListingCard(listing) {
   const isWinning = listing.highestBidder === localStorage.getItem("username");
   const now = new Date();
   const endsAt = new Date(listing.endsAt);
-  const isExpired = endsAt < now; 
+  const isExpired = endsAt < now;
 
   let statusLabel = "";
 
@@ -219,7 +219,6 @@ function createListingCard(listing) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const sellerTabListings = document.getElementById("sellerTabListings");
   const sellerTabBids = document.getElementById("sellerTabBids");
   const sellerTabWins = document.getElementById("sellerTabWins");
@@ -227,7 +226,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sellerTabListings && sellerTabBids && sellerTabWins) {
     sellerTabListings.addEventListener("click", () => {
       hideAllSellerSections();
-      document.getElementById("sellerListingsSection").classList.remove("hidden");
+      document
+        .getElementById("sellerListingsSection")
+        .classList.remove("hidden");
     });
 
     sellerTabBids.addEventListener("click", () => {
@@ -243,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function hideAllSellerSections() {
-  document.querySelectorAll('.section-content').forEach(section => {
-    section.classList.add('hidden');
+  document.querySelectorAll(".section-content").forEach((section) => {
+    section.classList.add("hidden");
   });
 }

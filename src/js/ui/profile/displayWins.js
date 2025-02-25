@@ -6,7 +6,7 @@ import { fetchProfile } from "../../api/profile/read.js";
  * - Fetches the user profile data to get the list of won auctions.
  * - Displays the wins in a grid format.
  * - Handles loading state, authentication check, and error cases.
- * 
+ *
  * @returns {Promise<void>} Resolves when the wins are displayed or an error occurs.
  */
 

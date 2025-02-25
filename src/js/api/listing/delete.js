@@ -17,11 +17,13 @@ export async function createListing(listingData) {
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error("Create Listing Error:", errorData);
       throw new Error(errorData.message || "Failed to create listing");
     }
 
     return await response.json();
   } catch (error) {
+    console.error("Create Listing Error:", error);
     throw new Error("An error occurred while creating your listing.");
   }
 }
@@ -48,11 +50,14 @@ export async function deleteListing(listingId) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Failed to delete listing. Status: ${response.status}`);
+      console.error("Delete Listing API Response:", errorText);
+      throw new Error(
+        `Failed to delete listing. Status: ${response.status} - ${errorText}`,
+      );
     }
-
     return true;
   } catch (error) {
+    console.error("Delete Listing Error:", error);
     return false;
   }
 }

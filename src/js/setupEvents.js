@@ -74,6 +74,7 @@ export function initializeApp() {
       loadProfilePage();
     }
   } catch (error) {
+    console.error("Initialization Error:", error);
     showAlert(
       "An error occurred while initializing the application. Please try again.",
       "error",

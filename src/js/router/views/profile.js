@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-  
     const profileData = await fetchProfile(username);
     if (!profileData) throw new Error("Profile data is empty!");
 
@@ -33,8 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       `Credits: ${profileData.credits || 0}`;
     document.getElementById("profileListings").textContent =
       `Listings: ${profileData._count?.listings || 0}`;
-
-      
 
     document.getElementById("bioInput").value = profileData.bio || "";
     document.getElementById("avatarInput").value =
@@ -55,22 +52,22 @@ displayUserBids();
 displayUserWins();
 
 function hideAllSections() {
-  document.querySelectorAll('.section-content').forEach(section => {
-    section.classList.add('hidden');
+  document.querySelectorAll(".section-content").forEach((section) => {
+    section.classList.add("hidden");
   });
 }
 
-document.getElementById('tabListings').addEventListener('click', () => {
+document.getElementById("tabListings").addEventListener("click", () => {
   hideAllSections();
-  document.getElementById('listingsSection').classList.remove('hidden');
+  document.getElementById("listingsSection").classList.remove("hidden");
 });
 
-document.getElementById('tabBids').addEventListener('click', () => {
+document.getElementById("tabBids").addEventListener("click", () => {
   hideAllSections();
-  document.getElementById('bidsSection').classList.remove('hidden');
+  document.getElementById("bidsSection").classList.remove("hidden");
 });
 
-document.getElementById('tabWins').addEventListener('click', () => {
+document.getElementById("tabWins").addEventListener("click", () => {
   hideAllSections();
-  document.getElementById('winsSection').classList.remove('hidden');
+  document.getElementById("winsSection").classList.remove("hidden");
 });

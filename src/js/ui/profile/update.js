@@ -9,10 +9,10 @@ import { displayListings } from "../listing/display.js";
  * - Compares new input values with existing profile data.
  * - Sends update request only if there are changes.
  * - Updates the UI with new profile data after a successful update.
- * 
+ *
  * @param {Event} event - The form submission event.
  * @returns {Promise<void>} - Resolves when the profile is updated and UI is refreshed.
- */ 
+ */
 
 export async function onUpdateProfile(event) {
   if (event) event.preventDefault();

@@ -16,8 +16,8 @@ export function initializeSearch() {
   if (!searchInput || !searchBtn) {
     console.warn("⚠️ Search elements not found in DOM.");
     return;
-  } 
-  
+  }
+
   /**
    * Handles search button click:
    * - Retrieves the trimmed search query.

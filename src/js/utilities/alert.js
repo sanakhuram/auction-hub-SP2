@@ -12,7 +12,7 @@ export function showAlert(
   type = "info",
   duration = 3000,
   buttonText = null,
-  buttonAction = null
+  buttonAction = null,
 ) {
   let alertContainer = document.getElementById("alertContainer");
 
@@ -28,7 +28,7 @@ export function showAlert(
       "z-50",
       "space-y-2",
       "w-full",
-      "max-w-sm"
+      "max-w-sm",
     );
     document.body.appendChild(alertContainer);
   }
@@ -47,7 +47,7 @@ export function showAlert(
     "opacity-0",
     "transition-opacity",
     "duration-300",
-    "w-full"
+    "w-full",
   );
 
   switch (type) {
@@ -62,7 +62,7 @@ export function showAlert(
         "bg-sepia",
         "border",
         "border-yellow-700",
-        "text-black"
+        "text-black",
       );
       break;
     default:
@@ -96,10 +96,12 @@ export function showAlert(
   closeButton.addEventListener("click", () => alertDiv.remove());
 
   if (buttonText && buttonAction) {
-    document.getElementById("alertActionButton").addEventListener("click", () => {
-      alertDiv.remove();
-      buttonAction();
-    });
+    document
+      .getElementById("alertActionButton")
+      .addEventListener("click", () => {
+        alertDiv.remove();
+        buttonAction();
+      });
   }
 
   setTimeout(() => {
@@ -131,7 +133,7 @@ export function showConfirmAlert(message) {
         "z-50",
         "space-y-2",
         "w-full",
-        "max-w-sm"
+        "max-w-sm",
       );
       document.body.appendChild(alertContainer);
     }
@@ -154,7 +156,7 @@ export function showConfirmAlert(message) {
       "opacity-0",
       "transition-opacity",
       "duration-300",
-      "w-full"
+      "w-full",
     );
 
     confirmDiv.setAttribute("role", "dialog");

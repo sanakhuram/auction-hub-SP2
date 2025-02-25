@@ -30,6 +30,7 @@ export async function updateListing(id, data) {
 
     return await response.json();
   } catch (error) {
+    console.error("Update Listing Error:", error);
     return null;
   }
 }

@@ -1,5 +1,4 @@
 export function setupBackToTop() {
-  
   let backToTopButton = document.getElementById("backToTop");
   if (!backToTopButton) {
     backToTopButton = document.createElement("button");

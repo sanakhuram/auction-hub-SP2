@@ -29,7 +29,7 @@ export async function displayUserListings() {
       userListings.map(async (listing) => {
         const fullListing = await getListingById(listing.id);
         return fullListing?.data || listing;
-      })
+      }),
     );
 
     window.allUserListings = fullListings;
@@ -60,12 +60,15 @@ function renderListings() {
  */
 function createListingCard(listing) {
   const bidArray = listing.bids?.data || listing.bids || [];
-  const highestBid = bidArray.length > 0 ? Math.max(...bidArray.map((bid) => bid.amount)) : listing.startingPrice || 0;
+  const highestBid =
+    bidArray.length > 0
+      ? Math.max(...bidArray.map((bid) => bid.amount))
+      : listing.startingPrice || 0;
   const isExpired = new Date(listing.endsAt) <= new Date();
 
   return `
-    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark ${isExpired ? 'opacity-50' : ''}">
-      ${isExpired ? '<span class="absolute top-2 right-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">❌ Expired</span>' : ''}
+    <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark ${isExpired ? "opacity-50" : ""}">
+      ${isExpired ? '<span class="absolute top-2 right-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">❌ Expired</span>' : ""}
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"
@@ -75,7 +78,10 @@ function createListingCard(listing) {
       <h3 class="text-lg mt-2 mb-2">${listing.title}</h3>
       <p class="text-gray-700">Current Bid: <strong>${formatCurrency(highestBid)}</strong></p>
       <p class="text-gray-700">Ends on: ${new Date(listing.endsAt).toLocaleDateString()}</p>
-      ${isExpired ? '' : `
+      ${
+        isExpired
+          ? ""
+          : `
       <a href="/listing/edit/?id=${listing.id}" 
         class="inline-block bg-btn-gradient text-white px-4 py-2 mt-3 rounded-lg border border-gray-300 
               transition-all duration-300 ease-in-out transform hover:scale-105 hover:brightness-110 hover:shadow-lg">
@@ -86,7 +92,8 @@ function createListingCard(listing) {
               transform hover:scale-105 hover:bg-red-700 hover:shadow-lg active:scale-95 active:brightness-90 
               focus:ring-4 focus:ring-red-300 focus:outline-none">
         🗑️ Delete
-      </button>`}
+      </button>`
+      }
     </div>
   `;
 }
@@ -103,7 +110,7 @@ function formatCurrency(amount) {
  */
 async function deleteListingHandler(listingId) {
   const confirmDelete = await showConfirmAlert(
-    "Are you sure you want to delete this listing?"
+    "Are you sure you want to delete this listing?",
   );
   if (!confirmDelete) return;
 

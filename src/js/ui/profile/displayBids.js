@@ -2,7 +2,7 @@ import { fetchUserBids } from "../../api/profile/getBids.js";
 
 /**
  * Fetches and displays the user's bids in a grid layout.
- * 
+ *
  * - If the user is **not logged in**, prompts them to log in.
  * - If the user has **no bids**, displays a message indicating this.
  * - If bids exist, renders them with labels:
@@ -45,8 +45,11 @@ export async function displayUserBids() {
 
               const auctionEnded = new Date(listing.endsAt) <= new Date();
               const highestBidder = bid.highestBidder;
-              const usernameLower = localStorage.getItem("username")?.toLowerCase();
-              const isWinning = highestBidder && highestBidder.toLowerCase() === usernameLower;
+              const usernameLower = localStorage
+                .getItem("username")
+                ?.toLowerCase();
+              const isWinning =
+                highestBidder && highestBidder.toLowerCase() === usernameLower;
 
               let statusLabel = auctionEnded
                 ? `<span class="absolute top-2 right-2 bg-gray-600 text-white px-2 py-1 rounded opacity-80 text-xs">❌ Expired</span>`
@@ -55,7 +58,7 @@ export async function displayUserBids() {
                   : `<span class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded opacity-80 text-xs">🚨 Losing</span>`;
 
               return `
-                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 ${auctionEnded ? 'opacity-50' : ''}">
+                <div class="relative p-4 border rounded-lg shadow-md bg-muted text-white mb-5 ${auctionEnded ? "opacity-50" : ""}">
                   ${statusLabel}
                   <a href="/listing/?id=${listing.id}" class="block">
                     <img src="${listing.media?.[0]?.url || "/images/placeholder.jpg"}"

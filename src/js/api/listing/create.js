@@ -21,6 +21,7 @@ export async function createListing(listingData) {
 
     return await response.json();
   } catch (error) {
+    console.error("Create Listing Error:", error);
     throw new Error("An error occurred while creating your listing.");
   }
 }

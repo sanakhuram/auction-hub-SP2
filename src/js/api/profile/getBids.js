@@ -43,7 +43,6 @@ export async function fetchUserBids(username) {
         ? new Date(bid.listing.endsAt) < new Date()
         : false;
 
-
       const allBids = bids.filter((b) => b.listing?.id === bid.listing.id);
       const sortedBids = allBids.sort((a, b) => b.amount - a.amount);
 

@@ -9,7 +9,7 @@ import { getCurrentSearchQuery } from "../../utilities/search";
  * Fetches and displays listings based on filters, search query, and pagination.
  * - Displays newest listings, ending soon listings, and all listings.
  * - Handles pagination and updates timers for auction end times.
- * 
+ *
  * @param {string} [categoryFilter=""] - Category filter for listings.
  * @param {string} [searchQuery=""] - Search query for filtering listings.
  * @param {number} [currentPage=1] - Current page for pagination.
@@ -83,6 +83,7 @@ export async function displayListings(
 
     updateTimers();
   } catch (error) {
+    console.error("Error loading listings:", error);
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
   } finally {
@@ -92,7 +93,7 @@ export async function displayListings(
 
 /**
  * Generates HTML markup for a list of listings.
- * 
+ *
  * @param {Array} listings - The array of listing objects.
  * @param {string} colorClass - Tailwind CSS class for styling listing cards.
  * @returns {string} - HTML string containing the listings.
@@ -179,7 +180,7 @@ function formatCurrency(amount) {
 
 /**
  * Retrieves a valid image URL for a listing or returns a placeholder if none exist.
- * 
+ *
  * @param {Array} media - Media array containing image objects.
  * @returns {string} - Valid image URL or placeholder image path.
  */

@@ -3,7 +3,7 @@ import { showAlert } from "../../utilities/alert.js";
 
 /**
  * Populates the edit listing form with existing listing data.
- * 
+ *
  * @param {Object} listing - The listing data object.
  */
 
@@ -34,7 +34,7 @@ export function populateEditListingForm(listing) {
 
 /**
  * Handles the submission of the edit listing form and updates the listing.
- * 
+ *
  * @param {Event} event - The form submit event.
  * @returns {Promise<void>} Resolves when the listing is updated or an error occurs.
  */
@@ -79,7 +79,7 @@ export async function onUpdateEdit(event) {
       showAlert("✅ Listing updated successfully!", "success");
       setTimeout(() => {
         window.location.href = `/listing/?id=${listingId}`;
-      }, 2000);
+      }, 1000);
     } else {
       showAlert("❌ Failed to update listing.", "error");
     }

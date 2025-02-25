@@ -8,6 +8,7 @@ export function isValidUrl(url) {
     const parsedUrl = new URL(url);
     return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
   } catch (error) {
+    console.error("Invalid URL:", error);
     return false;
   }
 }

@@ -31,6 +31,7 @@ export async function initializeEditPage() {
     editListingForm.dataset.id = listingId;
     populateEditListingForm(listing);
   } catch (error) {
+    console.error("Error loading listing:", error);
     alert("Error loading listing.");
   }
 }

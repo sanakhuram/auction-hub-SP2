@@ -32,29 +32,31 @@ export function renderPaginationControls(
   const paginationContainer = document.getElementById("pagination-controls");
 
   if (!paginationContainer) return;
-
   paginationContainer.innerHTML = "";
 
   if (currentPage > 1) {
-    paginationContainer.innerHTML += `<button class="px-4 py-2 border rounded-lg bg-gray-300 hover:bg-gray-400" data-page="${
-      currentPage - 1
-    }">Previous</button>`;
+    paginationContainer.innerHTML += `
+      <button class="px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm md:text-base rounded-md border border-secondary bg-olive dark:bg-dark hover:bg-secondary hover:text-white transition-transform transform hover:scale-105"
+        data-page="${currentPage - 1}">
+        ← Prev
+      </button>`;
   }
 
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.innerHTML += `
-      <button class="px-4 py-2 border rounded-lg shadow-dark mt-3 ${
-        i === currentPage ? "bg-secondary text-white" : "bg-muted"
-      } hover:bg-olive" data-page="${i}">
+      <button class="px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm md:text-base rounded-md border shadow-dark mt-2 
+        ${i === currentPage ? "bg-secondary text-white" : "bg-muted"} hover:bg-olive transition-transform transform hover:scale-105" 
+        data-page="${i}">
         ${i}
-      </button>
-    `;
+      </button>`;
   }
 
   if (currentPage < totalPages) {
-    paginationContainer.innerHTML += `<button class="px-4 py-2 border rounded-lg bg-muted hover:bg-accent mt-3" data-page="${
-      currentPage + 1
-    }">Next</button>`;
+    paginationContainer.innerHTML += `
+      <button class="px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm md:text-base rounded-md border border-secondary bg-muted hover:bg-accent mt-2 transition-transform transform hover:scale-105"
+        data-page="${currentPage + 1}">
+        Next →
+      </button>`;
   }
 
   paginationContainer.querySelectorAll("button").forEach((button) => {
