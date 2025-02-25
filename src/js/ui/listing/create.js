@@ -97,12 +97,15 @@ export async function onCreateListing(event) {
     "collectibles",
     "cars",
     "toys",
+    "fashion",
+    "sports",
   ];
 
   const tagElements = document.querySelectorAll("input[name='tags']:checked");
   let tags = Array.from(tagElements)
     .map((tag) => tag.value.toLowerCase())
     .filter((tag) => allowedTags.includes(tag));
+    
 
   if (tags.length === 0) tags = undefined;
   if (!title || !endsAt) {
@@ -128,7 +131,7 @@ export async function onCreateListing(event) {
       showAlert("Listing created successfully!", "success");
       setTimeout(() => {
         window.location.href = "/";
-      }, 2000);
+      }, 1000);
     }
   } catch (error) {
     showAlert("Failed to create listing: " + error.message, "error");
