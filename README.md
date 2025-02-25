@@ -102,7 +102,7 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 ---
 
 ## 📡 API Reference
-This project uses the [Noroff Auction API](<API_DOCUMENTATION_LINK>) for managing auctions.
+This project uses the [Noroff Auction API](<https://docs.noroff.dev/docs/v2/auction-house/listings>) for managing auctions.
 
 --- 
 
