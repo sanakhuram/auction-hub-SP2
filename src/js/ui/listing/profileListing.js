@@ -65,7 +65,7 @@ function createListingCard(listing) {
 
   return `
     <div class="p-4 border rounded-lg shadow-lg bg-sepia relative mx-auto w-full shadow-dark ${isExpired ? 'opacity-50' : ''}">
-      ${isExpired ? '<span class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Expired</span>' : ''}
+      ${isExpired ? '<span class="absolute top-2 right-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">❌ Expired</span>' : ''}
       <a href="/listing/?id=${listing.id}" class="block">
         <img src="${getValidImage(listing.media)}"
           alt="${listing.media?.[0]?.alt || listing.title}"

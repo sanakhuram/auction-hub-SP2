@@ -2,9 +2,9 @@ import { updateListing } from "../../api/listing/update.js";
 import { showAlert } from "../../utilities/alert.js";
 
 /**
- * Creates a new auction listing.
- * @param {Object} listingData - The listing data.
- * @returns {Promise<Object>} - The created listing data.
+ * Populates the edit listing form with existing listing data.
+ * 
+ * @param {Object} listing - The listing data object.
  */
 
 export function populateEditListingForm(listing) {
@@ -33,10 +33,12 @@ export function populateEditListingForm(listing) {
 }
 
 /**
- * Deletes a listing by ID.
- * @param {string} listingId - The ID of the listing to delete.
- * @returns {Promise<boolean>} - True if successful, false otherwise.
+ * Handles the submission of the edit listing form and updates the listing.
+ * 
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>} Resolves when the listing is updated or an error occurs.
  */
+
 export async function onUpdateEdit(event) {
   event.preventDefault();
 

@@ -27,32 +27,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const images = getValidImages(listing.media);
 
-    // Image Navigation Setup
     let currentImageIndex = 0;
 
     function updateImage() {
       document.getElementById("listing-image").src = images[currentImageIndex];
     }
 
-    listingDetailsContainer.innerHTML = `
-      <h1 class="text-2xl font-bold text-center mb-4">${listing.title}</h1>
-      
-      <div class="relative flex justify-center items-center">
-        <button id="prev-image" class="absolute left-0 bg-gray-600 text-white px-3 py-2 rounded-l">◀</button>
-        <img id="listing-image" class="w-full max-w-lg object-cover rounded-md" src="${images[0]}" />
-        <button id="next-image" class="absolute right-0 bg-gray-600 text-white px-3 py-2 rounded-r">▶</button>
-      </div>
-
-      <p class="text-gray-700 mt-4 text-center">${
-        listing.description || "No description available"
-      }</p>
-
-      <p class="text-sm text-gray-500 text-center">Ends on: ${new Date(
-        listing.endsAt,
-      ).toLocaleString()}</p>
-    `;
-
-    // Attach Event Listeners for Image Navigation
     document.getElementById("prev-image").addEventListener("click", () => {
       currentImageIndex =
         (currentImageIndex - 1 + images.length) % images.length;
@@ -82,12 +62,10 @@ export async function onCreateListing(event) {
     ?.value.trim();
   const endsAt = document.getElementById("endsAt")?.value;
 
-  // Collect image URLs from inputs
   const image1 = document.getElementById("imageURL1")?.value.trim();
   const image2 = document.getElementById("imageURL2")?.value.trim();
   const image3 = document.getElementById("imageURL3")?.value.trim();
 
-  // Filter out empty inputs (only keep valid URLs)
   const images = [image1, image2, image3].filter((url) => url !== "");
 
   const imageAlt = document.getElementById("imageAltText")?.value.trim();

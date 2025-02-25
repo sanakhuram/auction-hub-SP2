@@ -1,12 +1,18 @@
 import { fetchUserBids } from "../../api/profile/getBids.js";
+
 /**
- * Fetches and displays the user's bids in a slider format.
- * If the user is not logged in, displays a login prompt.
- * If the user has no bids, displays a message indicating no bids.
- * If bids exist, renders them with labels indicating whether they are winning, losing, or expired.
+ * Fetches and displays the user's bids in a grid layout.
+ * 
+ * - If the user is **not logged in**, prompts them to log in.
+ * - If the user has **no bids**, displays a message indicating this.
+ * - If bids exist, renders them with labels:
+ *   - ✅ "Winning" (green) if the user is the highest bidder.
+ *   - 🚨 "Losing" (red) if outbid but auction is still active.
+ *   - ❌ "Expired" (gray) if the auction has ended.
  *
- * @returns {Promise<void>} - A promise that resolves once the user's bids are fetched and displayed.
+ * @returns {Promise<void>} Resolves when bids are successfully fetched and displayed.
  */
+
 export async function displayUserBids() {
   const bidsContainer = document.querySelector("#myBidsSlider");
   if (!bidsContainer) return;

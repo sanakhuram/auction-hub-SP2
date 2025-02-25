@@ -1,3 +1,10 @@
+/**
+ * Sets up the dark mode toggle for both mobile and desktop.
+ * - Loads the saved theme from localStorage or detects system preference.
+ * - Updates the UI elements (logo, theme image, icons) based on the theme.
+ * - Adds event listeners to toggle buttons and system theme preference changes.
+ */
+
 export function setupDarkModeToggle() {
   const themeToggleMobile = document.getElementById("theme-toggle-mobile");
   const themeIconMobile = document.getElementById("theme-icon-mobile");
@@ -10,6 +17,12 @@ export function setupDarkModeToggle() {
   const logoDark = document.getElementById("logo-dark");
   const themeImage = document.getElementById("theme-image");
 
+    /**
+   * Updates the visibility of UI elements based on the active theme.
+   * 
+   * @param {boolean} isDarkMode - `true` if dark mode is enabled, otherwise `false`.
+   */
+  
   function updateThemeElements(isDarkMode) {
     if (logoLight && logoDark) {
       logoLight.classList.toggle("hidden", isDarkMode);

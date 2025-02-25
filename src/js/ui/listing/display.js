@@ -5,6 +5,17 @@ import {
 } from "../../utilities/pagination";
 import { getCurrentSearchQuery } from "../../utilities/search";
 
+/**
+ * Fetches and displays listings based on filters, search query, and pagination.
+ * - Displays newest listings, ending soon listings, and all listings.
+ * - Handles pagination and updates timers for auction end times.
+ * 
+ * @param {string} [categoryFilter=""] - Category filter for listings.
+ * @param {string} [searchQuery=""] - Search query for filtering listings.
+ * @param {number} [currentPage=1] - Current page for pagination.
+ * @returns {Promise<void>} Resolves when listings are displayed.
+ */
+
 export async function displayListings(
   categoryFilter = "",
   searchQuery = "",
@@ -78,6 +89,14 @@ export async function displayListings(
     loader.style.display = "none";
   }
 }
+
+/**
+ * Generates HTML markup for a list of listings.
+ * 
+ * @param {Array} listings - The array of listing objects.
+ * @param {string} colorClass - Tailwind CSS class for styling listing cards.
+ * @returns {string} - HTML string containing the listings.
+ */
 
 function renderListings(listings, colorClass) {
   return listings
@@ -159,10 +178,12 @@ function formatCurrency(amount) {
 }
 
 /**
- * Gets a valid image URL or returns a placeholder if none exist
- * @param {Array} media - Media array containing images
- * @returns {string} - Valid image URL
+ * Retrieves a valid image URL for a listing or returns a placeholder if none exist.
+ * 
+ * @param {Array} media - Media array containing image objects.
+ * @returns {string} - Valid image URL or placeholder image path.
  */
+
 function getValidImage(media) {
   return Array.isArray(media) && media.length > 0 && media[0]?.url
     ? media[0].url

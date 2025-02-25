@@ -1,5 +1,12 @@
 import { displayListings } from "./listing/display";
 
+/**
+ * Initializes the category carousel.
+ * - Enables automatic scrolling through categories.
+ * - Allows users to manually select categories.
+ * - Updates the UI to reflect the current slide.
+ */
+
 export function initializeCarousel() {
   const carousel = document.getElementById("category-carousel");
   const dots = document.querySelectorAll(".dot");

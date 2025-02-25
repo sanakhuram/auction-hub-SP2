@@ -1,11 +1,16 @@
-// src/app.js
-
 import "./css/style.css";
 import router from "./js/router/index.js";
 import { initializeApp } from "./js/setupEvents.js";
 import { setupDarkModeToggle } from "./js/utilities/toggle.js";
 import "./js/utilities/activeNav.js";
 import { setupBackToTop } from "./js/utilities/backToTop.js";
+
+/**
+ * Initializes the application:
+ * - Runs the router to handle page-specific logic.
+ * - Sets up event listeners for UI elements.
+ * - Enables dark mode toggle and "Back to Top" button functionality.
+ */
 
 async function init() {
   await router(window.location.pathname);

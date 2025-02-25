@@ -3,6 +3,13 @@ import { placeBid } from "../../api/listing/bid.js";
 import { showAlert } from "../../utilities/alert.js";
 import { loadBidHistory } from "../../api/listing/bidHistory.js";
 
+/**
+ * Fetches and displays a single listing based on the ID from the URL parameters.
+ * It retrieves listing details, loads bid history, and allows users to place a bid.
+ * 
+ * @returns {Promise<void>} Resolves when the listing details are displayed.
+ */
+
 export async function displaySingleListing() {
   const listingContainer = document.getElementById("listing-details");
   if (!listingContainer) return;
@@ -112,6 +119,12 @@ export async function displaySingleListing() {
     `;
     loadBidHistory(listingId);
 
+/**
+ * Handles click events on thumbnail images to update the main displayed image.
+ * 
+ * @param {Event} e - The event object from the click event.
+ */
+
     document.querySelectorAll(".flex img").forEach((thumbnail) => {
       if (!thumbnail.classList.contains("no-click")) {
         thumbnail.addEventListener("click", (e) => {
@@ -122,6 +135,15 @@ export async function displaySingleListing() {
         });
       }
     });
+
+    /**
+ * Handles bid form submission.
+ * - Checks if the user is logged in.
+ * - Validates bid amount.
+ * - Submits the bid and refreshes the listing if successful.
+ *
+ * @param {Event} event - The form submit event.
+ */
 
     document
     .getElementById("bidForm")

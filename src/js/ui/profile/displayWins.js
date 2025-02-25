@@ -1,8 +1,15 @@
 import { fetchProfile } from "../../api/profile/read.js";
 
 /**
- * Fetches and displays the user's wins in a grid layout (without slider functionality).
+ * Fetches and displays the user's auction wins in a grid layout.
+ * - Retrieves the username from localStorage.
+ * - Fetches the user profile data to get the list of won auctions.
+ * - Displays the wins in a grid format.
+ * - Handles loading state, authentication check, and error cases.
+ * 
+ * @returns {Promise<void>} Resolves when the wins are displayed or an error occurs.
  */
+
 async function displayUserWins() {
   const winsContainer = document.getElementById("myWinsSlider");
   if (!winsContainer) return;

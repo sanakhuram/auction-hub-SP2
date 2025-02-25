@@ -1,11 +1,15 @@
 import { getSellerProfile } from "../../api/profile/fetchProfile.js";
 import { fetchBids, formatCurrency } from "../../api/listing/bid.js";
+
 /**
  * Loads and displays the seller's profile information, including their listings, bids, and wins.
- * Fetches seller data from the API and dynamically updates the UI.
+ * - Fetches seller data from the API.
+ * - Dynamically updates the UI with seller information.
+ * - Renders listings, bids, and wins with appropriate labels (Winning, Losing, Expired).
  *
- * @returns {Promise<void>} - A promise that resolves once the seller profile is loaded and rendered.
+ * @returns {Promise<void>} - Resolves once the seller profile is loaded and rendered.
  */
+
 export async function loadSellerProfile() {
   const urlParams = new URLSearchParams(window.location.search);
   const sellerUsername = urlParams.get("seller");
@@ -70,6 +74,14 @@ export async function loadSellerProfile() {
     });
   }
 
+  /**
+ * Renders the seller's auction listings.
+ * 
+ * @param {Array} listings - The array of seller's listings.
+ * @param {HTMLElement} container - The HTML container for listings.
+ * @param {number} visibleListings - The number of listings to display initially.
+ */
+
   function renderListings() {
     listingsContainer.innerHTML = "";
     const visibleItems = listings.slice(0, visibleListings);
@@ -85,6 +97,15 @@ export async function loadSellerProfile() {
       loadMoreListingsButton.style.display = "none";
     }
   }
+
+  /**
+ * Renders the seller's bids.
+ * 
+ * @param {Array} bids - The array of bids placed by the seller.
+ * @param {HTMLElement} container - The HTML container for bids.
+ * @param {number} visibleBids - The number of bids to display initially.
+ * @param {string} sellerName - The seller's name to check for winning bids.
+ */
 
   function renderBids() {
     bidContainer.innerHTML = "";
@@ -160,10 +181,13 @@ export async function loadSellerProfile() {
 document.addEventListener("DOMContentLoaded", loadSellerProfile);
 
 /**
- * Creates a listing card with transparent labels for winning/losing.
- * @param {Object} listing - Listing object from API.
- * @returns {string} - The generated listing card HTML.
- */
+ * Creates a bid card with labels for winning or losing.
+ * 
+ * @param {Object} bid - The bid object.
+ * @param {boolean} isWinning - Whether the bid is currently winning.
+ * @returns {string} - The generated HTML for the bid card.
+ */ 
+
 function createListingCard(listing) {
   const isWinning = listing.highestBidder === localStorage.getItem("username");
   const now = new Date();

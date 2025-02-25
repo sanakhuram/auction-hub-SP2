@@ -1,3 +1,9 @@
+/**
+ * Highlights the active navigation link based on the current page URL.
+ * - Adds styles to the link that matches the current pathname.
+ * - Removes the active styles from other navigation links.
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
   const currentPath = window.location.pathname;
   const navLinks = document.querySelectorAll(".nav-link");

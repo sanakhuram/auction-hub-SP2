@@ -1,7 +1,13 @@
 import { API_AUCTION_LISTINGS } from "../constants.js";
 import { headers } from "../headers.js";
 import { getToken } from "../../token.js";
-
+/**
+ * Updates an auction listing by ID.
+ *
+ * @param {string} id - The ID of the listing to update.
+ * @param {Object} data - The updated listing data.
+ * @returns {Promise<Object|null>} - The updated listing data if successful, or `null` if an error occurs.
+ */
 export async function updateListing(id, data) {
   const token = getToken();
   if (!token) {
