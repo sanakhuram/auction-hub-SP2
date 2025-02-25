@@ -32,7 +32,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     function updateImage() {
       document.getElementById("listing-image").src = images[currentImageIndex];
     }
+    listingDetailsContainer.innerHTML = `
+      <h1 class="text-2xl font-bold text-center mb-4">${listing.title}</h1>
+      
+      <div class="relative flex justify-center items-center">
+        <button id="prev-image" class="absolute left-0 bg-gray-600 text-white px-3 py-2 rounded-l">◀</button>
+        <img id="listing-image" class="w-full max-w-lg object-cover rounded-md" src="${images[0]}" />
+        <button id="next-image" class="absolute right-0 bg-gray-600 text-white px-3 py-2 rounded-r">▶</button>
+      </div>
 
+      <p class="text-gray-700 mt-4 text-center">${
+        listing.description || "No description available"
+      }</p>
+
+      <p class="text-sm text-gray-500 text-center">Ends on: ${new Date(
+        listing.endsAt,
+      ).toLocaleString()}</p>
+    `;
     document.getElementById("prev-image").addEventListener("click", () => {
       currentImageIndex =
         (currentImageIndex - 1 + images.length) % images.length;
