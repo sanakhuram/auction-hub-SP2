@@ -1,7 +1,7 @@
 <div style="background-color: #F0E2C7; padding: 20px; border-radius: 10px; text-align: center;">
 
 <h1 align="center">
-  <img src="/public/images/coin-avatar.png" width="50" height="50" />
+  <img src="/public/images/logodark.png" width="50" height="50" />
    Auction Hub - Semester 2 Project Exam
 </h1>
 
