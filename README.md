@@ -113,7 +113,7 @@ cd auction-hub-SP2
 🔑 This project uses the **Noroff API**, which requires an API key.
 
 #### 🔗 **How to Get Your API Key**
-1. Go to **[Noroff API Key Authentication](https://docs.noroff.dev/docs/v2/auth/api-key)**.
+1. Go to **[Noroff API Key Authentication](https://docs.noroff.dev/docs/v2/auth/api-key#api-key-tool)**.
 2. Sign up or log in with your **stud.noroff.no** email.
 3. Generate your API key and **copy it**.
 
