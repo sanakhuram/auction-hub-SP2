@@ -41,20 +41,20 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 
 ---
 
-## 🛠️ Updated Tech Stack  
+## 🛠️ Updated Tech Stack
 
-| 🚀 **Technology**           | 🛠️ **Purpose**                                    |
-| ------------------------ | -------------------------------------------------- |
-| **JavaScript (Vanilla)** | 🎯 Core application logic, API handling             |
-| **Vite.js**              | ⚡ Fast and modern frontend build tool               |
-| **Tailwind CSS**         | 🎨 Utility-first CSS framework for UI styling        |
-| **LocalStorage**         | 🔐 JWT token storage for authentication             |
-| **Noroff API (REST API)**| 🔗 Backend API for managing auctions                |
-| **Netlify**              | 🌍 Deployment and hosting                           |
-| **ESLint**               | ✅ Linting tool to enforce code quality             |
-| **Prettier**             | 🎨 Code formatter for consistent styling            |
-| **Husky**                | 🔄 Git hooks for enforcing pre-commit checks       |
-| **Playwright**           | 🧪 End-to-end testing framework for UI testing      |
+| 🚀 **Technology**         | 🛠️ **Purpose**                                 |
+| ------------------------- | ---------------------------------------------- |
+| **JavaScript (Vanilla)**  | 🎯 Core application logic, API handling        |
+| **Vite.js**               | ⚡ Fast and modern frontend build tool         |
+| **Tailwind CSS**          | 🎨 Utility-first CSS framework for UI styling  |
+| **LocalStorage**          | 🔐 JWT token storage for authentication        |
+| **Noroff API (REST API)** | 🔗 Backend API for managing auctions           |
+| **Netlify**               | 🌍 Deployment and hosting                      |
+| **ESLint**                | ✅ Linting tool to enforce code quality        |
+| **Prettier**              | 🎨 Code formatter for consistent styling       |
+| **Husky**                 | 🔄 Git hooks for enforcing pre-commit checks   |
+| **Playwright**            | 🧪 End-to-end testing framework for UI testing |
 
 ---
 
@@ -65,43 +65,49 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 ✅ **Bidding System**: 💰 Place bids, track bid history, and view highest bids.  
 ✅ **User Profiles**: 👤 View seller information and bid history.  
 ✅ **Guest Access**: 👀 Non-registered users can browse listings but cannot bid.  
-✅ **Dark Mode**: 🌙 Tailwind-powered theme switching for better UX.  
+✅ **Dark Mode**: 🌙 Tailwind-powered theme switching for better UX.
 
 ---
 
-## 📖 How to Use the App  
+## 📖 How to Use the App
 
-1️⃣ **Sign Up/Login**  
-   - Click **Register** and sign up using your `stud.noroff.no` email.  
-   - Every **new user receives 1,000 credits** to start bidding.  
-   - Login to start bidding or selling.
+1️⃣ **Sign Up/Login**
 
-2️⃣ **Create a Listing**  
-   - Click **Create Listing** and enter a title, description, images, and set a deadline.  
-   - 🏆 **Earn credits when your item is sold!**  
+- Click **Register** and sign up using your `stud.noroff.no` email.
+- Every **new user receives 1,000 credits** to start bidding.
+- Login to start bidding or selling.
 
-3️⃣ **Edit & Delete Listings**  
-   - ✏️ **Edit Listing**: Modify title, description, images, or deadline.  
-   - 🗑️ **Delete Listing**: Remove a listing before it has bids.  
+2️⃣ **Create a Listing**
 
-4️⃣ **Place a Bid**  
-   - Go to any listing and enter a bid amount to compete for the item.  
-   - 💸 **Use your credits to bid on items.**  
-   - If you win the auction, the credits will be deducted from your account.
+- Click **Create Listing** and enter a title, description, images, and set a deadline.
+- 🏆 **Earn credits when your item is sold!**
 
-5️⃣ **Manage Profile**  
-   - View total credits, update your avatar, and track your bids.  
-   - 🎯 **Check your balance and bidding history in your profile.**  
+3️⃣ **Edit & Delete Listings**
 
-6️⃣ **Guest Access**  
-   - Non-registered users can browse listings but **cannot bid**.  
+- ✏️ **Edit Listing**: Modify title, description, images, or deadline.
+- 🗑️ **Delete Listing**: Remove a listing before it has bids.
 
+4️⃣ **Place a Bid**
+
+- Go to any listing and enter a bid amount to compete for the item.
+- 💸 **Use your credits to bid on items.**
+- If you win the auction, the credits will be deducted from your account.
+
+5️⃣ **Manage Profile**
+
+- View total credits, update your avatar, and track your bids.
+- 🎯 **Check your balance and bidding history in your profile.**
+
+6️⃣ **Guest Access**
+
+- Non-registered users can browse listings but **cannot bid**.
 
 ---
 
 ## 🚀 Installation Guide
 
 ### 1️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/sanakhuram/auction-hub-SP2.git
 cd auction-hub-SP2
@@ -109,22 +115,26 @@ cd auction-hub-SP2
 
 ---
 
-### 2️⃣ Get Your API Key  
+### 2️⃣ Get Your API Key
+
 🔑 This project uses the **Noroff API**, which requires an API key.
 
 #### 🔗 **How to Get Your API Key**
+
 1. Go to **[Noroff API Key Authentication](https://docs.noroff.dev/docs/v2/auth/api-key#api-key-tool)**.
 2. Sign up or log in with your **stud.noroff.no** email.
 3. Generate your API key and **copy it**.
 
 ---
 
-### 3️⃣ Set Up Environment Variables  
+### 3️⃣ Set Up Environment Variables
+
 Rename the `.env.example` file to `.env`:
 
 ```bash
 cp .env.example .env
 ```
+
 Then, open `.env` and add your API key:
 
 ```plaintext
@@ -135,6 +145,7 @@ VITE_API_KEY=your-secret-api-key
 ---
 
 ### 4️⃣ Install Dependencies
+
 ```bash
 npm install
 ```
@@ -142,9 +153,11 @@ npm install
 ---
 
 ### 5️⃣ Run the Development Server
+
 ```bash
 npm run dev
 ```
+
 📌 Open **[`http://localhost:5173`](http://localhost:5173)** in your browser.
 
 ---
@@ -159,25 +172,29 @@ npm run dev
 ## 🎯 How to Contribute
 
 1️⃣ **Fork the Repository**  
-2️⃣ **Create a Feature Branch**  
-   ```bash
-   git checkout -b feature-new-feature
-   ```
-3️⃣ **Commit Changes & Push**  
-   ```bash
-   git commit -m "Added a new feature"
-   git push origin feature-new-feature
-   ```
-4️⃣ **Open a Pull Request**  
+2️⃣ **Create a Feature Branch**
+
+```bash
+git checkout -b feature-new-feature
+```
+
+3️⃣ **Commit Changes & Push**
+
+```bash
+git commit -m "Added a new feature"
+git push origin feature-new-feature
+```
+
+4️⃣ **Open a Pull Request**
 
 ---
 
-## 💎 Contact Me  
+## 💎 Contact Me
 
-📧 **Developer**: _Sana Khuram_  
+📧 **Developer**: _Sana Khuram_
 
-📬 **Email**: [sanakhuram](mailto:sana.khuram.baig@gmail.com)  
+📬 **Email**: [sanakhuram](mailto:sana.khuram.baig@gmail.com)
 
-💡 **Happy Bidding & Selling!** 🚀💰  
+💡 **Happy Bidding & Selling!** 🚀💰
 
 </div>
