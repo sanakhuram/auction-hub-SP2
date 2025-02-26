@@ -69,23 +69,33 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 
 ---
 
-## 📖 How to Use the App
+## 📖 How to Use the App  
 
 1️⃣ **Sign Up/Login**  
    - Click **Register** and sign up using your `stud.noroff.no` email.  
+   - Every **new user receives 1,000 credits** to start bidding.  
    - Login to start bidding or selling.
 
 2️⃣ **Create a Listing**  
-   - Click **Create Listing** and enter a title, description, images, and set a deadline.
+   - Click **Create Listing** and enter a title, description, images, and set a deadline.  
+   - 🏆 **Earn credits when your item is sold!**  
 
-3️⃣ **Place a Bid**  
-   - Go to any listing and enter a bid amount to compete for the item.
+3️⃣ **Edit & Delete Listings**  
+   - ✏️ **Edit Listing**: Modify title, description, images, or deadline.  
+   - 🗑️ **Delete Listing**: Remove a listing before it has bids.  
 
-4️⃣ **Manage Profile**  
-   - View total credits, update your avatar, and track your bids.
+4️⃣ **Place a Bid**  
+   - Go to any listing and enter a bid amount to compete for the item.  
+   - 💸 **Use your credits to bid on items.**  
+   - If you win the auction, the credits will be deducted from your account.
 
-5️⃣ **Guest Access**  
-   - Non-registered users can browse listings but **cannot bid**.
+5️⃣ **Manage Profile**  
+   - View total credits, update your avatar, and track your bids.  
+   - 🎯 **Check your balance and bidding history in your profile.**  
+
+6️⃣ **Guest Access**  
+   - Non-registered users can browse listings but **cannot bid**.  
+
 
 ---
 
