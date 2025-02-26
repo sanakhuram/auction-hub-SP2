@@ -31,9 +31,6 @@
   <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=49-449&t=dMiRPZW7QBdb6T5S-1">
     <img src="https://img.shields.io/badge/Style Guide-purple?style=for-the-badge&logo=figma" />
   </a>
-  <a href="YOUR_KANBAN_BOARD_LINK">
-    <img src="https://img.shields.io/badge/Kanban Board-green?style=for-the-badge&logo=trello" />
-  </a>
 </p>
 
 ---
@@ -42,18 +39,23 @@
 
 This project was built as part of the **Semester 2 Project Exam** for web development. The goal was to develop a fully functional auction platform where **registered users can create , Edit, Delete Listing , place bids, and track bid history** while non-registered users can only browse listings.
 
+
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Updated Tech Stack  
 
-| **Technology**           | **Purpose**                                |
-| ------------------------ | ------------------------------------------ |
-| **JavaScript (Vanilla)** | Core application logic, API handling       |
-| **Vite.js**              | Fast and modern frontend build tool        |
-| **Tailwind CSS**         | Utility-first CSS framework for UI styling |
-| **LocalStorage**         | JWT token storage for authentication       |
-| **Noroff API**           | Backend API for managing auctions          |
-| **Netlify**              | Deployment and hosting                     |
+| **Technology**           | **Purpose**                                        |
+| ------------------------ | -------------------------------------------------- |
+| **JavaScript (Vanilla)** | Core application logic, API handling               |
+| **Vite.js**              | Fast and modern frontend build tool                |
+| **Tailwind CSS**         | Utility-first CSS framework for UI styling         |
+| **LocalStorage**         | JWT token storage for authentication               |
+| **Noroff API (REST API)**| Backend API for managing auctions                  |
+| **Netlify**              | Deployment and hosting                             |
+| **ESLint**               | Linting tool to enforce code quality & consistency |
+| **Prettier**             | Code formatter for consistent styling              |
+| **Husky**                | Git hooks for enforcing pre-commit checks          |
+| **Playwright**           | End-to-end testing framework for UI testing        |
 
 ---
 
@@ -93,34 +95,56 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 
 ---
 
-## 📡 API Reference
 
-This project uses the [Noroff Auction API](https://docs.noroff.dev/docs/v2/auction-house/listings) for managing auctions.
-
----
-
+```markdown
 ## 🚀 Installation Guide
 
 ### 1️⃣ Clone the Repository
-
 ```bash
 git clone https://github.com/sanakhuram/auction-hub-SP2.git
 cd auction-hub-SP2
 ```
 
-### 2️⃣ Install Dependencies
+---
 
+### 2️⃣ Get Your API Key  
+This project uses the **Noroff API**, which requires an API key.
+
+#### 🔗 **How to Get Your API Key**
+1. Go to **[Noroff API Key Authentication](https://docs.noroff.dev/docs/v2/auth/api-key)**.
+2. Sign up or log in with your **stud.noroff.no** email.
+3. Generate your API key and **copy it**.
+
+---
+
+### 3️⃣ Set Up Environment Variables  
+Rename the `.env.example` file to `.env`:
+
+```bash
+cp .env.example .env
+```
+Then, open `.env` and add your API key:
+
+```plaintext
+VITE_API_URL=https://api.noroff.dev/auction-house
+VITE_API_KEY=your-secret-api-key
+```
+
+---
+
+### 4️⃣ Install Dependencies
 ```bash
 npm install
 ```
 
-### 3️⃣ Run the Development Server
+---
 
+### 5️⃣ Run the Development Server
 ```bash
 npm run dev
 ```
+📌 Open **[`http://localhost:5173`](http://localhost:5173)** in your browser.
 
-💪 Open **`http://localhost:3000`** in your browser.
 
 ---
 
@@ -147,18 +171,11 @@ The application is deployed on **Netlify** and can be accessed at:
 
 ---
 
-## **📜 License**
-
-This project is **open-source** and licensed under the **MIT License**.
-
----
-
-## 💎 Contact
+## 💎 Contact Me 
 
 📧 **Developer**: _Sana Khuram_
 
 🔗 **Gmail**: [sanakhuram](sana.khuram.baig@gmail.com)
 
-💡 **Happy Bidding & Selling!** 🚀💰
 
 </div>
