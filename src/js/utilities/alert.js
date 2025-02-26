@@ -21,13 +21,14 @@ export function showAlert(
     alertContainer.id = "alertContainer";
     alertContainer.classList.add(
       "fixed",
-      "bottom-4",
-      "left-1/2",
-      "transform",
-      "-translate-x-1/2",
+      "bottom-2",
+      "sm:bottom-4",
+      "right-2",
+      "sm:right-4",
       "z-50",
       "space-y-2",
-      "w-full",
+      "w-[90%]",
+      "sm:w-full",
       "max-w-sm",
     );
     document.body.appendChild(alertContainer);
@@ -35,24 +36,27 @@ export function showAlert(
 
   const alertDiv = document.createElement("div");
   alertDiv.classList.add(
-    "px-4",
-    "py-3",
+    "p-2",
+    "sm:px-4",
+    "sm:py-3",
     "rounded-lg",
     "shadow-md",
-    "text-white",
+    "text-accent",
     "flex",
     "items-center",
     "justify-between",
-    "gap-4",
+    "gap-2",
     "opacity-0",
     "transition-opacity",
     "duration-300",
     "w-full",
+    "text-sm",
+    "sm:text-base",
   );
 
   switch (type) {
     case "success":
-      alertDiv.classList.add("bg-primary", "border", "border-olive");
+      alertDiv.classList.add("bg-white", "border", "border-olive");
       break;
     case "error":
       alertDiv.classList.add("bg-red-600", "border", "border-dark");
@@ -66,7 +70,7 @@ export function showAlert(
       );
       break;
     default:
-      alertDiv.classList.add("bg-accent", "border", "border-muted");
+      alertDiv.classList.add("bg-white", "border", "border-muted");
   }
 
   alertDiv.setAttribute("role", "alert");
@@ -75,14 +79,14 @@ export function showAlert(
 
   if (buttonText && buttonAction) {
     alertContent += `
-      <button id="alertActionButton" class="bg-btn-gradient text-white font-light px-3 py-1 rounded-lg hover:brightness-110 transition">
+      <button id="alertActionButton" class="bg-btn-gradient text-white font-light px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:brightness-110 transition text-sm sm:text-base">
         ${buttonText}
       </button>
     `;
   }
 
   alertContent += `
-    <button class="text-xl font-bold hover:opacity-75 focus:outline-none">&times;</button>
+    <button class="text-lg sm:text-xl font-bold hover:opacity-75 focus:outline-none">&times;</button>
   `;
 
   alertDiv.innerHTML = alertContent;
@@ -126,13 +130,14 @@ export function showConfirmAlert(message) {
       alertContainer.id = "alertContainer";
       alertContainer.classList.add(
         "fixed",
-        "bottom-4",
-        "left-1/2",
-        "transform",
-        "-translate-x-1/2",
+        "bottom-2",
+        "sm:bottom-4",
+        "right-2",
+        "sm:right-4",
         "z-50",
         "space-y-2",
-        "w-full",
+        "w-[90%]",
+        "sm:w-full",
         "max-w-sm",
       );
       document.body.appendChild(alertContainer);
@@ -140,8 +145,9 @@ export function showConfirmAlert(message) {
 
     const confirmDiv = document.createElement("div");
     confirmDiv.classList.add(
-      "px-6",
-      "py-4",
+      "p-2",
+      "sm:px-6",
+      "sm:py-4",
       "rounded-lg",
       "shadow-lg",
       "bg-background",
@@ -152,19 +158,21 @@ export function showConfirmAlert(message) {
       "flex-col",
       "items-center",
       "justify-center",
-      "gap-4",
+      "gap-2",
       "opacity-0",
       "transition-opacity",
       "duration-300",
       "w-full",
+      "text-sm",
+      "sm:text-base",
     );
 
     confirmDiv.setAttribute("role", "dialog");
     confirmDiv.innerHTML = `
-      <p class="font-semibold text-lg">${message}</p>
-      <div class="flex gap-4">
-        <button id="confirmYes" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-olive focus:outline-none">Yes</button>
-        <button id="confirmCancel" class="bg-grayish text-white px-4 py-2 rounded-lg hover:bg-dark focus:outline-none">Cancel</button>
+      <p class="font-semibold text-sm sm:text-lg">${message}</p>
+      <div class="flex gap-2 sm:gap-4">
+        <button id="confirmYes" class="bg-secondary text-white px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-olive focus:outline-none text-sm sm:text-base">Yes</button>
+        <button id="confirmCancel" class="bg-grayish text-white px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-dark focus:outline-none text-sm sm:text-base">Cancel</button>
       </div>
     `;
 

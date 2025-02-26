@@ -30,5 +30,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   setTimeout(() => {
     hideLoader();
-  }, 600);
+  }, 1000);
 });
