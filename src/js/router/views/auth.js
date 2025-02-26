@@ -1,1 +1,3 @@
-//alert("Auth Index Page");
+import { showAlert } from "../../utilities/alert";
+
+showAlert("Welcome to Auction Hub", "success");
