@@ -3,6 +3,7 @@
 <h1 align="center">
   <img src="/public/images/design.png" width="50" height="50" />
    Auction Hub - Semester 2 Project Exam
+   <img src="/public/images/design.png" width="50" height="50" />
 </h1>
 
 🚀 **Auction Hub** is an online auction platform where users can buy and sell unique collectibles, artwork, vintage items, and more through a seamless bidding system.
