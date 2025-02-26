@@ -25,6 +25,15 @@
   <a href="https://github.com/sanakhuram/auction-hub-SP2">
     <img src="https://img.shields.io/badge/GitHub-Repo-orange?style=for-the-badge&logo=github" />
   </a>
+    <a href="https://github.com/users/sanakhuram/projects/5/views/4">
+    <img src="https://img.shields.io/badge/Gantt Chart-blue?style=for-the-badge&logo=microsoftproject" />
+  </a>
+  <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=49-449&t=dMiRPZW7QBdb6T5S-1">
+    <img src="https://img.shields.io/badge/Style Guide-purple?style=for-the-badge&logo=figma" />
+  </a>
+  <a href="YOUR_KANBAN_BOARD_LINK">
+    <img src="https://img.shields.io/badge/Kanban Board-green?style=for-the-badge&logo=trello" />
+  </a>
 </p>
 
 ---
@@ -48,29 +57,6 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 
 ---
 
-## 📂 Project Structure
-
-```
-/auction-hub
-├── .github         # GitHub configurations
-├── .husky          # Git hooks for better workflow
-├── auth            # Authentication-related logic
-├── dist            # Production build output
-├── listing         # Listing-related components and logic
-├── profile         # User profile handling
-├── public          # Static assets (images, icons, etc.)
-├── src             # Main source code
-│   ├── css         # tailwind css
-│   ├── js          # UI API JS files
-│   ├── app.js      # Main application logic and routing
-├── index.html      # Main entry HTML file
-├── tailwind.config.js # Tailwind CSS configuration
-├── vite.config.js  # Vite build configurations
-├── package.json    # Dependencies and scripts
-└── README.md       # Project documentation
-```
-
----
 
 ## 🔥 Features
 
