@@ -1,6 +1,7 @@
 import { API_AUCTION_LISTINGS } from "../constants.js";
 import { headers } from "../headers.js";
 import { getListingById } from "./read.js";
+import { showAlert } from "../../utilities/alert"; // Import showAlert function
 
 /**
  * Formats a number into USD currency format.
@@ -18,7 +19,7 @@ export function formatCurrency(amount) {
  * Places a bid on a listing.
  * @param {string} listingId - The ID of the listing.
  * @param {number} bidAmount - The amount to bid.
- * @returns {Promise<Object>} - The bid response.
+ * @returns {Promise<Object|null>} - The bid response or null on failure.
  */
 export async function placeBid(listingId, bidAmount) {
   try {
@@ -30,15 +31,20 @@ export async function placeBid(listingId, bidAmount) {
       body: JSON.stringify({ amount: bidAmount }),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`API Error: ${errorData.message}`);
+      throw new Error(
+        responseData.message || "Failed to place bid. Please try again.",
+      );
     }
 
-    return await response.json();
+    showAlert("Bid placed successfully!", "success");
+    return responseData;
   } catch (error) {
     console.error("❌ Error placing bid:", error);
-    alert(`Failed to place bid: ${error.message}`);
+
+    showAlert(`Failed to place bid: ${error.message}`, "error");
     return null;
   }
 }
@@ -62,6 +68,7 @@ export async function fetchBids(listingId) {
     return bids.sort((a, b) => b.amount - a.amount); // Sort bids from highest to lowest
   } catch (error) {
     console.error("❌ Error fetching listing with bids:", error);
+    showAlert("Failed to fetch bid history. Please try again.", "error");
     return [];
   }
 }

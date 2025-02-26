@@ -4,7 +4,7 @@ import {
   renderPaginationControls,
 } from "../../utilities/pagination";
 import { getCurrentSearchQuery } from "../../utilities/search";
-
+import { showAlert } from "../../utilities/alert";
 /**
  * Fetches and displays listings based on filters, search query, and pagination.
  * - Displays newest listings, ending soon listings, and all listings.
@@ -34,6 +34,7 @@ export async function displayListings(
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
         '<p class="text-red-500 font-semibold text-lg">No listings found.</p>';
+      showAlert("No listings found for the given filters.", "warning");
       loader.style.display = "none";
       return;
     }
@@ -83,9 +84,9 @@ export async function displayListings(
 
     updateTimers();
   } catch (error) {
-    console.error("Error loading listings:", error);
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
+    showAlert(`Error loading listings: ${error.message}`, "error");
   } finally {
     loader.style.display = "none";
   }

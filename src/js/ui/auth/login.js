@@ -1,4 +1,4 @@
-//src/js/ui/auth/login.js
+// src/js/ui/auth/login.js
 
 import { login } from "../../api/auth/login";
 import { showAlert } from "../../utilities/alert";
@@ -27,9 +27,9 @@ export async function onLogin(event) {
     if (errorMessage) {
       errorMessage.innerText = `Login failed: ${error.message}`;
       errorMessage.style.display = "block";
-    } else {
-      alert(`Login failed: ${error.message}`);
     }
+
+    showAlert(`Login failed: ${error.message}`, "error");
   }
 }
 
