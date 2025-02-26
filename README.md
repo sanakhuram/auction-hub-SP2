@@ -95,15 +95,13 @@ This project was built as part of the **Semester 2 Project Exam** for web develo
 
 ---
 
-
-```markdown
 ## 🚀 Installation Guide
 
 ### 1️⃣ Clone the Repository
-```bash
+
 git clone https://github.com/sanakhuram/auction-hub-SP2.git
 cd auction-hub-SP2
-```
+
 
 ---
 
