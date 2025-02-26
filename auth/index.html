@@ -139,133 +139,238 @@
         class="h-20 w-20 animate-spin"
       />
     </div>
-    <section class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between py-16 px-6 md:px-12 lg:px-20">
-      <div class="md:w-1/2 text-left">
-          <h1 class="text-5xl font-bold text-primary mb-4">Welcome to Auction Hub</h1>
-          <p class="text-lg text-gray-700 dark:text-gray-300 max-w-lg">
-              Experience the thrill of discovering and bidding on exclusive, one-of-a-kind items. 
-              Join the premier online auction platform where collectors, enthusiasts, and investors come together to acquire extraordinary treasures.
-          </p>
+    <section
+      class="mx-auto flex max-w-6xl flex-col items-center justify-between px-6 py-16 md:flex-row md:px-12 lg:px-20"
+    >
+      <div class="text-left md:w-1/2">
+        <h1 class="mb-4 text-5xl font-bold text-primary">
+          Welcome to Auction Hub
+        </h1>
+        <p class="max-w-lg text-lg text-gray-700 dark:text-gray-300">
+          Experience the thrill of discovering and bidding on exclusive,
+          one-of-a-kind items. Join the premier online auction platform where
+          collectors, enthusiasts, and investors come together to acquire
+          extraordinary treasures.
+        </p>
       </div>
-      <div class="md:w-1/2 flex justify-center md:justify-end mt-6 md:mt-0 space-x-3 sm:space-x-4">
-        <a href="/auctions/" 
-          class="bg-btn-gradient text-white shadow-dark px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg text-base sm:text-lg md:text-lg font-bold transition hover:brightness-110 hover:bg-btn-alt-gradient hover:text-black">
+      <div
+        class="mt-6 flex justify-center space-x-3 sm:space-x-4 md:mt-0 md:w-1/2 md:justify-end"
+      >
+        <a
+          href="/auctions/"
+          class="rounded-lg bg-btn-gradient px-4 py-2 text-base font-bold text-white shadow-dark transition hover:bg-btn-alt-gradient hover:text-black hover:brightness-110 sm:px-5 sm:py-3 sm:text-lg md:px-6 md:py-3 md:text-lg"
+        >
           Explore Auctions
         </a>
-        <a href="/auth/login/" 
-          class="bg-btn-alt-gradient shadow-dark text-black px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg text-base sm:text-lg md:text-lg font-bold transition hover:bg-btn-gradient hover:brightness-110 hover:text-white">
+        <a
+          href="/auth/login/"
+          class="rounded-lg bg-btn-alt-gradient px-4 py-2 text-base font-bold text-black shadow-dark transition hover:bg-btn-gradient hover:text-white hover:brightness-110 sm:px-5 sm:py-3 sm:text-lg md:px-6 md:py-3 md:text-lg"
+        >
           Bid Now
         </a>
-    </div>
-    
-  </section>
- 
-  <div class="grid grid-cols-5 gap-0 w-full max-w-screen-lg mx-auto">
-    <div class="flex items-center justify-center bg-primary text-white font-secondary text-6xl md:text-8xl w-full aspect-square">A</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/art.jpg" alt="Art" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-secondary text-white font-secondary text-6xl md:text-8xl w-full aspect-square">U</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/cars.jpg" alt="Cars" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-olive text-white font-secondary text-6xl md:text-8xl w-full aspect-square">C</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/jewelry.jpg" alt="Jewelry" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-sepia text-white font-secondary text-6xl md:text-8xl w-full aspect-square">T</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/watches.jpg" alt="Watches" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-muted text-white font-secondary text-6xl md:text-8xl w-full aspect-square">I</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/collectibles.jpg" alt="Collectibles" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-accent text-white font-secondary text-6xl md:text-8xl w-full aspect-square">O</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/fashion.jpg" alt="Fashion" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-grayish text-white font-secondary text-6xl md:text-8xl w-full aspect-square">N</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/vintage.jpg" alt="Vintage" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-primary text-white font-secondary text-6xl md:text-8xl w-full aspect-square">H</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/gaming.jpg" alt="Gaming" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-olive text-white font-secondary text-6xl md:text-8xl w-full aspect-square">U</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/books.jpg" alt="Books" class="w-full h-full object-cover">
-    </div>
-    <div class="flex items-center justify-center bg-muted text-white font-secondary text-6xl md:text-8xl w-full aspect-square">B</div>
-    <div class="w-full aspect-square overflow-hidden">
-        <img src="/images/toys.jpg" alt="Toys" class="w-full h-full object-cover">
-    </div>
-</div>
+      </div>
+    </section>
 
-<section class="relative text-center py-16 px-6">
-  <h2 class="text-4xl text-white bg-primary p-5 mt-5 relative w-full z-10">How Auction Hub Works</h2>
-  <p class="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto relative z-10 mt-8">
-      Special objects on Auction Hub are sold through dedicated weekly auctions which usually run for 7-10 days.
-  </p>
-
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto mt-10">
-    <div class="text-left bg-accent p-10 rounded-md shadow-secondary">
-        <h3 class="text-2xl text-white text-center">For Sellers</h3>
-        <ul class="space-y-6 mt-4">
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">1</span>
-                <p class="ml-4 text-lg text-gray-300">Create an account for free.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">2</span>
-                <p class="ml-4 text-lg text-gray-300">Create Your Listings.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">3</span>
-                <p class="ml-4 text-lg text-gray-300">Publish your Listings.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">4</span>
-                <p class="ml-4 text-lg text-gray-300">Watch the bids come in.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">5</span>
-                <p class="ml-4 text-lg text-gray-300">Prepare to ship the object to its new home.</p>
-            </li>
-        </ul>
+    <div class="mx-auto grid w-full max-w-screen-lg grid-cols-5 gap-0">
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-primary font-secondary text-6xl text-white md:text-8xl"
+      >
+        A
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/art.jpg"
+          alt="Art"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-secondary font-secondary text-6xl text-white md:text-8xl"
+      >
+        U
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/cars.jpg"
+          alt="Cars"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-olive font-secondary text-6xl text-white md:text-8xl"
+      >
+        C
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/jewelry.jpg"
+          alt="Jewelry"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-sepia font-secondary text-6xl text-white md:text-8xl"
+      >
+        T
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/watches.jpg"
+          alt="Watches"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-muted font-secondary text-6xl text-white md:text-8xl"
+      >
+        I
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/collectibles.jpg"
+          alt="Collectibles"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-accent font-secondary text-6xl text-white md:text-8xl"
+      >
+        O
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/fashion.jpg"
+          alt="Fashion"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-grayish font-secondary text-6xl text-white md:text-8xl"
+      >
+        N
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/vintage.jpg"
+          alt="Vintage"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-primary font-secondary text-6xl text-white md:text-8xl"
+      >
+        H
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/gaming.jpg"
+          alt="Gaming"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-olive font-secondary text-6xl text-white md:text-8xl"
+      >
+        U
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/books.jpg"
+          alt="Books"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        class="flex aspect-square w-full items-center justify-center bg-muted font-secondary text-6xl text-white md:text-8xl"
+      >
+        B
+      </div>
+      <div class="aspect-square w-full overflow-hidden">
+        <img
+          src="/images/toys.jpg"
+          alt="Toys"
+          class="h-full w-full object-cover"
+        />
+      </div>
     </div>
 
-    <div class="text-left bg-olive p-10 rounded-md shadow-secondary">
-        <h3 class="text-2xl text-white text-center">For Buyers</h3>
-        <ul class="space-y-6 mt-4">
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">1</span>
-                <p class="ml-4 text-lg text-gray-300">Create an account for free.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">2</span>
-                <p class="ml-4 text-lg text-gray-300">Find something special.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">3</span>
-                <p class="ml-4 text-lg text-gray-300">Place the top bid.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">4</span>
-                <p class="ml-4 text-lg text-gray-300">Pay via our secure payment system.</p>
-            </li>
-            <li class="flex items-center">
-                <span class="text-6xl font-bold text-gray-300 w-12">5</span>
-                <p class="ml-4 text-lg text-gray-300">The seller ships your new special object to you.</p>
-            </li>
-        </ul>
-    </div>
-</div>
+    <section class="relative px-6 py-16 text-center">
+      <h2 class="relative z-10 mt-5 w-full bg-primary p-5 text-4xl text-white">
+        How Auction Hub Works
+      </h2>
+      <p
+        class="relative z-10 mx-auto mt-8 max-w-3xl text-lg text-gray-700 dark:text-gray-300"
+      >
+        Special objects on Auction Hub are sold through dedicated weekly
+        auctions which usually run for 7-10 days.
+      </p>
 
-</section>
+      <div
+        class="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2"
+      >
+        <div class="rounded-md bg-accent p-10 text-left shadow-secondary">
+          <h3 class="text-center text-2xl text-white">For Sellers</h3>
+          <ul class="mt-4 space-y-6">
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">1</span>
+              <p class="ml-4 text-lg text-gray-300">
+                Create an account for free.
+              </p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">2</span>
+              <p class="ml-4 text-lg text-gray-300">Create Your Listings.</p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">3</span>
+              <p class="ml-4 text-lg text-gray-300">Publish your Listings.</p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">4</span>
+              <p class="ml-4 text-lg text-gray-300">Watch the bids come in.</p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">5</span>
+              <p class="ml-4 text-lg text-gray-300">
+                Prepare to ship the object to its new home.
+              </p>
+            </li>
+          </ul>
+        </div>
 
-
+        <div class="rounded-md bg-olive p-10 text-left shadow-secondary">
+          <h3 class="text-center text-2xl text-white">For Buyers</h3>
+          <ul class="mt-4 space-y-6">
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">1</span>
+              <p class="ml-4 text-lg text-gray-300">
+                Create an account for free.
+              </p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">2</span>
+              <p class="ml-4 text-lg text-gray-300">Find something special.</p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">3</span>
+              <p class="ml-4 text-lg text-gray-300">Place the top bid.</p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">4</span>
+              <p class="ml-4 text-lg text-gray-300">
+                Pay via our secure payment system.
+              </p>
+            </li>
+            <li class="flex items-center">
+              <span class="w-12 text-6xl font-bold text-gray-300">5</span>
+              <p class="ml-4 text-lg text-gray-300">
+                The seller ships your new special object to you.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <section class="bg-primary py-10 text-white dark:bg-accent">
       <div class="container mx-auto px-4 text-center sm:px-6 lg:px-8">
