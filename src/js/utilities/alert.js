@@ -41,7 +41,7 @@ export function showAlert(
     "sm:py-3",
     "rounded-lg",
     "shadow-md",
-    "text-accent",
+    "text-white",
     "flex",
     "items-center",
     "justify-between",
@@ -56,7 +56,7 @@ export function showAlert(
 
   switch (type) {
     case "success":
-      alertDiv.classList.add("bg-white", "border", "border-olive");
+      alertDiv.classList.add("bg-olive", "border", "border-olive");
       break;
     case "error":
       alertDiv.classList.add("bg-red-600", "border", "border-dark");
@@ -70,7 +70,7 @@ export function showAlert(
       );
       break;
     default:
-      alertDiv.classList.add("bg-white", "border", "border-muted");
+      alertDiv.classList.add("bg-accent", "border", "border-muted");
   }
 
   alertDiv.setAttribute("role", "alert");

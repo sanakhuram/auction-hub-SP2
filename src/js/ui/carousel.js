@@ -21,7 +21,7 @@ export function initializeCarousel() {
     carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
 
     dots.forEach((dot, i) => {
-      dot.classList.toggle("bg-gray-700", i === currentIndex);
+      dot.classList.toggle("bg-secondary", i === currentIndex);
       dot.classList.toggle("bg-white", i !== currentIndex);
     });
   }
