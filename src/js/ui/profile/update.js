@@ -66,6 +66,8 @@ export async function onUpdateProfile(event) {
     if (latestProfile?.listings) {
       displayListings(latestProfile.listings);
     }
+
+    document.getElementById("profileFormContainer").classList.add("hidden");
   } catch (error) {
     console.error("❌ Error updating profile:", error);
     showAlert(
