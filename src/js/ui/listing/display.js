@@ -5,17 +5,12 @@ import {
 } from "../../utilities/pagination";
 import { getCurrentSearchQuery } from "../../utilities/search";
 import { showAlert } from "../../utilities/alert";
+
 /**
  * Fetches and displays listings based on filters, search query, and pagination.
  * - Displays newest listings, ending soon listings, and all listings.
  * - Handles pagination and updates timers for auction end times.
- *
- * @param {string} [categoryFilter=""] - Category filter for listings.
- * @param {string} [searchQuery=""] - Search query for filtering listings.
- * @param {number} [currentPage=1] - Current page for pagination.
- * @returns {Promise<void>} Resolves when listings are displayed.
  */
-
 export async function displayListings(
   categoryFilter = "",
   searchQuery = "",
@@ -54,26 +49,37 @@ export async function displayListings(
       <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 mt-6 shadow-secondary w-full">
         Newest Listings
       </h2>
-      <div class="flex justify-center">
-        <div class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 mt-5 bg-accent w-max shadow-dark rounded-lg">
+      <div class="relative flex justify-center items-center">
+        <button id="prev-newest" class="absolute left-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="newest-container" class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 mt-5 bg-accent w-max shadow-dark rounded-lg">
           ${renderListings(newestListings, "bg-muted border-accent")}
         </div>
+        <button id="next-newest" class="absolute right-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
 
       <h2 class="text-black text-center text-xl p-5 mt-12 mb-10 bg-sepia w-full shadow-accent">
         Ending Soon
       </h2>
-      <div class="flex justify-center">
-        <div class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 bg-olive w-max shadow-dark rounded-lg">
+      <div class="relative flex justify-center items-center">
+        <button id="prev-ending" class="absolute left-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="ending-container" class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 bg-olive w-max shadow-dark rounded-lg">
           ${renderListings(endingSoonListings, "bg-sepia border-olive")}
         </div>
+        <button id="next-ending" class="absolute right-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
 
       <h2 class="text-black text-center text-xl p-5 mt-10 mb-8 bg-olive w-full shadow-primary">
         All Listings
       </h2>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 max-w-6xl mx-auto bg-secondary rounded-lg shadow-primary">
-
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 max-w-6xl mx-auto bg-secondary rounded-lg shadow-primary">
         ${renderListings(paginatedItems, "bg-olive border-secondary")}
       </div>
     `;
@@ -83,6 +89,8 @@ export async function displayListings(
     });
 
     updateTimers();
+    setupScrollArrows("newest-container", "prev-newest", "next-newest");
+    setupScrollArrows("ending-container", "prev-ending", "next-ending");
   } catch (error) {
     listingsContainer.innerHTML =
       '<p class="text-red-500 font-semibold text-lg">Error loading listings.</p>';
@@ -92,6 +100,32 @@ export async function displayListings(
   }
 }
 
+/**
+ * Sets up scroll arrow functionality for both desktop and mobile.
+ * Ensures the listings container scrolls left/right when users tap the navigation arrows.
+ *
+ * @param {string} containerId - The ID of the scrollable container.
+ * @param {string} prevBtnId - The ID of the "previous" button.
+ * @param {string} nextBtnId - The ID of the "next" button.
+ */
+function setupScrollArrows(containerId, prevBtnId, nextBtnId) {
+  const container = document.getElementById(containerId);
+  const prevBtn = document.getElementById(prevBtnId);
+  const nextBtn = document.getElementById(nextBtnId);
+
+  if (!container || !prevBtn || !nextBtn) return;
+
+  prevBtn.addEventListener("click", () => {
+    container.scrollBy({
+      left: -container.clientWidth / 2,
+      behavior: "smooth",
+    });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    container.scrollBy({ left: container.clientWidth / 2, behavior: "smooth" });
+  });
+}
 /**
  * Generates HTML markup for a list of listings.
  *
