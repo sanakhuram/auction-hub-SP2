@@ -40,10 +40,10 @@ export async function displayListings(
     );
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
-      .slice(0, 8);
+      .slice(0, 10);
     const endingSoonListings = [...listings]
       .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
-      .slice(0, 8);
+      .slice(0, 10);
 
     listingsContainer.innerHTML = `
       <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 mt-6 shadow-secondary w-full">
