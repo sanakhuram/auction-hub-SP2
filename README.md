@@ -30,15 +30,15 @@
     <img src="https://img.shields.io/badge/Gantt Chart-blue?style=for-the-badge&logo=microsoftproject" />
   </a>
   🎨 <a href="https://www.figma.com/design/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=49-449&t=dMiRPZW7QBdb6T5S-1">
-    <img src="https://img.shields.io/badge/Style Guide-purple?style=for-the-badge&logo=figma" />
+    <img src="https://img.shields.io/badge/Figma-Style Guide-purple?style=for-the-badge&logo=figma" />
   </a>
     </a>
   🎨 <a href="https://www.figma.com/proto/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=267-943&p=f&t=MllrosSqGUbDy8C7-0&scaling=scale-down&content-scaling=fixed&page-id=267%3A941&starting-point-node-id=267%3A943">
-    <img src="https://img.shields.io/badge/Mobile Prototype-green?style=for-the-badge&logo=figma" />
+    <img src="https://img.shields.io/badge/Figma-Mobile Prototype-green?style=for-the-badge&logo=figma" />
   </a>
     </a>
   🎨 <a href="https://www.figma.com/proto/KNSBShYJcA6w3ROnkKjCRL/Semester-Project-2?node-id=248-843&p=f&t=pW34esmiYab5d6Yi-1&scaling=scale-down&content-scaling=fixed&page-id=49%3A452&starting-point-node-id=248%3A843">
-    <img src="https://img.shields.io/badge/Desktop Prototype-pink?style=for-the-badge&logo=figma" />
+    <img src="https://img.shields.io/badge/Figma-Desktop Prototype-pink?style=for-the-badge&logo=figma" />
   </a>
 </p>
 
