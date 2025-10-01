@@ -10,6 +10,10 @@ import { setupBackToTop } from "./js/utilities/backToTop.js";
  * - Runs the router to handle page-specific logic.
  * - Sets up event listeners for UI elements.
  * - Enables dark mode toggle and "Back to Top" button functionality.
+ *
+ * @async
+ * @function init
+ * @returns {Promise<void>} Resolves once initialization is complete.
  */
 
 async function init() {
