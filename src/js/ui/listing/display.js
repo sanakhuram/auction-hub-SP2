@@ -9,7 +9,13 @@ import { showAlert } from "../../utilities/alert";
 /**
  * Fetches and displays listings based on filters, search query, and pagination.
  * - Displays newest listings, ending soon listings, and all listings.
- * - Handles pagination and updates timers for auction end times.
+ * - Handles pagination and updates countdown timers for auction end times.
+ *
+ * @async
+ * @param {string} [categoryFilter=""] - Optional category to filter listings.
+ * @param {string} [searchQuery=""] - Optional search query.
+ * @param {number} [currentPage=1] - Current page for pagination.
+ * @returns {Promise<void>} Resolves once listings are rendered and timers updated.
  */
 export async function displayListings(
   categoryFilter = "",
@@ -24,7 +30,10 @@ export async function displayListings(
 
   try {
     if (!searchQuery) searchQuery = getCurrentSearchQuery();
-    const listings = await getListings(categoryFilter, searchQuery);
+    const listings = await getListings(categoryFilter, searchQuery, {
+      _seller: true,
+      _bids: true,
+    });
 
     if (!Array.isArray(listings) || listings.length === 0) {
       listingsContainer.innerHTML =
@@ -33,11 +42,11 @@ export async function displayListings(
       loader.style.display = "none";
       return;
     }
-
     const { paginatedItems, totalPages } = paginateListings(
       listings,
       currentPage,
     );
+
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
       .slice(0, 10);
@@ -143,28 +152,49 @@ function renderListings(listings, colorClass) {
           : listing.startingPrice || 0;
 
       return `
-      <div class="listing-item p-4 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-sm mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
-      <a href="/listing/?id=${listing.id}">
-          <img src="${getValidImage(listing.media)}"
-            alt="${listing.media?.[0]?.alt || listing.title}"
-            class="w-full h-40 object-cover rounded-md mt-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onerror="this.src='/images/placeholder.jpg';" />
-        </a>
+<div class="listing-item p-3 border-2 rounded-lg ${colorClass} shadow-dark w-full max-w-sm mx-auto transition-transform duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
+  <a href="/listing/?id=${listing.id}">
+    <img src="${getValidImage(listing.media)}"
+         alt="${listing.media?.[0]?.alt || listing.title}"
+         class="w-full h-36 object-cover rounded-md mt-1 cursor-pointer hover:opacity-80 transition-opacity"
+         onerror="this.src='/images/placeholder.jpg';" />
+  </a>
 
-        <h3 class="font-heading text-lg line-clamp-2 mt-2 dark:text-dark">${
-          listing.title
-        }</h3>
+  <h3 class="font-heading text-md line-clamp-2 mt-2 dark:text-dark">${listing.title}</h3>
 
-        <p class="text-red-800 mt-8">Current Bid: 
-          <strong>${formatCurrency(highestBid)}</strong>
-        </p>
+  <div class="flex items-center gap-2 mt-1">
+    <img src="${listing.seller?.avatar?.url || "/images/default-avatar.png"}" 
+         alt="${listing.seller?.name || "Seller"}"
+         class="w-5 h-5 rounded-full"/>
+    <span class="text-sm text-gray-700">${listing.seller?.name || "Anonymous Seller"}</span>
+  </div>
 
-        <p class="text-gray-700 mt-2">Ends: 
-          <span class="countdown-timer px-3 py-1 rounded-lg text-white font-bold bg-btn-gradient shadow-sm " 
-            data-end-time="${listing.endsAt}">
-          </span>
-        </p>
-      </div>
+  <!-- Tags -->
+  ${
+    listing.tags && listing.tags.length > 0
+      ? `<div class="flex flex-wrap gap-1 mt-1">
+           ${listing.tags.map((tag) => `<span class="px-1 py-0.5 border border-dotted rounded text-xs">${tag}</span>`).join("")}
+         </div>`
+      : ""
+  }
+
+  <!-- Description snippet -->
+  <p class="text-gray-600 text-sm mt-1 line-clamp-2">${listing.description || ""}</p>
+
+  <!-- Highest bid and number of bids -->
+  <p class="text-red-800 mt-2 text-sm">Current Bid: 
+    <strong>${formatCurrency(highestBid)}</strong> 
+    (${listing._count?.bids || listing.bids.length} bids)
+  </p>
+
+  <!-- Ends at timer -->
+  <p class="text-gray-700 mt-1 text-sm">Ends: 
+    <span class="countdown-timer px-2 py-0.5 rounded-lg text-white font-bold bg-btn-gradient shadow-sm" 
+          data-end-time="${listing.endsAt}">
+    </span>
+  </p>
+</div>
+
     `;
     })
     .join("");
