@@ -42,41 +42,50 @@ export async function displayListings(
       loader.style.display = "none";
       return;
     }
-
     const { paginatedItems, totalPages } = paginateListings(
       listings,
       currentPage,
     );
+
     const newestListings = [...listings]
       .sort((a, b) => new Date(b.created) - new Date(a.created))
-      .slice(0, 4);
+      .slice(0, 10);
     const endingSoonListings = [...listings]
       .sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt))
-      .slice(0, 4);
+      .slice(0, 10);
 
     listingsContainer.innerHTML = `
-      <h2 class="text-black text-xl text-center bg-accent mb-4 p-4 mt-6 shadow-secondary w-full">
+      <h2 class="text-black text-xl text-center bg-accent mb-10 p-5 mt-6 shadow-secondary w-full">
         Newest Listings
       </h2>
-      <div class="relative flex justify-center items-center overflow-x-auto" id="newest-container">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 w-full bg-accent ">
-  ${renderListings(newestListings, "bg-accent")}
-</div>
-
+      <div class="relative flex justify-center items-center">
+        <button id="prev-newest" class="absolute left-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="newest-container" class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 mt-5 bg-accent w-max shadow-dark rounded-lg">
+          ${renderListings(newestListings, "bg-muted border-accent")}
+        </div>
+        <button id="next-newest" class="absolute right-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
 
-      <h2 class="text-black text-center text-xl p-4 mt-12 mb-4 bg-olive w-full shadow-accent ">
+      <h2 class="text-black text-center text-xl p-5 mt-12 mb-10 bg-sepia w-full shadow-accent">
         Ending Soon
       </h2>
-      <div class="relative flex justify-center items-center overflow-x-auto" id="ending-container">
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 w-full bg-olive">
-  ${renderListings(endingSoonListings, "bg-olive")}
-</div>
-
+      <div class="relative flex justify-center items-center">
+        <button id="prev-ending" class="absolute left-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div id="ending-container" class="overflow-x-auto whitespace-nowrap flex space-x-6 p-6 bg-olive w-max shadow-dark rounded-lg">
+          ${renderListings(endingSoonListings, "bg-sepia border-olive")}
+        </div>
+        <button id="next-ending" class="absolute right-2 bg-black bg-opacity-50 text-white p-3 rounded-full z-50">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
 
-      <h2 class="text-black text-center text-xl p-4 mt-10 mb-8 bg-secondary w-full shadow-primary">
+      <h2 class="text-black text-center text-xl p-5 mt-10 mb-8 bg-olive w-full shadow-primary">
         All Listings
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 max-w-6xl mx-auto bg-secondary rounded-lg shadow-primary">
